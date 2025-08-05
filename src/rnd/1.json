@@ -1,0 +1,44 @@
+{
+  "datasets":{
+    "dataset":[] ,
+    "links":[]
+  },
+  "signals":[
+    {"name":"cx","update":"width / 2"},
+    {"name":"cy","update":"height / 2"}
+  ],
+  "marks":[
+    {
+      "name":"linkpath",
+      "type":"path",
+      "from":{"data":"links"},
+      "encode":{
+        "update":{
+          "stroke":{"value":"#aaa"},
+          "strokeWidth":{"value":1.2}
+        }
+      },
+      "transform":[{"type":"linkpath","sourceX":"source.x","sourceY":"source.y",
+                    "targetX":"target.x","targetY":"target.y"}]
+    },
+    {
+      "name":"node",
+      "type":"symbol",
+      "from":{"data":"dataset"},
+      "encode":{
+        "enter":{
+          "fill":{"value":"steelblue"},
+          "size":{"value":200}
+        },
+        "update":{
+          "x":{"field":"x"},
+          "y":{"field":"y"}
+        }
+      },
+      "transform":[{"type":"force","iterations":200,
+                    "links":"links",
+                    "linkDistance":30,
+                    "static":false}]
+    }
+  ]
+}

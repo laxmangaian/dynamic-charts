@@ -1,0 +1,242 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Auto Vega-Lite Chart Renderer</title>
+  <style>
+    body { font-family: sans-serif; }
+    textarea { width: 600px; height: 200px; }
+    #chart { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<h2>Paste JSON Data to Auto-Render Chart</h2>
+<textarea id="jsonInput" placeholder='Example: [{"category":"A","value":10},{"category":"B","value":20}]'></textarea><br><br>
+<button id="renderBtn">Render Chart</button>
+<div id="chart"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script> -->
+
+<!-- <script>
+function inferChartSpec(data) {
+  if (!Array.isArray(data) || data.length === 0 || typeof data[0] !== 'object') {
+    throw new Error("Data must be an array of objects");
+  }
+
+  const keys = Object.keys(data[0]);
+  if (keys.length < 2) throw new Error("Need at least two fields");
+
+  // Infer field types
+  const fieldTypes = {};
+  for (let key of keys) {
+    const sample = data.map(d => d[key]).filter(x => x !== null && x !== undefined);
+    const first = sample[0];
+    if (typeof first === "number") fieldTypes[key] = "quantitative";
+    else if (!isNaN(Date.parse(first))) fieldTypes[key] = "temporal";
+    else fieldTypes[key] = "nominal";
+  }
+
+  // Choose a chart type based on types
+  let xField = keys[0];
+  let yField = keys[1];
+
+  const xType = fieldTypes[xField];
+  const yType = fieldTypes[yField];
+
+  let mark = "bar";
+  if (xType === "temporal" || yType === "temporal") mark = "line";
+  else if (xType === "quantitative" && yType === "quantitative") mark = "point";
+
+  return {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    description: "Auto-generated chart",
+    data: { values: data },
+    mark,
+    encoding: {
+      x: { field: xField, type: xType },
+      y: { field: yField, type: yType }
+    }
+  };
+}
+
+document.getElementById("renderBtn").addEventListener("click", async () => {
+  try {
+    const inputText = document.getElementById("jsonInput").value.trim();
+    const jsonData = JSON.parse(inputText);
+    const spec = inferChartSpec(jsonData);
+    await vegaEmbed("#chart", spec, { actions: false });
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+});
+</script> -->
+
+
+
+<!-- <script>
+function inferChartSpec(data) {
+  if (!Array.isArray(data) || data.length === 0 || typeof data[0] !== 'object') {
+    throw new Error("Data must be an array of objects");
+  }
+
+  const keys = Object.keys(data[0]);
+  if (keys.length < 2) throw new Error("Need at least two fields");
+
+  const fieldTypes = {};
+  for (let key of keys) {
+    const sample = data.map(d => d[key]).filter(x => x != null);
+    const first = sample[0];
+    if (typeof first === "number") fieldTypes[key] = "quantitative";
+    else if (!isNaN(Date.parse(first))) fieldTypes[key] = "temporal";
+    else fieldTypes[key] = "nominal";
+  }
+
+  let xField = keys[0];
+  let yField = keys[1];
+
+  const xType = fieldTypes[xField];
+  const yType = fieldTypes[yField];
+
+  let mark = "bar";
+  if (xType === "temporal" || yType === "temporal") mark = "line";
+  else if (xType === "quantitative" && yType === "quantitative") mark = "point";
+
+  return {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    description: "Auto-generated chart",
+    data: { values: data },
+    mark,
+    encoding: {
+      x: { field: xField, type: xType },
+      y: { field: yField, type: yType }
+    }
+  };
+}
+
+document.getElementById("renderBtn").addEventListener("click", async () => {
+  try {
+    const input = document.getElementById("jsonInput").value.trim();
+    const json = JSON.parse(input);
+
+    let spec;
+
+    // Check if it's already a full Vega-Lite spec
+    if (
+      typeof json === "object" &&
+      (json.mark || json.layer || json.facet || json.$schema)
+    ) {
+      spec = json;
+    } else {
+      // Assume it's raw data
+      spec = inferChartSpec(json);
+    }
+
+    await vegaEmbed("#chart", spec, { actions: false });
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+});
+</script> -->
+
+<!-- </body>
+</html> -->
+
+
+
+
+<!--  Raw or the json data it will render anyways -->
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Vega-Lite Renderer</title>
+  <style>
+    body { font-family: sans-serif; }
+    textarea { width: 600px; height: 200px; }
+    #chart { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<h2>Paste Data or Full Vega-Lite Spec</h2>
+<textarea id="jsonInput" placeholder='Paste your data or full spec here'></textarea><br><br>
+<button id="renderBtn">Render Chart</button>
+<div id="chart"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+<script>
+function inferChartSpec(data) {
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error("Data must be a non-empty array of objects");
+  }
+
+  // Sample a subset if too large
+  const MAX_POINTS = 5000;
+  const sampled = data.length > MAX_POINTS ? data.slice(0, MAX_POINTS) : data;
+
+  const keys = Object.keys(sampled[0]);
+  if (keys.length < 2) throw new Error("Need at least 2 fields");
+
+  // Detect field types
+  const fieldTypes = {};
+  for (let key of keys) {
+    const vals = sampled.map(d => d[key]).filter(v => v != null);
+    if (typeof vals[0] === "number") fieldTypes[key] = "quantitative";
+    else if (!isNaN(Date.parse(vals[0]))) fieldTypes[key] = "temporal";
+    else fieldTypes[key] = "nominal";
+  }
+
+  let mark = "bar";
+  let xField = keys[0];
+  let yField = keys[1];
+
+  if (fieldTypes[xField] === "temporal" || fieldTypes[yField] === "temporal") {
+    mark = "line";
+  } else if (fieldTypes[xField] === "quantitative" && fieldTypes[yField] === "quantitative") {
+    mark = "point";
+  }
+
+  return {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    description: "Auto-generated chart",
+    data: { values: sampled },
+    mark: mark,
+    encoding: {
+      x: { field: xField, type: fieldTypes[xField] },
+      y: { field: yField, type: fieldTypes[yField] }
+    }
+  };
+}
+
+document.getElementById("renderBtn").addEventListener("click", async () => {
+  try {
+    const input = document.getElementById("jsonInput").value.trim();
+    const json = JSON.parse(input);
+    let spec;
+
+    if (json.$schema || json.mark || json.layer) {
+      spec = json; // Full Vega-Lite spec
+    } else {
+      spec = inferChartSpec(json); // Raw data
+    }
+
+    await vegaEmbed("#chart", spec, { actions: false });
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+});
+</script>
+
+</body>
+</html> -->
+
+
+<!--  Below is the something that is not been added yet  -->

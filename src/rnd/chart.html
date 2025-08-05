@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Smart Vega-Lite Renderer</title>
+  <style>
+    body { font-family: sans-serif; }
+    textarea { width: 600px; height: 200px; }
+    #chart { margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<h2>Paste Data or Full Vega-Lite Spec</h2>
+<textarea id="jsonInput" placeholder='Paste your data or full spec here'></textarea><br><br>
+<button id="renderBtn">Render Chart</button>
+<div id="chart"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+<script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+<script>
+// function inferChartSpec(data) {
+//   if (!Array.isArray(data) || data.length === 0) {
+//     throw new Error("Data must be a non-empty array of objects");
+//   }
+
+//   // Sample a subset if too large
+//   const MAX_POINTS = 5000;
+//   const sampled = data.length > MAX_POINTS ? data.slice(0, MAX_POINTS) : data;
+
+//   const keys = Object.keys(sampled[0]);
+//   if (keys.length < 2) throw new Error("Need at least 2 fields");
+
+//   // Detect field types
+//   const fieldTypes = {};
+//   for (let key of keys) {
+//     const vals = sampled.map(d => d[key]).filter(v => v != null);
+//     if (typeof vals[0] === "number") fieldTypes[key] = "quantitative";
+//     else if (!isNaN(Date.parse(vals[0]))) fieldTypes[key] = "temporal";
+//     else fieldTypes[key] = "nominal";
+//   }
+
+//   let mark = "bar";
+//   let xField = keys[0];
+//   let yField = keys[1];
+
+//   if (fieldTypes[xField] === "temporal" || fieldTypes[yField] === "temporal") {
+//     mark = "line";
+//   } else if (fieldTypes[xField] === "quantitative" && fieldTypes[yField] === "quantitative") {
+//     mark = "point";
+//   }
+
+//   return {
+//     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+//     description: "Auto-generated chart",
+//     data: { values: sampled },
+//     mark: mark,
+//     encoding: {
+//       x: { field: xField, type: fieldTypes[xField] },
+//       y: { field: yField, type: fieldTypes[yField] }
+//     }
+//   };
+// }
+
+
+// function inferChartSpec(data) {
+//   if (!Array.isArray(data) || data.length === 0) {
+//     throw new Error("Data must be a non-empty array of objects");
+//   }
+
+//   const keys = Object.keys(data[0]);
+//   const numericKeys = keys.filter(k => typeof data[0][k] === "number");
+//   const temporalKeys = keys.filter(k => !isNaN(Date.parse(data[0][k])));
+
+//   // Detect if multiple numeric columns exist (for multiple lines)
+//   if (numericKeys.length > 1 && temporalKeys.length === 1) {
+//     return {
+//       $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+//       description: "Auto-generated multiple lines",
+//       data: { values: data },
+//       transform: [
+//         { fold: numericKeys, as: ["series", "value"] }
+//       ],
+//       mark: "line",
+//       encoding: {
+//         x: { field: temporalKeys[0], type: "temporal" },
+//         y: { field: "value", type: "quantitative" },
+//         color: { field: "series", type: "nominal" }
+//       }
+//     };
+//   }
+
+//   // Fallback: original simple inference for single series
+//   const keysWithoutDates = keys.filter(k => !temporalKeys.includes(k));
+//   let xField = temporalKeys[0] || keys[0];
+//   let yField = numericKeys[0] || keysWithoutDates[1];
+
+//   let mark = temporalKeys.length ? "line" : "bar";
+
+//   return {
+//     $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+//     description: "Auto-generated chart",
+//     data: { values: data },
+//     mark,
+//     encoding: {
+//       x: { field: xField, type: temporalKeys.length ? "temporal" : "ordinal" },
+//       y: { field: yField, type: "quantitative" }
+//     }
+//   };
+// }
+
+
+// document.getElementById("renderBtn").addEventListener("click", async () => {
+//   try {
+//     const input = document.getElementById("jsonInput").value.trim();
+//     const json = JSON.parse(input);
+//     let spec;
+
+//     if (json.$schema || json.mark || json.layer) {
+//       spec = json; // Full Vega-Lite spec
+//     } else {
+//       spec = inferChartSpec(json); // Raw data
+//     }
+
+//     await vegaEmbed("#chart", spec, { actions: false });
+//   } catch (err) {
+//     alert("Error: " + err.message);
+//   }
+// });
+
+
+
+async function renderDynamicChart(input) {
+  let spec;
+
+  // If it's already a Vega/Vega-Lite spec, just use it
+  if (input && typeof input === "object" && (input.$schema || input.mark || input.layer)) {
+    spec = input;
+  } 
+  // Otherwise, infer chart spec from raw data
+  else if (Array.isArray(input)) {
+    spec = inferDynamicChartSpec(input);
+  } 
+  else {
+    throw new Error("Invalid input: must be Vega-Lite spec or array of objects");
+  }
+
+  await vegaEmbed("#chart", spec, { actions: false });
+}
+
+function inferDynamicChartSpec(data) {
+  if (!Array.isArray(data) || data.length === 0) {
+    throw new Error("Data must be a non-empty array of objects");
+  }
+
+  // Limit rows for performance
+  const MAX_POINTS = 5000;
+  const sampled = data.length > MAX_POINTS ? data.slice(0, MAX_POINTS) : data;
+
+  const keys = Object.keys(sampled[0]);
+  const temporalKeys = keys.filter(k => !isNaN(Date.parse(sampled[0][k])) && typeof sampled[0][k] === "string");
+  const numericKeys = keys.filter(k => typeof sampled[0][k] === "number");
+  const categoricalKeys = keys.filter(k => typeof sampled[0][k] === "string" && !temporalKeys.includes(k));
+
+  const xField = temporalKeys[0] || categoricalKeys[0];
+  const xType = temporalKeys.length ? "temporal" : "ordinal";
+
+  // --- Bar + Line Combo ---
+  if (numericKeys.length === 2) {
+    return {
+      $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+      description: "Auto-generated bar + line combo",
+      data: { values: sampled },
+      layer: [
+        {
+          mark: { type: "bar", color: "#4C78A8" },
+          encoding: {
+            x: { field: xField, type: xType },
+            y: { field: numericKeys[0], type: "quantitative" }
+          }
+        },
+        {
+          mark: { type: "line", color: "#E45756", point: true },
+          encoding: {
+            x: { field: xField, type: xType },
+            y: { field: numericKeys[1], type: "quantitative" }
+          }
+        }
+      ]
+    };
+  }
+
+  // --- Multiple Lines ---
+  if (numericKeys.length > 2 && temporalKeys.length === 1) {
+    return {
+      $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+      description: "Auto-generated multiple lines",
+      data: { values: sampled },
+      transform: [
+        { fold: numericKeys, as: ["series", "value"] }
+      ],
+      mark: "line",
+      encoding: {
+        x: { field: xField, type: "temporal" },
+        y: { field: "value", type: "quantitative" },
+        color: { field: "series", type: "nominal" }
+      }
+    };
+  }
+
+  // --- Scatter Plot ---
+  if (numericKeys.length === 2 && categoricalKeys.length === 0 && temporalKeys.length === 0) {
+    return {
+      $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+      description: "Auto-generated scatter plot",
+      data: { values: sampled },
+      mark: "point",
+      encoding: {
+        x: { field: numericKeys[0], type: "quantitative" },
+        y: { field: numericKeys[1], type: "quantitative" }
+      }
+    };
+  }
+
+  // --- Heatmap ---
+  if (categoricalKeys.length === 2 && numericKeys.length === 1) {
+    return {
+      $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+      description: "Auto-generated heatmap",
+      data: { values: sampled },
+      mark: "rect",
+      encoding: {
+        x: { field: categoricalKeys[0], type: "ordinal" },
+        y: { field: categoricalKeys[1], type: "ordinal" },
+        color: { field: numericKeys[0], type: "quantitative" }
+      }
+    };
+  }
+
+  // --- Single Series (Default) ---
+  return {
+    $schema: "https://vega.github.io/schema/vega-lite/v5.json",
+    description: "Auto-generated default chart",
+    data: { values: sampled },
+    mark: temporalKeys.length ? "line" : "bar",
+    encoding: {
+      x: { field: xField, type: xType },
+      y: { field: numericKeys[0], type: "quantitative" }
+    }
+  };
+}
+
+// Hook to Render Button
+document.getElementById("renderBtn").addEventListener("click", async () => {
+  try {
+    const inputText = document.getElementById("jsonInput").value.trim();
+    const parsedInput = JSON.parse(inputText);
+    await renderDynamicChart(parsedInput);
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+});
+
+
+</script>
+
+</body>
+</html>
