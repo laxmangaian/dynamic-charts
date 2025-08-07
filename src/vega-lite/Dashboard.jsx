@@ -177,7 +177,7 @@ const Dashboard = () => {
       );
     }
 
-    // Make chart responsive to container size
+    // ✅ Make chart responsive to container size
     spec.width = "container";
     spec.height = "container";
     spec.autosize = { type: "fit", contains: "padding" };
