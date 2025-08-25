@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Plain JS D3 Time Series Chart</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
+    .card { max-width: 980px; margin: 0 auto; }
+    .muted { color: #6b7280; }
+    .demo { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    textarea {
+      width: 100%; height: 180px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px; padding: 12px; border-radius: 8px; border: 1px solid #d0d7de; outline: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    select, button {
+      padding: 10px 12px; border-radius: 8px; border: 1px solid #d0d7de; background: black;
+    }
+    .chart-wrap { width: 100%; }
+    svg { display: block; width: 100%; height: auto; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+  <div class="card">
+    <h2 style="margin:0 0 12px;">Plain JS D3 Chart</h2>
+    <p class="muted" style="margin-top:0;">Call <code>renderTimeChart(container, input, type, options)</code> to render. Try the demo below.</p>
+
+    <div class="demo">
+      <div>
+        <label style="font-size:12px; display:block; margin-bottom:8px;">Data JSON (array or object with <code>chartType</code> + <code>data</code>)</label>
+        <textarea id="json-input" spellcheck="false"></textarea>
+        <div style="display:flex; gap:8px; align-items:center; margin-top:8px;">
+          <label style="font-size:12px;">Chart type:</label>
+          <select id="type-input">
+            <option value="auto">Auto</option>
+            <option value="line">Line</option>
+            <option value="bar">Bar</option>
+            <option value="area">Area</option>
+            <option value="scatter">Scatter</option>
+          </select>
+          <button id="run-btn">Render</button>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <div id="chart" aria-label="chart container"></div>
+        <small class="muted">Tip: Set <code>{"{\"chartType\":\"bar\", \"data\": [...]}"}</code> or pick a type above.</small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function renderTimeChart(container, input, chartType = "auto", options = {}) {
+      const d3 = window.d3;
+      const root = typeof container === "string" ? document.querySelector(container) : container;
+      if (!root) throw new Error("renderTimeChart: container not found");
+      Array.from(root.querySelectorAll("svg")).forEach(s => s.remove());
+
+      let parsed = input;
+      if (typeof input === "string") {
+        try { parsed = JSON.parse(input); } catch (e) { parsed = []; }
+      }
+      let rows = [], typeFromText;
+      if (Array.isArray(parsed)) rows = parsed;
+      else if (parsed && typeof parsed === "object") { rows = parsed.data || []; typeFromText = parsed.chartType; }
+
+      const parseDate = d3.utcParse("%Y-%m-%d");
+      const norm = rows.map(d => ({
+          date: typeof d.date === "string" ? parseDate(d.date) : d.date,
+          value: typeof d.sales === "number" ? d.sales : (typeof d.value === "number" ? d.value : (+d.sales || +d.value || NaN))
+        }))
+        .filter(d => d.date instanceof Date && !isNaN(d.date) && Number.isFinite(d.value))
+        .sort((a,b) => a.date - b.date);
+
+      const finalType = chartType !== "auto" ? chartType : (typeFromText || "line");
+      const containerBox = root.getBoundingClientRect();
+      const width = Math.max(320, options.width || containerBox.width || 640);
+      const height = options.height || 360;
+      const margin = Object.assign({ top: 24, right: 24, bottom: 48, left: 56 }, options.margin || {});
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+
+      const svg = d3.select(root).append("svg")
+        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("width", "100%").attr("height", height)
+        .attr("role", "img").attr("aria-label", finalType + " chart of values over time");
+
+      const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+      if (!norm.length) {
+        g.append("text").attr("x", innerW/2).attr("y", innerH/2).attr("text-anchor","middle")
+          .style("font","14px system-ui, -apple-system, Segoe UI, Roboto, sans-serif").text("No valid data to display");
+        return svg.node();
+      }
+
+      const x = d3.scaleUtc().domain(d3.extent(norm, d => d.date)).range([0, innerW]).nice();
+      const y = d3.scaleLinear().domain([0, d3.max(norm, d => d.value) || 0]).nice().range([innerH, 0]);
+
+      g.append("g").attr("transform", `translate(0,${innerH})`)
+        .call(d3.axisBottom(x).ticks(Math.min(6,norm.length)).tickFormat(d3.utcFormat("%b %Y")))
+        .selectAll("text").style("font-size","12px");
+      g.append("g").call(d3.axisLeft(y).ticks(6).tickSizeOuter(0)).selectAll("text").style("font-size","12px");
+
+      g.append("g").attr("stroke-opacity",0.1)
+        .call(d3.axisLeft(y).tickSize(-innerW).tickFormat(()=>""))
+        .selectAll(".tick line").attr("shape-rendering","crispEdges");
+
+      if (finalType==="line"||finalType==="area") {
+        const line=d3.line().x(d=>x(d.date)).y(d=>y(d.value)).defined(d=>Number.isFinite(d.value));
+        if (finalType==="area") {
+          const area=d3.area().x(d=>x(d.date)).y0(y(0)).y1(d=>y(d.value)).defined(d=>Number.isFinite(d.value));
+          g.append("path").datum(norm).attr("d",area).attr("fill","currentColor").attr("opacity",0.15);
+        }
+        g.append("path").datum(norm).attr("fill","none").attr("stroke","currentColor").attr("stroke-width",2).attr("d",line);
+        g.selectAll("circle.point").data(norm).join("circle").attr("class","point").attr("cx",d=>x(d.date)).attr("cy",d=>y(d.value)).attr("r",3).attr("fill","currentColor").append("title").text(d=>d3.utcFormat("%Y-%m-%d")(d.date)+" • "+d.value);
+      } else if (finalType==="bar") {
+        const bandwidth=Math.max(8,Math.min(48,innerW/norm.length-6));
+        const xBand=d3.scaleBand().domain(norm.map(d=>+d.date)).range([0,innerW]).padding(0.2);
+        g.selectAll("rect.bar").data(norm).join("rect").attr("class","bar")
+          .attr("x",d=>xBand(+d.date)+(xBand.bandwidth()-bandwidth)/2).attr("y",d=>y(Math.max(0,d.value)))
+          .attr("width",bandwidth).attr("height",d=>Math.abs(y(d.value)-y(0))).attr("fill","currentColor")
+          .append("title").text(d=>d3.utcFormat("%Y-%m-%d")(d.date)+" • "+d.value);
+      } else if (finalType==="scatter") {
+        g.selectAll("circle.dot").data(norm).join("circle").attr("class","dot")
+          .attr("cx",d=>x(d.date)).attr("cy",d=>y(d.value)).attr("r",4).attr("fill","currentColor").attr("fill-opacity",0.9)
+          .append("title").text(d=>d3.utcFormat("%Y-%m-%d")(d.date)+" • "+d.value);
+      }
+
+      g.append("text").attr("x",-innerH/2).attr("y",-margin.left+14).attr("transform","rotate(-90)").attr("text-anchor","middle").style("font-size","12px").text(options.yLabel||"Sales");
+      g.append("text").attr("x",innerW/2).attr("y",innerH+36).attr("text-anchor","middle").style("font-size","12px").text(options.xLabel||"Date");
+      return svg.node();
+    }
+
+    // Demo wiring
+    const defaultJSON={chartType:"line",data:[{date:"2023-01-01",sales:100},{date:"2023-02-01",sales:120},{date:"2023-03-01",sales:150},{date:"2023-04-01",sales:90}]};
+    document.getElementById("json-input").value=JSON.stringify(defaultJSON,null,2);
+    document.getElementById("run-btn").addEventListener("click",()=>{const raw=document.getElementById("json-input").value;const type=document.getElementById("type-input").value;renderTimeChart("#chart",raw,type);});
+    renderTimeChart("#chart",JSON.stringify(defaultJSON),"auto");
+    
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,268 @@
+
+[
+  {
+    "id": "moving-average",
+    "title": "Moving Average Chart",
+    "data": {
+      "source": {
+        "type": "inline",
+        "data": [
+          {
+            "date": "2024-01-01",
+            "price": 100,
+            "movingAverage": 100
+          },
+          {
+            "date": "2024-01-02",
+            "price": 103,
+            "movingAverage": 101.5
+          },
+          {
+            "date": "2024-01-03",
+            "price": 97,
+            "movingAverage": 100
+          },
+          {
+            "date": "2024-01-04",
+            "price": 105,
+            "movingAverage": 101.25
+          },
+          {
+            "date": "2024-01-05",
+            "price": 110,
+            "movingAverage": 103
+          }
+        ]
+      },
+      "fields": [
+        {
+          "name": "date",
+          "type": "temporal",
+          "accessor": "date"
+        },
+        {
+          "name": "price",
+          "type": "quantitative",
+          "accessor": "price"
+        },
+        {
+          "name": "ma",
+          "type": "quantitative",
+          "accessor": "movingAverage"
+        }
+      ]
+    },
+    "space": {
+      "width": 800,
+      "height": 400
+    },
+    "scales": {
+      "x": {
+        "type": "time",
+        "range": [50, 750]
+      },
+      "y": {
+        "type": "linear",
+        "range": [350, 50],
+        "nice": true
+      }
+    },
+    "layers": [
+      {
+        "id": "price",
+        "mark": {
+          "type": "line"
+        },
+        "encoding": {
+          "x": {
+            "field": "date",
+            "scale": "x"
+          },
+          "y": {
+            "field": "price",
+            "scale": "y"
+          },
+          "stroke": {
+            "value": "lightgray"
+          }
+        }
+      },
+      {
+        "id": "average",
+        "mark": {
+          "type": "line"
+        },
+        "encoding": {
+          "x": {
+            "field": "date",
+            "scale": "x"
+          },
+          "y": {
+            "field": "ma",
+            "scale": "y"
+          },
+          "stroke": {
+            "value": "steelblue"
+          },
+          "strokeWidth": {
+            "value": 2
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "cluster",
+    "title": "Cluster Dendrogram",
+    "data": {
+      "source": {
+        "type": "inline",
+        "data": {
+          "name": "root",
+          "children": [
+            {
+              "name": "Cluster A",
+              "children": [
+                {
+                  "name": "Item 1"
+                },
+                {
+                  "name": "Item 2"
+                },
+                {
+                  "name": "Item 3"
+                }
+              ]
+            },
+            {
+              "name": "Cluster B",
+              "children": [
+                {
+                  "name": "Item 4"
+                },
+                {
+                  "name": "Item 5"
+                },
+                {
+                  "name": "Item 6"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "transforms": [
+        {
+          "type": "hierarchy",
+          "params": {}
+        },
+        {
+          "type": "cluster",
+          "params": {
+            "size": [350, 700]
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "name",
+          "type": "nominal",
+          "accessor": "data.name"
+        },
+        {
+          "name": "x",
+          "type": "quantitative",
+          "accessor": "x"
+        },
+        {
+          "name": "y",
+          "type": "quantitative",
+          "accessor": "y"
+        },
+        {
+          "name": "depth",
+          "type": "quantitative",
+          "accessor": "depth"
+        }
+      ]
+    },
+    "space": {
+      "width": 800,
+      "height": 400
+    },
+    "scales": {
+      "color": {
+        "type": "ordinal",
+        "scheme": "Set3"
+      }
+    },
+    "layers": [
+      {
+        "id": "links",
+        "mark": {
+          "type": "line"
+        },
+        "encoding": {
+          "x": {
+            "field": "source.y"
+          },
+          "y": {
+            "field": "source.x"
+          },
+          "x2": {
+            "field": "target.y"
+          },
+          "y2": {
+            "field": "target.x"
+          },
+          "stroke": {
+            "value": "#555"
+          }
+        }
+      },
+      {
+        "id": "nodes",
+        "mark": {
+          "type": "circle"
+        },
+        "encoding": {
+          "x": {
+            "field": "y"
+          },
+          "y": {
+            "field": "x"
+          },
+          "r": {
+            "value": 3
+          },
+          "fill": {
+            "field": "depth",
+            "scale": "color"
+          }
+        }
+      }
+    ]
+  },
+  {
+    "chartType": "line",
+    "data": [
+      {
+        "date": "2023-01-01",
+        "sales": 100
+      },
+      {
+        "date": "2023-02-01",
+        "sales": 120
+      },
+      {
+        "date": "2023-03-01",
+        "sales": 150
+      },
+      {
+        "date": "2023-04-01",
+        "sales": 90
+      }
+    ]
+  }
+  
+]

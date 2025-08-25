@@ -1,0 +1,564 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Plain JS D3 Multi-Chart Demo</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
+    .card { max-width: 1100px; margin: 0 auto; }
+    .muted { color: #6b7280; }
+    .demo { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    textarea {
+      width: 100%; height: 200px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px; padding: 12px; border-radius: 8px; border: 1px solid #d0d7de; outline: none;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    select, button {
+      padding: 10px 12px; border-radius: 8px; border: 1px solid #d0d7de; background: black;
+    }
+    .chart-wrap { width: 100%; }
+    svg { display: block; width: 100%; height: auto; }
+    .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .pill { font-size:12px; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:999px; padding:4px 8px; }
+    .hint { font-size:12px; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+  <div class="card">
+    <h2 style="margin:0 0 4px;">Plain JS D3 Multi-Chart</h2>
+    <p class="muted" style="margin-top:0;">Call <code>renderChart(container, input, type, options)</code>. Supports <span class="pill">line</span> <span class="pill">area</span> <span class="pill">bar</span> <span class="pill">scatter</span> <span class="pill">stackedBar</span> <span class="pill">stackedToGroup</span> <span class="pill">streamgraph</span> <span class="pill">pie</span> <span class="pill">indexLine</span> <span class="pill">changeLine</span> <span class="pill">histogram</span> <span class="pill">kde</span> <span class="pill">densityContours</span> <span class="pill">treemap</span> <span class="pill">bubble</span> <span class="pill">hierBar</span>. Zoom available via <code>options.zoom=true</code>; bounding box via <code>options.boundingBox=true</code>.</p>
+
+    <div class="demo">
+      <div>
+        <label style="font-size:12px; display:block; margin-bottom:8px;">Data JSON (array or object with <code>chartType</code> + <code>data</code>)</label>
+        <textarea id="json-input" spellcheck="false"></textarea>
+        <div class="row" style="margin-top:8px;">
+          <label class="hint">Chart type:</label>
+          <select id="type-input">
+            <option value="auto">Auto</option>
+            <option value="line">Line</option>
+            <option value="bar">Bar</option>
+            <option value="area">Area</option>
+            <option value="scatter">Scatter</option>
+            <option value="stackedBar">Stacked Bar</option>
+            <option value="stackedToGroup">Stacked → Group Toggle</option>
+            <option value="streamgraph">Streamgraph</option>
+            <option value="pie">Pie</option>
+            <option value="indexLine">Index Line</option>
+            <option value="changeLine">Change Line</option>
+            <option value="histogram">Histogram</option>
+            <option value="kde">Kernel Density (1D)</option>
+            <option value="densityContours">Density Contours (2D)</option>
+            <option value="treemap">Treemap</option>
+            <option value="bubble">Bubble</option>
+            <option value="hierBar">Hierarchical Bar</option>
+          </select>
+          <select id="sample-input" title="Load sample data">
+            <option value="none">Load sample…</option>
+            <option value="line">Line (time series)</option>
+            <option value="stackedBar">Stacked Bar (category×series)</option>
+            <option value="stackedToGroup">Stacked→Group (category×series)</option>
+            <option value="streamgraph">Streamgraph (time×series)</option>
+            <option value="pie">Pie (category share)</option>
+            <option value="indexLine">Index Line (normalize)</option>
+            <option value="changeLine">Change Line (delta)</option>
+            <option value="histogram">Histogram (one numeric)</option>
+            <option value="kde">KDE (one numeric)</option>
+            <option value="densityContours">Density Contours (two numeric)</option>
+            <option value="treemap">Treemap (hierarchy)</option>
+            <option value="bubble">Bubble (x,y,r)</option>
+            <option value="hierBar">Hierarchical Bar</option>
+          </select>
+          <button id="run-btn">Render</button>
+        </div>
+        <div id="suggest" class="muted hint" style="margin-top:8px;"></div>
+      </div>
+      <div class="chart-wrap">
+        <div id="chart" aria-label="chart container"></div>
+        <small class="muted">Tip: Set <code>{"chartType":"bar", "data": [...]}</code> or pick a type above.</small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const d3v7 = window.d3; // alias
+
+    // ---------- Utilities
+    function parseInput(input){
+      let parsed=input;
+      if(typeof input==='string'){
+        try{ parsed=JSON.parse(input);}catch(e){ parsed=[]; }
+      }
+      if(Array.isArray(parsed)) return { chartType:"auto", data: parsed };
+      if(parsed && typeof parsed==='object') return { chartType: parsed.chartType||'auto', data: parsed.data||[] };
+      return { chartType:"auto", data: [] };
+    }
+
+    function getContainer(root){
+      const el = typeof root === 'string' ? document.querySelector(root) : root;
+      if(!el) throw new Error('renderChart: container not found');
+      Array.from(el.querySelectorAll('svg')).forEach(s=>s.remove());
+      return el;
+    }
+
+    function baseSvg(root, width, height){
+      const svg = d3v7.select(root).append('svg')
+        .attr('viewBox',`0 0 ${width} ${height}`)
+        .attr('width','100%').attr('height',height)
+        .attr('role','img');
+      return svg;
+    }
+
+    function attachAxes(g, x, y, innerW, innerH, xFmt, yTicks=6){
+      g.append('g').attr('transform',`translate(0,${innerH})`)
+        .call(d3v7.axisBottom(x).ticks(Math.min(8, innerW/80)).tickFormat(xFmt||undefined))
+        .selectAll('text').style('font-size','12px');
+      g.append('g')
+        .call(d3v7.axisLeft(y).ticks(yTicks).tickSizeOuter(0))
+        .selectAll('text').style('font-size','12px');
+      g.append('g').attr('stroke-opacity',0.1)
+        .call(d3v7.axisLeft(y).tickSize(-innerW).tickFormat(()=>''))
+        .selectAll('.tick line').attr('shape-rendering','crispEdges');
+    }
+
+    function enableZoom(svg, g, width, height){
+      const zoom = d3v7.zoom().scaleExtent([1, 20]).on('zoom', (ev)=>{
+        g.attr('transform', ev.transform);
+      });
+      svg.call(zoom);
+    }
+
+    function drawBoundingBox(g, innerW, innerH){
+      g.append('rect').attr('x',0).attr('y',0).attr('width', innerW).attr('height', innerH)
+        .attr('fill','none').attr('stroke','currentColor').attr('stroke-dasharray','4 3').attr('opacity',0.5);
+    }
+
+    // ---------- Schema detection & suggestions
+    function detectSchema(rows){
+      // Identify keys
+      if(!Array.isArray(rows) || !rows.length) return { kind:'empty' };
+      const keys = Object.keys(rows[0]);
+      const hasDate = keys.some(k=>/date|time/i.test(k));
+      const hasCategory = keys.some(k=>/category|cat|name|label|group|id|type/i.test(k));
+      const numericKeys = keys.filter(k=> typeof rows[0][k]==='number');
+      const hasXY = keys.includes('x') && keys.includes('y');
+      const hasR = keys.includes('r')||keys.includes('size');
+
+      if(hasXY) return { kind:'points2d', xKey:'x', yKey:'y', rKey: (keys.includes('r')?'r':(keys.includes('size')?'size':null)) };
+      if(hasDate && numericKeys.length>=1) return { kind:'time', dateKey: keys.find(k=>/date|time/i.test(k)), valueKeys: numericKeys.filter(k=>k!=='r'&&k!=='size') };
+      if(hasCategory && numericKeys.length>0) return { kind:'category', catKey: keys.find(k=>/category|cat|name|label|group|id|type/i.test(k)), valueKeys: numericKeys };
+      if(numericKeys.length===1) return { kind:'numeric1d', valueKey: numericKeys[0] };
+      return { kind:'unknown' };
+    }
+
+    function suggestCharts(schema){
+      switch(schema.kind){
+        case 'time':
+          return ['line','area','scatter','indexLine','changeLine', schema.valueKeys.length>1 ? 'streamgraph' : null].filter(Boolean);
+        case 'category':
+          return schema.valueKeys.length>1 ? ['stackedBar','stackedToGroup','treemap','pie'] : ['bar','pie','treemap'];
+        case 'points2d':
+          return schema.rKey ? ['bubble','densityContours'] : ['scatter','densityContours'];
+        case 'numeric1d':
+          return ['histogram','kde'];
+        case 'empty':
+          return [];
+        default:
+          return ['bar','scatter'];
+      }
+    }
+
+    // ---------- Renderers
+    function renderLineAreaScatter(g, norm, type, x, y){
+      if(type==='area'){
+        const area = d3v7.area().x(d=>x(d.date)).y0(y(0)).y1(d=>y(d.value)).defined(d=>Number.isFinite(d.value));
+        g.append('path').datum(norm).attr('d',area).attr('fill','currentColor').attr('opacity',0.15);
+      }
+      const line = d3v7.line().x(d=>x(d.date)).y(d=>y(d.value)).defined(d=>Number.isFinite(d.value));
+      if(type!=='scatter') g.append('path').datum(norm).attr('fill','none').attr('stroke','currentColor').attr('stroke-width',2).attr('d',line);
+      const sel = g.selectAll('circle.point').data(norm).join('circle').attr('class','point')
+        .attr('cx',d=>x(d.date)).attr('cy',d=>y(d.value)).attr('r',3).attr('fill','currentColor');
+      sel.append('title').text(d=>d3v7.utcFormat('%Y-%m-%d')(d.date)+' • '+d.value);
+    }
+
+    function renderBar(g, norm, x, y, innerW){
+      const bandwidth = Math.max(8, Math.min(48, innerW/norm.length-6));
+      const xBand = d3v7.scaleBand().domain(norm.map(d=>+d.date)).range([0, innerW]).padding(0.2);
+      g.selectAll('rect.bar').data(norm).join('rect').attr('class','bar')
+        .attr('x', d=> xBand(+d.date) + (xBand.bandwidth()-bandwidth)/2)
+        .attr('y', d=> y(Math.max(0, d.value)))
+        .attr('width', bandwidth)
+        .attr('height', d=> Math.abs(y(d.value)-y(0)))
+        .attr('fill','currentColor')
+        .append('title').text(d=> d3v7.utcFormat('%Y-%m-%d')(d.date)+' • '+d.value);
+    }
+
+    function renderStackedBar(g, rows, keys, catKey, innerW, innerH, yLabel){
+      const x = d3v7.scaleBand().domain(rows.map(d=>d[catKey])).range([0, innerW]).padding(0.2);
+      const series = d3v7.stack().keys(keys)(rows);
+      const y = d3v7.scaleLinear().domain([0, d3v7.max(series, s=> d3v7.max(s, d=> d[1]))]).nice().range([innerH, 0]);
+      attachAxes(g, x, y, innerW, innerH, undefined);
+      const layer = g.selectAll('g.layer').data(series).join('g').attr('class','layer').attr('fill','currentColor').attr('opacity', (d,i)=> 0.6 + (i/keys.length)*0.3);
+      layer.selectAll('rect').data(d=>d).join('rect')
+        .attr('x', d=> x(d.data[catKey]))
+        .attr('y', d=> y(d[1]))
+        .attr('height', d=> y(d[0]) - y(d[1]))
+        .attr('width', x.bandwidth())
+        .append('title').text(d=> `${d.data[catKey]} • ${d[1]-d[0]}`);
+      g.append('text').attr('x',-innerH/2).attr('y',-40).attr('transform','rotate(-90)').attr('text-anchor','middle').style('font-size','12px').text(yLabel||'Value');
+      return {x,y};
+    }
+
+    function renderStackedToGroup(svg, g, rows, keys, catKey, innerW, innerH){
+      const {x,y} = renderStackedBar(g, rows, keys, catKey, innerW, innerH);
+      // Toggle button
+      const btn = d3v7.select(svg.node().parentNode).insert('button', 'svg + *')
+        .text('Toggle Stacked/Grouped')
+        .style('margin','8px 0 4px').style('padding','6px 10px');
+      let grouped = false;
+      btn.on('click', ()=>{
+        grouped = !grouped;
+        const x1 = d3v7.scaleBand().domain(keys).range([0, x.bandwidth()]).padding(0.05);
+        const yMax = grouped ? d3v7.max(rows, d=> d3v7.max(keys, k=> d[k]||0)) : y.domain()[1];
+        const y2 = y.copy().domain([0, yMax]).nice();
+        const rect = g.selectAll('g.layer').selectAll('rect');
+        rect.transition().duration(600)
+          .attr('x', d=> grouped ? x(d.data[catKey]) + x1(d3v7.select(this).datum().key||this.parentNode.__data__.key) : x(d.data[catKey]))
+          .attr('width', grouped ? x1.bandwidth() : x.bandwidth())
+          .attr('y', d=> grouped ? y2(d[1]-d[0]) : y(d[1]))
+          .attr('height', d=> grouped ? (y2(0)-y2(d[1]-d[0])) : (y(d[0]) - y(d[1])));
+      });
+    }
+
+    function renderStreamgraph(g, rows, keys, dateKey, innerW, innerH){
+      const parseDate = d3v7.utcParse('%Y-%m-%d');
+      const data = rows.map(r=> ({...r, [dateKey]: typeof r[dateKey]==='string' ? parseDate(r[dateKey]) : r[dateKey]}))
+                       .sort((a,b)=> +a[dateKey] - +b[dateKey]);
+      const x = d3v7.scaleUtc().domain(d3v7.extent(data, d=> d[dateKey])).range([0, innerW]);
+      const stack = d3v7.stack().keys(keys).offset(d3v7.stackOffsetWiggle);
+      const series = stack(data);
+      const y = d3v7.scaleLinear().domain([
+        d3v7.min(series, s=> d3v7.min(s, d=> d[0])),
+        d3v7.max(series, s=> d3v7.max(s, d=> d[1]))
+      ]).range([innerH, 0]);
+      attachAxes(g, x, y, innerW, innerH, d3v7.utcFormat('%b %Y'));
+      const area = d3v7.area().x(d=> x(d.data[dateKey])).y0(d=> y(d[0])).y1(d=> y(d[1]));
+      g.selectAll('path.layer').data(series).join('path').attr('class','layer')
+        .attr('d', area).attr('fill','currentColor').attr('opacity', (d,i)=> 0.5 + 0.4*i/series.length)
+        .append('title').text(d=> d.key);
+    }
+
+    function renderPie(g, rows, catKey, valueKey, innerW, innerH){
+      const r = Math.min(innerW, innerH)/2;
+      const arc = d3v7.arc().innerRadius(0).outerRadius(r);
+      const pie = d3v7.pie().value(d=> d[valueKey]);
+      const arcs = pie(rows);
+      const center = g.append('g').attr('transform',`translate(${innerW/2},${innerH/2})`);
+      center.selectAll('path').data(arcs).join('path').attr('d', arc)
+        .attr('fill','currentColor').attr('opacity', (d,i)=> 0.6 + 0.35*i/arcs.length)
+        .append('title').text(d=> `${d.data[catKey]} • ${d.data[valueKey]}`);
+    }
+
+    function renderIndexOrChange(g, rows, dateKey, valueKey, innerW, innerH, mode){
+      const parseDate = d3v7.utcParse('%Y-%m-%d');
+      const data = rows.map(r=> ({date: typeof r[dateKey]==='string' ? parseDate(r[dateKey]) : r[dateKey], value: +r[valueKey]}))
+                       .filter(d=> d.date instanceof Date && isFinite(d.value))
+                       .sort((a,b)=> +a.date - +b.date);
+      const base = data[0]?.value || 1;
+      const values = data.map(d=> mode==='index' ? (d.value/base*100) : (d.value - base));
+      const x = d3v7.scaleUtc().domain(d3v7.extent(data, d=> d.date)).range([0, innerW]);
+      const y = d3v7.scaleLinear().domain([d3v7.min(values), d3v7.max(values)]).nice().range([innerH, 0]);
+      attachAxes(g, x, y, innerW, innerH, d3v7.utcFormat('%b %Y'));
+      const line = d3v7.line().x((d,i)=> x(data[i].date)).y((d,i)=> y(values[i]));
+      g.append('path').datum(values).attr('fill','none').attr('stroke','currentColor').attr('stroke-width',2).attr('d', line);
+    }
+
+    function renderHistogram(g, rows, valueKey, innerW, innerH){
+      const vals = rows.map(d=> +d[valueKey]).filter(v=> Number.isFinite(v));
+      const x = d3v7.scaleLinear().domain(d3v7.extent(vals)).nice().range([0, innerW]);
+      const bins = d3v7.bin().domain(x.domain()).thresholds(20)(vals);
+      const y = d3v7.scaleLinear().domain([0, d3v7.max(bins, d=> d.length)]).nice().range([innerH, 0]);
+      attachAxes(g, x, y, innerW, innerH);
+      g.selectAll('rect').data(bins).join('rect')
+        .attr('x', d=> x(d.x0)+1)
+        .attr('y', d=> y(d.length))
+        .attr('width', d=> Math.max(0, x(d.x1) - x(d.x0) - 1))
+        .attr('height', d=> y(0) - y(d.length))
+        .attr('fill','currentColor')
+        .append('title').text(d=> `${d.x0.toFixed(2)}–${d.x1.toFixed(2)} • ${d.length}`);
+    }
+
+    function renderKDE(g, rows, valueKey, innerW, innerH){
+      const vals = rows.map(d=> +d[valueKey]).filter(Number.isFinite);
+      const x = d3v7.scaleLinear().domain(d3v7.extent(vals)).nice().range([0, innerW]);
+      const kernel = v=> u=> Math.abs(u/=v) <= 1 ? 0.75*(1-u*u)/v : 0; // Epanechnikov
+      const kde = (kernel, X, xscale)=> {
+        const xs = xscale.ticks(80);
+        return xs.map(x=> [x, d3v7.mean(X, v=> kernel(x - v))]);
+      };
+      const data = kde(kernel((x.domain()[1]-x.domain()[0])/20), vals, x);
+      const y = d3v7.scaleLinear().domain([0, d3v7.max(data, d=> d[1])]).nice().range([innerH, 0]);
+      attachAxes(g, x, y, innerW, innerH);
+      const line = d3v7.line().curve(d3v7.curveBasis).x(d=> x(d[0])).y(d=> y(d[1]));
+      g.append('path').datum(data).attr('fill','none').attr('stroke','currentColor').attr('stroke-width',2).attr('d', line);
+    }
+
+    function renderDensityContours(g, rows, xKey, yKey, innerW, innerH){
+      const X = rows.map(d=> +d[xKey]).filter(Number.isFinite);
+      const Y = rows.map(d=> +d[yKey]).filter(Number.isFinite);
+      const x = d3v7.scaleLinear().domain(d3v7.extent(X)).nice().range([0, innerW]);
+      const y = d3v7.scaleLinear().domain(d3v7.extent(Y)).nice().range([innerH, 0]);
+      attachAxes(g, x, y, innerW, innerH);
+      g.append('g').selectAll('path').data(d3v7.contourDensity().x(d=> x(d[0])).y(d=> y(d[1])).size([innerW, innerH]).bandwidth(30)(d3v7.zip(X, Y)))
+        .join('path').attr('d', d3v7.geoPath()).attr('fill','none').attr('stroke','currentColor').attr('opacity',0.6);
+    }
+
+    function renderTreemap(g, rootData, nameKey, valueKey, childrenKey, innerW, innerH){
+      const root = d3v7.hierarchy(rootData).sum(d=> d[valueKey]||0).sort((a,b)=> b.value - a.value);
+      d3v7.treemap().size([innerW, innerH]).padding(1)(root);
+      const node = g.selectAll('g.node').data(root.leaves()).join('g').attr('class','node')
+        .attr('transform', d=> `translate(${d.x0},${d.y0})`);
+      node.append('rect').attr('width', d=> d.x1 - d.x0).attr('height', d=> d.y1 - d.y0)
+        .attr('fill','currentColor').attr('opacity',0.6);
+      node.append('title').text(d=> `${d.data[nameKey]} • ${d.value}`);
+    }
+
+    function renderBubble(g, rows, xKey, yKey, rKey, innerW, innerH){
+      const x = d3v7.scaleLinear().domain(d3v7.extent(rows, d=> +d[xKey])).nice().range([0, innerW]);
+      const y = d3v7.scaleLinear().domain(d3v7.extent(rows, d=> +d[yKey])).nice().range([innerH, 0]);
+      const r = d3v7.scaleSqrt().domain([0, d3v7.max(rows, d=> +d[rKey])||1]).range([2, 30]);
+      attachAxes(g, x, y, innerW, innerH);
+      const dots = g.selectAll('circle').data(rows).join('circle')
+        .attr('cx', d=> x(+d[xKey]))
+        .attr('cy', d=> y(+d[yKey]))
+        .attr('r', d=> r(+d[rKey]))
+        .attr('fill','currentColor').attr('opacity',0.6);
+      dots.append('title').text(d=> `${xKey}:${d[xKey]} • ${yKey}:${d[yKey]} • ${rKey}:${d[rKey]}`);
+    }
+
+    function renderHierBar(g, rows, parentKey, childKey, valueKey, innerW, innerH){
+      // Simple: grouped bars per parent for each child
+      const parents = Array.from(new Set(rows.map(d=> d[parentKey])));
+      const children = Array.from(new Set(rows.map(d=> d[childKey])));
+      const x = d3v7.scaleBand().domain(parents).range([0, innerW]).padding(0.2);
+      const x1 = d3v7.scaleBand().domain(children).range([0, x.bandwidth()]).padding(0.05);
+      const y = d3v7.scaleLinear().domain([0, d3v7.max(rows, d=> +d[valueKey])]).nice().range([innerH, 0]);
+      attachAxes(g, x, y, innerW, innerH);
+      const groups = g.selectAll('g.parent').data(parents).join('g').attr('class','parent').attr('transform', d=> `translate(${x(d)},0)`);
+      groups.selectAll('rect').data(p=> rows.filter(r=> r[parentKey]===p)).join('rect')
+        .attr('x', d=> x1(d[childKey])).attr('y', d=> y(+d[valueKey]))
+        .attr('width', x1.bandwidth()).attr('height', d=> y(0)-y(+d[valueKey]))
+        .attr('fill','currentColor').attr('opacity',0.75)
+        .append('title').text(d=> `${d[parentKey]} ▸ ${d[childKey]} • ${d[valueKey]}`);
+    }
+
+    // ---------- Main entry
+    function renderChart(container, input, chartType='auto', options={}){
+      const root = getContainer(container);
+      const { chartType: fromData, data } = parseInput(input);
+      const type = chartType!=='auto' ? chartType : (fromData||'auto');
+
+      const width = Math.max(360, options.width || root.getBoundingClientRect().width || 800);
+      const height = options.height || 420;
+      const margin = Object.assign({ top: 24, right: 24, bottom: 48, left: 56 }, options.margin || {});
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+
+      const svg = baseSvg(root, width, height);
+      const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+      // Suggestions
+      const schema = detectSchema(data);
+      const suggestions = suggestCharts(schema);
+      const hint = document.getElementById('suggest');
+      if(hint){
+        hint.textContent = suggestions.length ? `Suggested: ${suggestions.join(', ')}` : 'No valid data detected. Provide compatible fields.';
+      }
+
+      if(schema.kind==='empty' || !data.length){
+        g.append('text').attr('x', innerW/2).attr('y', innerH/2).attr('text-anchor','middle').style('font','14px system-ui').text('No valid data to display');
+        return svg.node();
+      }
+
+      if(options.boundingBox) drawBoundingBox(g, innerW, innerH);
+
+      // Dispatch by type
+      try{
+        switch(type){
+          case 'line':
+          case 'area':
+          case 'scatter': {
+            // Expect time series: fields date/time + value (sales/value)
+            const parseDate = d3v7.utcParse('%Y-%m-%d');
+            const dateKey = schema.dateKey || 'date';
+            const valueKey = (schema.valueKeys||['value'])[0];
+            const norm = data.map(d=> ({
+              date: typeof d[dateKey]==='string' ? parseDate(d[dateKey]) : d[dateKey],
+              value: typeof d.sales==='number' ? d.sales : +d[valueKey]
+            })).filter(d=> d.date instanceof Date && Number.isFinite(d.value))
+              .sort((a,b)=> +a.date - +b.date);
+            const x = d3v7.scaleUtc().domain(d3v7.extent(norm, d=> d.date)).range([0, innerW]).nice();
+            const y = d3v7.scaleLinear().domain([0, d3v7.max(norm, d=> d.value)||0]).nice().range([innerH, 0]);
+            attachAxes(g, x, y, innerW, innerH, d3v7.utcFormat('%b %Y'));
+            renderLineAreaScatter(g, norm, type, x, y);
+            break;
+          }
+          case 'bar': {
+            const parseDate = d3v7.utcParse('%Y-%m-%d');
+            const dateKey = schema.dateKey || 'date';
+            const valueKey = (schema.valueKeys||['value'])[0];
+            const norm = data.map(d=> ({
+              date: typeof d[dateKey]==='string' ? parseDate(d[dateKey]) : d[dateKey],
+              value: typeof d.sales==='number' ? d.sales : +d[valueKey]
+            })).filter(d=> d.date instanceof Date && Number.isFinite(d.value))
+              .sort((a,b)=> +a.date - +b.date);
+            const x = d3v7.scaleUtc().domain(d3v7.extent(norm, d=> d.date)).range([0, innerW]).nice();
+            const y = d3v7.scaleLinear().domain([0, d3v7.max(norm, d=> d.value)||0]).nice().range([innerH, 0]);
+            attachAxes(g, x, y, innerW, innerH, d3v7.utcFormat('%b %Y'));
+            renderBar(g, norm, x, y, innerW);
+            break;
+          }
+          case 'stackedBar': {
+            if(schema.kind!=='category' || (schema.valueKeys||[]).length<2) throw new Error('Needs {category, series1..N}');
+            renderStackedBar(g, data, schema.valueKeys, schema.catKey, innerW, innerH);
+            break; }
+          case 'stackedToGroup': {
+            if(schema.kind!=='category' || (schema.valueKeys||[]).length<2) throw new Error('Needs {category, series1..N}');
+            renderStackedToGroup(svg, g, data, schema.valueKeys, schema.catKey, innerW, innerH);
+            break; }
+          case 'streamgraph': {
+            if(schema.kind!=='time' || (schema.valueKeys||[]).length<2) throw new Error('Needs {date, series1..N}');
+            renderStreamgraph(g, data, schema.valueKeys, schema.dateKey, innerW, innerH);
+            break; }
+          case 'pie': {
+            if(schema.kind!=='category') throw new Error('Needs {category, value}');
+            const valueKey = schema.valueKeys[0];
+            renderPie(g, data, schema.catKey, valueKey, innerW, innerH);
+            break; }
+          case 'indexLine': {
+            if(schema.kind!=='time') throw new Error('Needs {date, value}');
+            const valueKey = schema.valueKeys[0];
+            renderIndexOrChange(g, data, schema.dateKey, valueKey, innerW, innerH, 'index');
+            break; }
+          case 'changeLine': {
+            if(schema.kind!=='time') throw new Error('Needs {date, value}');
+            const valueKey = schema.valueKeys[0];
+            renderIndexOrChange(g, data, schema.dateKey, valueKey, innerW, innerH, 'change');
+            break; }
+          case 'histogram': {
+            if(schema.kind!=='numeric1d') throw new Error('Needs one numeric field');
+            renderHistogram(g, data, schema.valueKey, innerW, innerH);
+            break; }
+          case 'kde': {
+            if(schema.kind!=='numeric1d') throw new Error('Needs one numeric field');
+            renderKDE(g, data, schema.valueKey, innerW, innerH);
+            break; }
+          case 'densityContours': {
+            if(schema.kind!=='points2d') throw new Error('Needs {x, y}');
+            renderDensityContours(g, data, 'x', 'y', innerW, innerH);
+            break; }
+          case 'treemap': {
+            // Expect hierarchical {name, value, children}
+            const childKey = 'children';
+            renderTreemap(g, data[0] || {name:'root',children:[]}, 'name', 'value', childKey, innerW, innerH);
+            break; }
+          case 'bubble': {
+            if(schema.kind!=='points2d' || !schema.rKey) throw new Error('Needs {x, y, r}');
+            renderBubble(g, data, 'x', 'y', schema.rKey, innerW, innerH);
+            break; }
+          case 'hierBar': {
+            // Expect {parent, child, value}
+            const sample = data[0]||{};
+            if(!('parent' in sample && 'child' in sample)) throw new Error('Needs {parent, child, value}');
+            renderHierBar(g, data, 'parent', 'child', Object.keys(sample).find(k=>k!=='parent'&&k!=='child')||'value', innerW, innerH);
+            break; }
+          default: {
+            // Auto fallback by suggestions
+            const first = suggestions[0];
+            if(first){
+              return renderChart(container, {chartType:first, data}, first, options);
+            }
+            throw new Error('Unsupported type for provided data.');
+          }
+        }
+      }catch(err){
+        g.append('text').attr('x', innerW/2).attr('y', innerH/2).attr('text-anchor','middle')
+          .style('font','14px system-ui').text(`Not possible: ${err.message}`);
+      }
+
+      if(options.zoom) enableZoom(svg, g, width, height);
+      return svg.node();
+    }
+
+    // Expose global
+    window.renderChart = renderChart;
+
+    // ---------- Samples
+    const samples = {
+      line: { chartType:'line', data:[
+        {date:'2023-01-01', value:100}, {date:'2023-02-01', value:120}, {date:'2023-03-01', value:150}, {date:'2023-04-01', value:90}
+      ]},
+      stackedBar: { chartType:'stackedBar', data:[
+        {category:'Q1', A:30, B:20, C:10}, {category:'Q2', A:20, B:25, C:15}, {category:'Q3', A:35, B:15, C:20}, {category:'Q4', A:25, B:30, C:18}
+      ]},
+      stackedToGroup: { chartType:'stackedToGroup', data:[
+        {category:'Alpha', s1:10, s2:12, s3:6}, {category:'Beta', s1:14, s2:9, s3:11}, {category:'Gamma', s1:9, s2:15, s3:7}
+      ]},
+      streamgraph: { chartType:'streamgraph', data:[
+        {date:'2023-01-01', A:10, B:20, C:5}, {date:'2023-02-01', A:12, B:18, C:7}, {date:'2023-03-01', A:8, B:22, C:10}, {date:'2023-04-01', A:15, B:17, C:12}
+      ]},
+      pie: { chartType:'pie', data:[
+        {category:'Chrome', value:58}, {category:'Safari', value:20}, {category:'Edge', value:8}, {category:'Firefox', value:7}, {category:'Other', value:7}
+      ]},
+      indexLine: { chartType:'indexLine', data:[
+        {date:'2023-01-01', value:100}, {date:'2023-02-01', value:120}, {date:'2023-03-01', value:140}, {date:'2023-04-01', value:130}
+      ]},
+      changeLine: { chartType:'changeLine', data:[
+        {date:'2023-01-01', value:100}, {date:'2023-02-01', value:120}, {date:'2023-03-01', value:140}, {date:'2023-04-01', value:130}
+      ]},
+      histogram: { chartType:'histogram', data:[
+        {score: 42},{score:55},{score:58},{score:61},{score:61},{score:62},{score:64},{score:67},{score:70},{score:71},{score:74},{score:75},{score:77},{score:80}
+      ]},
+      kde: { chartType:'kde', data:[
+        {score: 42},{score:55},{score:58},{score:61},{score:61},{score:62},{score:64},{score:67},{score:70},{score:71},{score:74},{score:75},{score:77},{score:80}
+      ]},
+      densityContours: { chartType:'densityContours', data:[
+        {x:1.1,y:2.0},{x:1.3,y:2.1},{x:1.5,y:2.2},{x:2.3,y:2.7},{x:2.4,y:3.0},{x:2.6,y:3.1},{x:3.0,y:3.5},{x:3.1,y:3.7}
+      ]},
+      treemap: { chartType:'treemap', data:[{
+        name:'Root', children:[
+          {name:'A', value:6}, {name:'B', value:4}, {name:'C', value:3}, {name:'D', value:8}
+        ]
+      }]},
+      bubble: { chartType:'bubble', data:[
+        {x: 10, y: 20, r: 30}, {x: 15, y: 25, r: 10}, {x: 30, y: 12, r: 40}, {x: 22, y: 28, r: 18}
+      ]},
+      hierBar: { chartType:'hierBar', data:[
+        {parent:'North', child:'A', value:12}, {parent:'North', child:'B', value:9}, {parent:'South', child:'A', value:7}, {parent:'South', child:'B', value:14}
+      ]}
+    };
+
+    // ---------- Demo wiring
+    const defaultJSON = samples.line;
+    document.getElementById('json-input').value = JSON.stringify(defaultJSON, null, 2);
+    document.getElementById('run-btn').addEventListener('click', ()=>{
+      const raw = document.getElementById('json-input').value;
+      const type = document.getElementById('type-input').value;
+      renderChart('#chart', raw, type, { zoom: true });
+    });
+    document.getElementById('sample-input').addEventListener('change', (e)=>{
+      const v = e.target.value; if(v==='none') return;
+      const obj = samples[v];
+      document.getElementById('json-input').value = JSON.stringify(obj, null, 2);
+      document.getElementById('type-input').value = obj.chartType || 'auto';
+      document.getElementById('run-btn').click();
+    });
+
+    // First paint
+    renderChart('#chart', JSON.stringify(defaultJSON), 'auto', { zoom:true });
+  </script>
+</body>
+</html>
