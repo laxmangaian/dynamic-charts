@@ -1,0 +1,198 @@
+let lineChart = buildChartHTML({
+  chartType: "line",
+  data: [
+    { date: "2024-01-01", value: 10 },
+    { date: "2024-02-01", value: 25 },
+    { date: "2024-03-01", value: 15 }
+  ],
+  options: { title: "Line Chart", xLabel: "Date", yLabel: "Value" }
+});
+
+
+
+let areaChart = buildChartHTML({
+  chartType: "area",
+  data: [
+    { date: "2024-01-01", value: 5 },
+    { date: "2024-02-01", value: 15 },
+    { date: "2024-03-01", value: 25 }
+  ],
+  options: { title: "Area Chart" }
+});
+
+
+let barChart = buildChartHTML({
+  chartType: "bar",
+  data: [
+    { date: "2024-01-01", value: 8 },
+    { date: "2024-02-01", value: 12 },
+    { date: "2024-03-01", value: 18 }
+  ],
+  options: { title: "Bar Chart" }
+});
+
+
+let scatterChart = buildChartHTML({
+  chartType: "xy-scatter",
+  data: [
+    { x: 5, y: 10, name: "A" },
+    { x: 15, y: 20, name: "B" },
+    { x: 25, y: 5, name: "C" }
+  ],
+  options: { title: "Scatter Plot" }
+});
+
+
+let barlineChart = buildChartHTML({
+  chartType: "barline",
+  data: [
+    { date: "2024-01-01", value: 20 },
+    { date: "2024-02-01", value: 35 },
+    { date: "2024-03-01", value: 15 }
+  ],
+  options: { title: "Bar + Line Chart" }
+});
+
+
+let pieChart = buildChartHTML({
+  chartType: "pie",
+  data: [
+    { name: "Apples", value: 30 },
+    { name: "Bananas", value: 15 },
+    { name: "Cherries", value: 20 }
+  ],
+  options: { title: "Pie Chart" }
+});
+
+
+
+
+let donutChart = buildChartHTML({
+  chartType: "donut",
+  data: [
+    { name: "Red", value: 50 },
+    { name: "Blue", value: 25 },
+    { name: "Green", value: 25 }
+  ],
+  options: { title: "Donut Chart" }
+});
+
+
+let arcChart = buildChartHTML({
+  chartType: "arc",
+  data: [{ name: "Progress", value: 70, max: 100 }],
+  options: { title: "Arc (Progress)" }
+});
+
+
+let radialChart = buildChartHTML({
+  chartType: "radial",
+  data: [
+    { name: "North", value: 15 },
+    { name: "South", value: 25 },
+    { name: "East", value: 10 },
+    { name: "West", value: 20 }
+  ],
+  options: { title: "Radial Chart" }
+});
+
+
+
+
+let heatmapChart = buildChartHTML({
+  chartType: "heatmap",
+  data: [
+    { date: "2024-01-01", value: 2 },
+    { date: "2024-01-02", value: 8 },
+    { date: "2024-01-03", value: 5 }
+  ],
+  options: { title: "Calendar Heatmap" }
+});
+
+
+
+let matrixChart = buildChartHTML({
+  chartType: "matrix-heatmap",
+  data: [
+    { x: "A", y: "X", value: 4 },
+    { x: "A", y: "Y", value: 8 },
+    { x: "B", y: "X", value: 6 },
+    { x: "B", y: "Y", value: 3 }
+  ],
+  options: { title: "Matrix Heatmap" }
+});
+
+
+
+
+let dendrogramChart = buildChartHTML({
+  chartType: "dendrogram",
+  data: {
+    name: "Root",
+    children: [
+      { name: "Child 1", children: [{ name: "Leaf A" }, { name: "Leaf B" }] },
+      { name: "Child 2", children: [{ name: "Leaf C" }] }
+    ]
+  },
+  options: { title: "Dendrogram" }
+});
+
+
+
+
+let forceChart = buildChartHTML({
+  chartType: "force",
+  data: {
+    nodes: [
+      { id: "Node A", group: 1 },
+      { id: "Node B", group: 1 },
+      { id: "Node C", group: 2 }
+    ],
+    links: [
+      { source: "Node A", target: "Node B", value: 2 },
+      { source: "Node A", target: "Node C", value: 1 }
+    ]
+  },
+  options: { title: "Force Directed Graph" }
+});
+
+
+
+
+let bubbleChart = buildChartHTML({
+  chartType: "bubble",
+  data: [
+    { x: 5, y: 10, r: 15, name: "Alpha" },
+    { x: 15, y: 25, r: 25, name: "Beta" },
+    { x: 30, y: 12, r: 10, name: "Gamma" }
+  ],
+  options: { title: "Bubble Chart", xLabel: "X Axis", yLabel: "Y Axis" }
+});
+
+
+let geoChoropleth = buildChartHTML({
+  chartType: "geo",
+  data: [
+    { iso3: "USA", value: 100 },
+    { iso3: "IND", value: 75 },
+    { iso3: "BRA", value: 50 },
+    { iso3: "FRA", value: 30 }
+  ],
+  options: { title: "World Choropleth Map", geoMode: "choropleth" }
+});
+
+
+
+let geoPoints = buildChartHTML({
+  chartType: "geo",
+  data: [
+    { name: "New York", lat: 40.7128, lon: -74.0060, r: 20 },
+    { name: "London", lat: 51.5074, lon: -0.1278, r: 15 },
+    { name: "Tokyo", lat: 35.6762, lon: 139.6503, r: 25 }
+  ],
+  options: { title: "World Points Map", geoMode: "points" }
+});
+
+
+
+

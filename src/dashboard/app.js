@@ -1,0 +1,500 @@
+// D3 Spec Renderer (split into app.js)
+// All helpers, transforms, scales, renderer, and boot code are here.
+// The HTML contains the CSS and loads this file after d3@7.
+
+(function() {
+/* ---------- helpers ---------- */
+const getPath = (obj, path) => path.split('.').reduce((o, k) => (o==null?o:o[k]), obj);
+const makeAccessorResolver = (fields=[]) => (name) => {
+  const f = fields.find(f => f.name === name);
+  return f ? (f.accessor || f.name) : name;
+};
+const inferType = (values) => {
+  const v = values.find(x => x != null);
+  if (v == null) return 'quantitative';
+  if (v instanceof Date) return 'temporal';
+  if (!isNaN(+v) && v !== '') return 'quantitative';
+  return 'nominal';
+};
+const resolveScheme = (name) => {
+  const key = 'scheme' + name.replace(/[^a-z0-9]/ig,'');
+  return d3[key] || d3.schemeCategory10;
+};
+const valueReader = (enc, accOf) => {
+  if (!enc) return () => undefined;
+  if ('value' in enc) return () => enc.value;
+  if ('field' in enc) {
+    const acc = accOf(enc.field);
+    return d => getPath(d, acc);
+  }
+  return () => undefined;
+};
+const collectValues = (data, reader) => data.map(reader).filter(v => v != null);
+
+
+function normalizeSpec(spec) {
+  // pass-through if it's already a full spec
+  if (spec?.data?.source && spec?.layers) return spec;
+
+  // handle shorthand: { chartType, data, title?, space? }
+  if (Array.isArray(spec?.data) && spec.chartType) {
+    const rows = spec.data;
+    const keys = Object.keys(rows[0] || {});
+    if (keys.length < 2) throw new Error('Need at least 2 fields for a line chart');
+
+    // pick an x key that looks temporal, otherwise first key
+    const xKey = keys.find(k => /date|time|day|month|year/i.test(k)) || keys[0];
+
+    // pick a y key that is numeric (and not xKey)
+    const yKey = keys.find(k =>
+      k !== xKey && rows.some(r => r[k] != null && !isNaN(+r[k]))
+    ) || keys.find(k => k !== xKey) || keys[0];
+
+    const width  = spec.space?.width  ?? 800;
+    const height = spec.space?.height ?? 400;
+
+    return {
+      id: spec.id || `auto-${spec.chartType}`,
+      title: spec.title || (spec.chartType[0].toUpperCase() + spec.chartType.slice(1)),
+      data: {
+        source: { type: 'inline', data: rows },
+        fields: [
+          { name: xKey, type: 'temporal',     accessor: xKey },
+          { name: yKey, type: 'quantitative', accessor: yKey }
+        ]
+      },
+      space: { width, height },
+      scales: {
+        x: { type: 'time',   range: [50, width - 50] },
+        y: { type: 'linear', range: [height - 50, 50], nice: true }
+      },
+      layers: [{
+        id: 'line',
+        mark: { type: 'line' },
+        encoding: {
+          x: { field: xKey, scale: 'x' },
+          y: { field: yKey, scale: 'y' },
+          stroke: { value: 'steelblue' },
+          strokeWidth: { value: 2 }
+        }
+      }]
+    };
+  }
+
+  // otherwise, just return what we got
+  return spec;
+}
+
+
+
+/* ---------- transforms ---------- */
+function runTransforms(src, transforms = []) {
+  let ctx = { type: Array.isArray(src)?'table':(typeof src==='object'?'object':'table'), data: src };
+  for (const t of transforms) {
+    const type = (t?.type||'').toLowerCase();
+    const p = t?.params || {};
+    if (type === 'hierarchy') {
+      const root = d3.hierarchy(ctx.data);
+      ctx = { type:'hierarchy', root };
+    } else if (type === 'cluster') {
+      if (ctx.type!=='hierarchy') throw new Error('cluster requires hierarchy');
+      const layout = d3.cluster().size(p.size||[1,1]).separation(p.separation||((a,b)=>a.parent===b.parent?1:2));
+      ctx = { type:'hierarchy', root: layout(ctx.root) };
+    } else if (type === 'tree') {
+      if (ctx.type!=='hierarchy') throw new Error('tree requires hierarchy');
+      const layout = d3.tree().size(p.size||[1,1]).separation(p.separation||((a,b)=>a.parent===b.parent?1:2));
+      ctx = { type:'hierarchy', root: layout(ctx.root) };
+    } else if (type === 'filter') {
+      const fn = typeof p.fn==='function'?p.fn:(p.fn?eval(p.fn):null);
+      ctx = { type:'table', data: fn?ctx.data.filter(fn):ctx.data };
+    } else if (type === 'map') {
+      const fn = typeof p.fn==='function'?p.fn:(p.fn?eval(p.fn):null);
+      ctx = { type:'table', data: fn?ctx.data.map(fn):ctx.data };
+    }
+  }
+  return ctx;
+}
+
+/* ---------- scales (FIXED time coercion) ---------- */
+function buildScales(spec, layersData, fields) {
+  const result = {};
+  const scalesSpec = spec.scales || {};
+  for (const [name, s] of Object.entries(scalesSpec)) {
+    const type = (s.type||'').toLowerCase();
+    let scale;
+    if (type === 'time') scale = d3.scaleTime();
+    else if (type === 'log') scale = d3.scaleLog();
+    else if (type === 'ordinal') scale = d3.scaleOrdinal().range(s.scheme ? resolveScheme(s.scheme) : undefined);
+    else if (type === 'band') scale = d3.scaleBand().padding(s.padding ?? 0.1);
+    else scale = d3.scaleLinear();
+
+    if (s.domain) {
+      // explicit domain
+      scale.domain(s.domain);
+    } else {
+      // infer from all layer channels that reference this named scale
+      const vals = [];
+      for (const ld of layersData) {
+        for (const enc of Object.values(ld.layer.encoding || {})) {
+          if (enc && enc.scale === name && !('value' in enc)) {
+            const rd = valueReader(enc, fields);
+            vals.push(...collectValues(ld.data, rd));
+          }
+        }
+      }
+      if (type === 'time') {
+        const dates = vals.map(v => (v instanceof Date ? v : new Date(v)));
+        scale.domain(d3.extent(dates));
+      } else {
+        const t = inferType(vals);
+        if (t === 'quantitative') {
+          scale.domain(d3.extent(vals.map(Number)));
+          if (s.nice && scale.nice) scale.nice();
+        } else if (t === 'temporal') {
+          scale = d3.scaleTime().domain(d3.extent(vals.map(v => v instanceof Date ? v : new Date(v))));
+        } else {
+          scale.domain([...new Set(vals)]);
+        }
+      }
+    }
+    if (s.range) scale.range(s.range);
+    if (s.nice && scale.nice) scale.nice();
+    result[name] = scale;
+  }
+  return result;
+}
+
+/* ---------- layer renderer (FIXED shared fallbacks for x/x2 and y/y2) ---------- */
+
+function renderLayer(svg, layerData, scales, fields, dims) {
+  const { layer, data } = layerData;
+  const enc = layer.encoding || {};
+  const accOf = fields;
+
+  const valueReader = (encCh) => {
+    if (!encCh) return () => undefined;
+    if ('value' in encCh) return () => encCh.value;
+    if ('field' in encCh) {
+      const acc = accOf(encCh.field);
+      return d => acc.split('.').reduce((o,k)=>o==null?o:o[k], d);
+    }
+    return () => undefined;
+  };
+
+  const r = (k) => valueReader(enc[k]);
+
+  // shared fallback scales for x/x2 and y/y2 (so segments line up)
+  const collectValues = (reader) => data.map(reader).filter(v => v != null);
+  const inferType = (vals) => {
+    const v = vals.find(x => x != null);
+    if (v instanceof Date) return 'temporal';
+    if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}/.test(v)) return 'temporal';
+    return (!isNaN(+v) && v !== '') ? 'quantitative' : 'nominal';
+  };
+  const buildShared = (encA, encB, axis) => {
+    const a = encA && !('value' in encA), b = encB && !('value' in encB);
+    if (!a && !b) return null;
+    if ((encA?.scale && scales[encA.scale]) || (encB?.scale && scales[encB.scale])) return null;
+    const vals = [];
+    if (a) vals.push(...collectValues(r(axis)));
+    if (b) vals.push(...collectValues(r(axis+'2')));
+    const t = inferType(vals);
+    const range = axis==='x'
+      ? [dims.margin.left, dims.width - dims.margin.right]
+      : [dims.height - dims.margin.bottom, dims.margin.top];
+    if (t === 'temporal') return d3.scaleTime().domain(d3.extent(vals.map(v => v instanceof Date? v : new Date(v)))).range(range);
+    if (t === 'quantitative') return d3.scaleLinear().domain(d3.extent(vals.map(Number))).nice().range(range);
+    return d3.scalePoint().domain([...new Set(vals)]).range(range);
+  };
+
+  const sxShared = buildShared(enc.x, enc.x2, 'x');
+  const syShared = buildShared(enc.y, enc.y2, 'y');
+
+  const scaleFor = (encCh, shared) => {
+    if (!encCh || 'value' in encCh) return null;
+    if (encCh.scale && scales[encCh.scale]) return scales[encCh.scale];
+    return shared;
+  };
+
+  const sx  = scaleFor(enc.x,  sxShared);
+  const sx2 = scaleFor(enc.x2, sxShared);
+  const sy  = scaleFor(enc.y,  syShared);
+  const sy2 = scaleFor(enc.y2, syShared);
+
+  // --- IMPORTANT: coerce date-like values when using a time scale ---
+  const coerceForScale = (scale, v) => {
+    if (!scale) return v;
+    const looksDate = (v instanceof Date) || (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}/.test(v));
+    return looksDate ? new Date(v) : v;
+  };
+
+  const posX  = d => sx  ? sx( coerceForScale(sx,  r('x')(d)) )  : +r('x')(d);
+  const posY  = d => sy  ? sy( coerceForScale(sy,  r('y')(d)) )  : +r('y')(d);
+  const posX2 = d => sx2 ? sx2(coerceForScale(sx2, r('x2')(d)) ) : +r('x2')(d);
+  const posY2 = d => sy2 ? sy2(coerceForScale(sy2, r('y2')(d)) ) : +r('y2')(d);
+
+  const applyFill   = (sel) => sel.attr('fill',  d => {
+    const v = r('fill')(d);
+    if (v == null) return 'none';
+    if (enc.fill?.scale && scales[enc.fill.scale]) return scales[enc.fill.scale](v);
+    return v;
+  });
+  const applyStroke = (sel) => sel.attr('stroke', d => {
+    const v = r('stroke')(d);
+    if (v == null) return '#333';
+    if (enc.stroke?.scale && scales[enc.stroke.scale]) return scales[enc.stroke.scale](v);
+    return v;
+  });
+  const applyOpacity = (sel) => sel.attr('opacity', d => {
+    const v = r('opacity')(d);
+    return v == null ? null : +v;
+  });
+
+  const mark = (layer.mark?.type || 'point').toLowerCase();
+
+  if (mark === 'link') {
+    const link = d3.linkHorizontal()
+      .x(d => d.y)
+      .y(d => d.x);
+
+    const toScreen = (d) => ({
+      source: { x: posY({ ...d, y: r('y')({source:d.source}) }), y: posX({ ...d, x: r('x')({source:d.source}) }) },
+      target: { x: posY({ ...d, y: r('y2')({target:d.target}) }), y: posX({ ...d, x: r('x2')({target:d.target}) }) }
+    });
+
+    d3.select(this.svg).append('g')
+      .selectAll('path')
+      .data(data)
+      .join('path')
+      .attr('d', d => link(toScreen(d)))
+      .call(applyStroke)
+      .call(applyOpacity)
+      .attr('stroke-width', layer.encoding?.strokeWidth?.value ?? 1.5)
+      .attr('fill', 'none');
+    return;
+  }
+
+  if (mark === 'line') {
+    const hasSeg = enc.x2 || enc.y2;
+    if (hasSeg) {
+      this.svg.append('g')
+        .selectAll('line')
+        .data(data)
+        .join('line')
+        .attr('x1', d => posX(d))
+        .attr('y1', d => posY(d))
+        .attr('x2', d => posX2(d))
+        .attr('y2', d => posY2(d))
+        .call(applyStroke).call(applyOpacity)
+        .attr('stroke-width', layer.encoding?.strokeWidth?.value ?? 1.5)
+        .attr('fill', 'none');
+    } else {
+      const lineGen = d3.line()
+        .defined(d => r('x')(d)!=null && r('y')(d)!=null)
+        .x(d => posX(d))
+        .y(d => posY(d));
+      this.svg.append('path')
+        .datum(data)
+        .attr('d', lineGen)
+        .call(applyStroke).call(applyOpacity)
+        .attr('stroke-width', layer.encoding?.strokeWidth?.value ?? 1.5)
+        .attr('fill', 'none');
+    }
+  } else if (mark === 'circle' || mark === 'point') {
+    this.svg.append('g')
+      .selectAll('circle')
+      .data(data)
+      .join('circle')
+      .attr('cx', d => posX(d))
+      .attr('cy', d => posY(d))
+      .attr('r',  d => r('r')(d) ?? 3)
+      .call(applyFill).call(applyStroke).call(applyOpacity);
+  } else if (mark === 'rect') {
+    this.svg.append('g')
+      .selectAll('rect')
+      .data(data)
+      .join('rect')
+      .attr('x', d => posX(d))
+      .attr('y', d => posY(d))
+      .attr('width',  d => r('width')(d)  ?? 2)
+      .attr('height', d => r('height')(d) ?? 2)
+      .call(applyFill).call(applyStroke).call(applyOpacity);
+  } else if (mark === 'text') {
+    this.svg.append('g')
+      .selectAll('text')
+      .data(data)
+      .join('text')
+      .attr('x', d => posX(d))
+      .attr('y', d => posY(d))
+      .text(d => r('text')(d) ?? '')
+      .attr('dy', '0.32em')
+      .call(applyFill).call(applyStroke).call(applyOpacity);
+  }
+}
+
+
+/* ---------- main ---------- */
+function renderSpecs(specs, container = '#root') {
+  const root = typeof container === 'string' ? document.querySelector(container) : container;
+  const list = (Array.isArray(specs) ? specs : [specs]).map(normalizeSpec);
+
+  list.forEach((spec, i) => {
+    const title = spec.title || spec.id || `Chart ${i+1}`;
+    const width  = spec.space?.width  ?? 800;
+    const height = spec.space?.height ?? 400;
+    const margin = { top: 24, right: 28, bottom: 36, left: 52 };
+
+    const wrap = document.createElement('div');
+    wrap.className = 'chart';
+    wrap.innerHTML = `<div class="title">${title}</div>`;
+    root.appendChild(wrap);
+
+    const svg = d3.select(wrap).append('svg')
+      .attr('width', width).attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`);
+
+    const src = spec?.data?.source || {};
+    const fields = spec?.data?.fields || [];
+    const accOf = makeAccessorResolver(fields);
+
+    const raw = src.type === 'inline' ? src.data : (src.data ?? []);
+    const tctx = runTransforms(raw, spec?.data?.transforms || []);
+    const nodes = (tctx.type === 'hierarchy') ? tctx.root.descendants() : null;
+    const links = (tctx.type === 'hierarchy') ? tctx.root.links()        : null;
+
+    const layers = spec.layers || [];
+    const layersData = layers.map(layer => {
+      const encStr = JSON.stringify(layer.encoding || {});
+      const useLinks = /"source\./.test(encStr) || /"target\./.test(encStr);
+      return { layer, data: (nodes && useLinks) ? links : (nodes ? nodes : (tctx.data || [])) };
+    });
+
+    const namedScales = buildScales(spec, layersData, accOf);
+
+    // bind svg on 'this' for renderLayer's path usage
+    const ctx = { svg };
+
+    for (const ld of layersData) {
+      renderLayer.call(ctx, svg, ld, namedScales, accOf, { width, height, margin });
+    }
+
+    // axes only when both x & y named scales exist
+    if (namedScales.x && namedScales.y) {
+      const x = namedScales.x, y = namedScales.y;
+      svg.append('g')
+        .attr('class','grid')
+        .attr('transform',`translate(${margin.left},0)`)
+        .call(d3.axisLeft(y).ticks(6).tickSize(-(width - margin.left - margin.right)).tickFormat(''));
+      svg.append('g')
+        .attr('class','axis x-axis')
+        .attr('transform',`translate(0,${height - margin.bottom})`)
+        .call(d3.axisBottom(x).ticks(6));
+      svg.append('g')
+        .attr('class','axis y-axis')
+        .attr('transform',`translate(${margin.left},0)`)
+        .call(d3.axisLeft(y).ticks(6));
+    }
+  });
+}
+
+
+// Boot: load external sample data for the shorthand spec, then render all specs
+async function boot() {
+  let sampleRows = [];
+  try {
+    const resp = await fetch('./example.json');
+    if (!resp.ok) throw new Error(`Failed to load example.json: ${resp.status}`);
+    if (resp.ok) {
+      sampleRows = await resp.json();
+    }
+  } catch (e) {
+    console.warn('Could not load example.json, falling back to inline sample.', e);
+    sampleRows = [
+      { date: '2023-01-01', sales: 100 },
+      { date: '2023-02-01', sales: 120 },
+      { date: '2023-03-01', sales: 150 },
+      { date: '2023-04-01', sales: 90  }
+    ];
+  }
+
+  const specs = [
+    {
+      id: 'moving-average',
+      title: 'Moving Average Chart',
+      data: {
+        source: {
+          type: 'inline',
+          data: [
+            { date: '2024-01-01', price: 100, movingAverage: 100 },
+            { date: '2024-01-02', price: 103, movingAverage: 101.5 },
+            { date: '2024-01-03', price: 97,  movingAverage: 100 },
+            { date: '2024-01-04', price: 105, movingAverage: 101.25 },
+            { date: '2024-01-05', price: 110, movingAverage: 103 }
+          ]
+        },
+        fields: [
+          { name: 'date',  type: 'temporal',     accessor: 'date' },
+          { name: 'price', type: 'quantitative', accessor: 'price' },
+          { name: 'ma',    type: 'quantitative', accessor: 'movingAverage' }
+        ]
+      },
+      space: { width: 800, height: 400 },
+      scales: {
+        x: { type: 'time',   range: [50, 750] },
+        y: { type: 'linear', range: [350, 50], nice: true }
+      },
+      layers: [
+        { id: 'price',   mark:{type:'line'},
+          encoding:{ x:{field:'date',scale:'x'}, y:{field:'price',scale:'y'}, stroke:{value:'lightgray'} } },
+        { id: 'average', mark:{type:'line'},
+          encoding:{ x:{field:'date',scale:'x'}, y:{field:'ma',   scale:'y'}, stroke:{value:'steelblue'}, strokeWidth:{value:2} } }
+      ]
+    },
+    {
+      id: 'cluster',
+      title: 'Cluster Dendrogram',
+      data: {
+        source: {
+          type: 'inline',
+          data: {
+            name:'root',
+            children:[
+              { name:'Cluster A', children:[{name:'Item 1'},{name:'Item 2'},{name:'Item 3'}] },
+              { name:'Cluster B', children:[{name:'Item 4'},{name:'Item 5'},{name:'Item 6'}] }
+            ]
+          }
+        },
+        transforms: [
+          { type:'hierarchy', params:{} },
+          { type:'cluster',   params:{ size:[350,700] } }
+        ],
+        fields: [
+          { name:'name',  type:'nominal',      accessor:'data.name' },
+          { name:'x',     type:'quantitative', accessor:'x' },
+          { name:'y',     type:'quantitative', accessor:'y' },
+          { name:'depth', type:'quantitative', accessor:'depth' }
+        ]
+      },
+      space: { width: 800, height: 400 },
+      scales: { color: { type: 'ordinal', scheme: 'Set3' } },
+      layers: [
+        { id:'links', mark:{type:'line'},
+          encoding:{ x:{field:'source.y'}, y:{field:'source.x'}, x2:{field:'target.y'}, y2:{field:'target.x'}, stroke:{value:'#555'}, strokeWidth:{value:1} } },
+        { id:'nodes', mark:{type:'circle'},
+          encoding:{ x:{field:'y'}, y:{field:'x'}, r:{value:3}, fill:{field:'depth', scale:'color'}, stroke:{value:'#333'} } }
+      ]
+    },
+    // Shorthand spec that loads data from example.json
+    {
+      chartType: 'line',
+      title: 'Monthly Sales (from example.json)',
+      data: sampleRows
+    }
+  ];
+
+  const normalized = specs.map(normalizeSpec);
+  renderSpecs(normalized, '#root');
+}
+
+document.addEventListener('DOMContentLoaded', boot);
+})();

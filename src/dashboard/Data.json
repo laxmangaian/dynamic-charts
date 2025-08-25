@@ -125,7 +125,7 @@
     "name": "Bubble Chart (Scatter + Size)",
     "data": {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "description": "Bubble chart",
+      "description": "line chart",
       "data": {
         "values": [
           { "x": 10, "y": 20, "size": 100 },

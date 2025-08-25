@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Moving Average Charts (D3)</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
+    .chart-wrap { margin-bottom: 28px; }
+    .title { font-weight: 600; margin: 0 0 8px; }
+    .axis path, .axis line { shape-rendering: crispEdges; }
+    .axis text { font-size: 11px; }
+    .grid line { opacity: 0.25; }
+    .legend { font-size: 12px; }
+    .legend rect { fill: none; stroke: #ccc; rx: 4; ry: 4; }
+  </style>
+</head>
+<body>
+
+<div id="charts"></div>
+
+<script>
+/**
+ * Render an array of chart specs (like the one in the prompt).
+ * @param {Array<Object>} specs
+ * @param {string|HTMLElement} container
+ */
+function renderMovingAverageCharts(specs, container = '#charts') {
+  const root = (typeof container === 'string') ? document.querySelector(container) : container;
+  if (!root) throw new Error('Container not found');
+
+  specs.forEach((spec, idx) => {
+    // --- Extract helpers from spec ---
+    const title = spec.title || spec.id || `Chart ${idx+1}`;
+    const src = spec?.data?.source;
+    const rows = (src && src.type === 'inline') ? (src.data || []) : [];
+    const fields = spec?.data?.fields || [];
+
+    // Map "field name" to "accessor" (fallback to name)
+    const accessorOf = name => (fields.find(f => f.name === name)?.accessor) || name;
+
+    const dateKey  = accessorOf('date');
+    const priceKey = accessorOf('price');
+    const maKey    = accessorOf('ma'); // field named "ma" in the spec
+
+    if (!rows.length) {
+      const emptyWrap = document.createElement('div');
+      emptyWrap.className = 'chart-wrap';
+      emptyWrap.innerHTML = `<div class="title">${title}</div><div>No data in spec.data.source.data</div>`;
+      root.appendChild(emptyWrap);
+      return;
+    }
+
+    // --- Transform data: coerce date & numbers ---
+    const data = rows
+      .map(d => ({
+        date: new Date(d[dateKey]),
+        price: (d[priceKey] != null && d[priceKey] !== '') ? +d[priceKey] : null,
+        ma: (d[maKey] != null && d[maKey] !== '') ? +d[maKey] : null
+      }))
+      .filter(d => d.date.toString() !== 'Invalid Date'); // drop invalid dates
+
+    if (!data.length) {
+      const emptyWrap = document.createElement('div');
+      emptyWrap.className = 'chart-wrap';
+      emptyWrap.innerHTML = `<div class="title">${title}</div><div>No valid dates in data</div>`;
+      root.appendChild(emptyWrap);
+      return;
+    }
+
+    // --- Dimensions & margins ---
+    const width  = (spec.space?.width)  || 800;
+    const height = (spec.space?.height) || 400;
+    const margin = { top: 24, right: 24, bottom: 36, left: 52 };
+
+    // --- Scales (respect provided ranges if present) ---
+    const xRange = (spec.scales?.x?.range) || [margin.left, width - margin.right];
+    const yRange = (spec.scales?.y?.range) || [height - margin.bottom, margin.top];
+
+    const x = d3.scaleTime()
+      .domain(d3.extent(data, d => d.date))
+      .range(xRange);
+
+    // y-domain must include both series (price & ma), ignoring nulls
+    const yMin = d3.min([
+      d3.min(data, d => d.price),
+      d3.min(data, d => d.ma),
+    ].filter(v => v != null));
+    const yMax = d3.max([
+      d3.max(data, d => d.price),
+      d3.max(data, d => d.ma),
+    ].filter(v => v != null));
+
+    let y = d3.scaleLinear().domain([yMin, yMax]).range(yRange);
+    if (spec.scales?.y?.nice) y = y.nice();
+
+    // --- SVG container ---
+    const wrap = document.createElement('div');
+    wrap.className = 'chart-wrap';
+    wrap.innerHTML = `<div class="title">${title}</div>`;
+    root.appendChild(wrap);
+
+    const svg = d3.select(wrap)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`);
+
+    // --- Grid (optional but nice) ---
+    const yAxisGrid = d3.axisLeft(y).ticks(6).tickSize(-(width - margin.left - margin.right)).tickFormat('');
+    svg.append('g')
+      .attr('class', 'grid')
+      .attr('transform', `translate(${margin.left},0)`)
+      .call(yAxisGrid);
+
+    // --- Axes ---
+    const xAxis = d3.axisBottom(x).ticks(6);
+    const yAxis = d3.axisLeft(y).ticks(6);
+
+    svg.append('g')
+      .attr('class', 'axis x-axis')
+      .attr('transform', `translate(0,${height - margin.bottom})`)
+      .call(xAxis);
+
+    svg.append('g')
+      .attr('class', 'axis y-axis')
+      .attr('transform', `translate(${margin.left},0)`)
+      .call(yAxis);
+
+    // --- Line generators ---
+    const lineGen = (yAccessor) => d3.line()
+      .defined(d => d[yAccessor] != null) // skip gaps
+      .x(d => x(d.date))
+      .y(d => y(d[yAccessor]));
+
+    // Resolve layer encodings (colors/widths) with defaults
+    const layers = spec.layers || [];
+    const getStroke = (layer, def) =>
+      layer?.encoding?.stroke?.value || def;
+    const getStrokeWidth = (layer, def) =>
+      layer?.encoding?.strokeWidth?.value || def;
+
+    // Draw price line (layer id 'price')
+    const priceLayer = layers.find(l => l.id === 'price');
+    svg.append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', getStroke(priceLayer, 'lightgray'))
+      .attr('stroke-width', getStrokeWidth(priceLayer, 1.5))
+      .attr('d', lineGen('price'));
+
+    // Draw moving average line (layer id 'average')
+    const maLayer = layers.find(l => l.id === 'average');
+    svg.append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', getStroke(maLayer, 'steelblue'))
+      .attr('stroke-width', getStrokeWidth(maLayer, 2))
+      .attr('d', lineGen('ma'));
+
+    // --- Legend ---
+    const legendItems = [
+      { label: 'Price', stroke: getStroke(priceLayer, 'lightgray') },
+      { label: 'Moving Avg', stroke: getStroke(maLayer, 'steelblue') }
+    ];
+
+    const leg = svg.append('g').attr('class', 'legend')
+      .attr('transform', `translate(${width - margin.right - 140}, ${margin.top})`);
+
+    const legRow = leg.selectAll('g.item')
+      .data(legendItems)
+      .enter().append('g')
+      .attr('class', 'item')
+      .attr('transform', (d,i) => `translate(8, ${i * 18})`);
+
+    leg.append('rect')
+      .attr('width', 140)
+      .attr('height', legendItems.length * 18 + 8)
+      .attr('x', 0)
+      .attr('y', -8);
+
+    legRow.append('line')
+      .attr('x1', 0).attr('x2', 28)
+      .attr('y1', 8).attr('y2', 8)
+      .attr('stroke-width', 2)
+      .attr('stroke', d => d.stroke);
+
+    legRow.append('text')
+      .attr('x', 36)
+      .attr('y', 12)
+      .text(d => d.label);
+  });
+}
+
+// --------- EXAMPLE USAGE ---------
+// Replace the array below with your own specs.
+// Note: using a tiny sample so you can see it working immediately.
+const charts = [
+  
+    {
+    id: 'cluster',
+    title: 'Cluster Dendrogram',
+    data: {
+      source: {
+        type: 'inline',
+        data: {
+          name: 'root',
+          children: [
+            {
+              name: 'Cluster A',
+              children: [
+                { name: 'Item 1' },
+                { name: 'Item 2' },
+                { name: 'Item 3' }
+              ]
+            },
+            {
+              name: 'Cluster B',
+              children: [
+                { name: 'Item 4' },
+                { name: 'Item 5' },
+                { name: 'Item 6' }
+              ]
+            }
+          ]
+        }
+      },
+      transforms: [
+        { type: 'hierarchy', params: {} },
+        { type: 'cluster', params: { size: [350, 700] } }
+      ],
+      fields: [
+        { name: 'name', type: 'nominal', accessor: 'data.name' },
+        { name: 'x', type: 'quantitative', accessor: 'x' },
+        { name: 'y', type: 'quantitative', accessor: 'y' },
+        { name: 'depth', type: 'quantitative', accessor: 'depth' }
+      ]
+    },
+    space: { width: 800, height: 400 },
+    scales: {
+      color: { type: 'ordinal', scheme: 'Set3' }
+    },
+    layers: [
+      {
+        id: 'links',
+        mark: { type: 'line' },
+        encoding: {
+          x: { field: 'source.y' },
+          y: { field: 'source.x' },
+          x2: { field: 'target.y' },
+          y2: { field: 'target.x' },
+          stroke: { value: '#555' }
+        }
+      },
+      {
+        id: 'nodes',
+        mark: { type: 'circle' },
+        encoding: {
+          x: { field: 'y' },
+          y: { field: 'x' },
+          r: { value: 3 },
+          fill: { field: 'depth', scale: 'color' }
+        }
+      }
+    ]
+  }
+
+
+];
+
+renderMovingAverageCharts(charts, '#charts');
+</script>
+
+</body>
+</html>
