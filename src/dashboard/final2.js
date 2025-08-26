@@ -735,7 +735,7 @@ function buildChartHTML(input) {
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>${(options.title || "Chart").replace(/"/g, "&quot;")}</title>
 <style>
-  :root { color-scheme: light dark; }
+  :root { color-scheme: light white; }
   body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; }
   .card { max-width: 1180px; margin: 0 auto; }
   .muted { color: #6b7280; }
@@ -842,6 +842,7 @@ function buildChartHTML(input) {
     if (type==='dendrogram'){ renderDendrogram(g, input, innerW, innerH); return; }
     if (type==='force'){ renderForce(g, input, innerW, innerH, { svg: svg, root: root }); return; }
     if (type==='geo'){ renderGeo(g, rows, innerW, innerH, { svg: svg, root: root, opts: opts, width: width, height: height, margin: margin, colorScheme: colorScheme }); return; }
+    if (['stackedArea','stackedLine'].includes(type)){ renderStacked(g, rows, type, innerW, innerH, { margin: margin, opts: opts, root: root }); return; }
 
     g.append('text').attr('x', innerW/2).attr('y', innerH/2).attr('text-anchor','middle')
      .style('font','14px system-ui, -apple-system, Segoe UI, Roboto, sans-serif')
@@ -1131,6 +1132,78 @@ function buildChartHTML(input) {
       });
     }
 
+    function renderStacked(g, rows, type, width, height, { margin, opts, root }) {
+      // inner chart size
+      const innerW = width - margin.left - margin.right;
+      const innerH = height - margin.top - margin.bottom;
+
+      // 1. Extract keys (all fields except x/date/year)
+      const keys = opts.keys || Object.keys(rows[0]).filter(k => !['x','date','year'].includes(k));
+
+      // 2. Stack the data
+      const stack = d3.stack().keys(keys);
+      const series = stack(rows);
+
+      // 3. Setup scales
+      const x = d3.scalePoint()
+        .domain(rows.map(d => d.x || d.year || d.data))
+        .range([0, innerW])        // cover full width
+        .padding(0);               // no extra space at ends
+
+      const y = d3.scaleLinear()
+        .domain([0, d3.max(series[series.length - 1], d => d[1])])
+        .nice()
+        .range([innerH, 0]);       // bottom → top
+
+      const color = d3.scaleOrdinal(d3.schemeTableau10).domain(keys);
+
+      // 4. Define generators
+      const area = d3.area()
+        .x(d => x(d.data.x || d.data.year || d.data.date))
+        .y0(d => y(d[0]))
+        .y1(d => y(d[1]));
+
+      const line = d3.line()
+        .x(d => x(d.data.x || d.data.year || d.data.date))
+        .y(d => y(d[1]));
+
+      // 5. Draw layers
+      if (type === "stackedArea") {
+        g.selectAll("path.area")
+          .data(series)
+          .join("path")
+          .attr("class", "area")
+          .attr("fill", d => color(d.key))
+          .attr("d", area)
+          .append("title")
+          .text(d => d.key);
+      } else if (type === "stackedLine") {
+        g.selectAll("path.line")
+          .data(series)
+          .join("path")
+          .attr("class", "line")
+          .attr("fill", "none")
+          .attr("stroke", d => color(d.key))
+          .attr("stroke-width", 2)
+          .attr("d", line)
+          .append("title")
+          .text(d => d.key);
+      }
+
+      // 6. Axes (✅ use innerH for bottom placement)
+      g.append("g")
+        .attr("transform", "translate(0," + innerH + ")")
+        .call(d3.axisBottom(x));
+
+      g.append("g")
+        .call(d3.axisLeft(y));
+
+      // 7. Legend (if you already have a legend helper)
+      if (typeof legend === "function") {
+        legend(color);
+      }
+    }
+
     function inferGeoMode(rows){
       var hasLatLon = rows.some(function(d){ return Number.isFinite(+d.lat||+d.latitude) && Number.isFinite(+d.lon||+d.longitude); });
       return hasLatLon ? 'points' : 'choropleth';
@@ -1159,7 +1232,7 @@ function buildChartHTML(input) {
 
 let result = buildChartHTML({
   chartType: "dendrogram",
-  data: { name: "Root", children: [{ name: "A" }, { name: "B", children:[{ name: "B1" }, { name: "B2" }] }] },
+  data: { name: "Root", children: [{ name: "A" }, { name: "B", children: [{ name: "B1" }, { name: "B2" }] }] },
   options: { title: "Hierarchy" }
 });
 
@@ -1180,6 +1253,25 @@ let radialChart = buildChartHTML({
   options: { title: "Radial Chart" }
 });
 
+
+let stackedLine = buildChartHTML({
+  chartType: "stackedArea",
+  data: [
+    { year: 2018, apples: 30, bananas: 20, cherries: 10 },
+    { year: 2019, apples: 40, bananas: 25, cherries: 15 },
+    { year: 2020, apples: 35, bananas: 30, cherries: 20 },
+    { year: 2021, apples: 50, bananas: 40, cherries: 25 },
+    { year: 2022, apples: 45, bananas: 35, cherries: 30 }
+  ],
+  options: {
+    title: "Fruit Production (Stacked Area)",
+    keys: ["apples", "bananas", "cherries"]
+  }
+});
+
+// console.log(stackedLine);
+
+console.log(geoChoropleth);
 let geoChoropleth = buildChartHTML({
   chartType: "geo",
   data: [
