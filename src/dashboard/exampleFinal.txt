@@ -194,5 +194,138 @@ let geoPoints = buildChartHTML({
 });
 
 
+// Nested pies from flat levels
+buildChartHTML({
+  chartType: "nested-pies",
+  data: [
+    { level: "Region", name:"Americas", value:50 },
+    { level: "Region", name:"EMEA", value:40 },
+    { level: "Region", name:"APAC", value:30 },
+    { level: "Category", name:"Hardware", value:60 },
+    { level: "Category", name:"Software", value:40 }
+  ],
+  options: { title: "Nested Pies" }
+});
+
+// Clustering (kmeans snapshot)
+buildChartHTML({
+  chartType: "kmeans",
+  data: [
+    { x: 1, y: 2, cluster: 0 }, { x: 1.2, y: 1.8, cluster: 0 },
+    { x: 5, y: 6, cluster: 1 }, { x: 5.5, y: 6.2, cluster: 1 }
+  ],
+  options: { title: "Clustering Process", centroids:[{x:1.1,y:1.9,cluster:0},{x:5.3,y:6.1,cluster:1}] }
+});
 
 
+// Exponential regression
+buildChartHTML({
+  chartType: "exp-regression",
+  data: [{x:0,y:2},{x:1,y:2.7},{x:2,y:3.7},{x:3,y:5.1},{x:4,y:7.2}],
+  options: { title: "Exponential Fit" }
+});
+
+
+// Geo choropleth + scatter together
+buildChartHTML({
+  chartType: "geo",
+  data: [
+    { iso3:"USA", value:100 }, { iso3:"IND", value:75 }, { iso3:"BRA", value:40 },
+    { name:"SF", lat:37.77, lon:-122.42, value:10 },
+    { name:"Mumbai", lat:19.07, lon:72.88, value:15 }
+  ],
+  options: { title: "Choropleth + Points" }
+});
+
+
+// Geo graph (routes)
+buildChartHTML({
+  chartType: "geo-graph",
+  data: [
+    { sLat: 37.77, sLon: -122.42, tLat: 40.71, tLon: -74.01, value: 5, name:"SFO→NYC" },
+    { sLat: 51.51, sLon: -0.13, tLat: 48.86, tLon: 2.35, value: 3, name:"LON→PAR" }
+  ],
+  options: { title: "Air Routes" }
+});
+
+
+// Candlestick
+buildChartHTML({
+  chartType: "candlestick",
+  data: [
+    { date:"2025-08-18", open:102, high:110, low:100, close:108 },
+    { date:"2025-08-19", open:108, high:112, low:104, close:105 },
+    { date:"2025-08-20", open:105, high:116, low:103, close:114 }
+  ],
+  options: { title: "Basic Candlestick" }
+});
+
+
+// Bump chart
+buildChartHTML({
+  chartType: "bump",
+  data: [
+    { date:"2025-01-01", name:"Alpha", rank:2 },
+    { date:"2025-01-01", name:"Beta", rank:1 },
+    { date:"2025-02-01", name:"Alpha", rank:1 },
+    { date:"2025-02-01", name:"Beta", rank:2 }
+  ],
+  options: { title: "Ranking Over Time" }
+});
+
+
+
+// Grouped Bar
+buildChartHTML({
+  chartType: "grouped-bar",
+  data: [
+    { group: "Q1", series: "North", value: 12 },
+    { group: "Q1", series: "South", value: 9 },
+    { group: "Q2", series: "North", value: 15 },
+    { group: "Q2", series: "South", value: 11 }
+  ],
+  options: { title: "Sales by Region (Grouped)" }
+});
+
+// Stacked Bar
+buildChartHTML({
+  chartType: "stacked-bar",
+  data: [
+    { group: "Q1", series: "Hardware", value: 8 },
+    { group: "Q1", series: "Software", value: 5 },
+    { group: "Q2", series: "Hardware", value: 9 },
+    { group: "Q2", series: "Software", value: 7 }
+  ],
+  options: { title: "Revenue Composition (Stacked)" }
+});
+
+// Stacked Area (time)
+buildChartHTML({
+  chartType: "stacked-area",
+  data: [
+    { date:"2025-01-01", name:"Alpha", value:10 },
+    { date:"2025-01-01", name:"Beta",  value:6  },
+    { date:"2025-02-01", name:"Alpha", value:12 },
+    { date:"2025-02-01", name:"Beta",  value:8  }
+  ],
+  options: { title: "Stacked Area over Time" }
+});
+
+// Histogram
+buildChartHTML({
+  chartType: "histogram",
+  data: [1.2, 2.1, 2.3, 2.9, 3.0, 3.0, 3.5, 4.2, 4.7, 5.1],
+  options: { title: "Value Distribution", bins: 8 }
+});
+
+// Treemap
+buildChartHTML({
+  chartType: "treemap",
+  data: [
+    { group:"Hardware", name:"Laptops", value:30 },
+    { group:"Hardware", name:"Desktops", value:15 },
+    { group:"Software", name:"SaaS", value:25 },
+    { group:"Software", name:"On-Prem", value:10 }
+  ],
+  options: { title: "Product Mix (Treemap)" }
+});
