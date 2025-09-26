@@ -1,0 +1,714 @@
+[
+    {
+        "message": "Matrix Heatmap Generation Dbaas - xString yString",
+        "neuronName": "Matrix Heatmap Generation Dbaas -xstring-ystring",
+        "playbookName": "Playbook-Matrix-Heatmap Generation Dbaas -xstring-ystring",
+        "governanceName": "Governance-Matrix-Heatmap Generation Dbaas -xstring-ystring",
+        "grammarName": "Grammar-Matrix-Heatmap Generation Dbaas -xstring-ystring",
+        "mutationName": "Mutation-Matrix-Heatmap Generation Dbaas -xstring-ystring",
+        "graphName": "Graph-Matrix-Heatmap Generation Dbaas -xstring-ystring",
+        "simulationName": "Simulation-Matrix-Heatmap Generation Dbaas -xstring-ystring",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron generates a matrix heatmap with x as string, y as string, and integer values.",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "string",
+                    "valueUnits": "integer"
+                },
+                "chartName": "matrix-heatmap",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 150,
+                    "cellPadding": 0.1,
+                    "cellRadius": 4,
+                    "baseColor": "green",
+                    "missingFill": "#f3f4f6",
+                    "tooltip": true,
+                    "legend": true,
+                    "legendLabels": [
+                        "Min",
+                        "Max"
+                    ],
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "valueKey": "value"
+                    },
+                    "xLabel": "Products",
+                    "yLabel": "Regions",
+                    "xTickSize": 12,
+                    "xTickRotate": 45,
+                    "yTickSize": 12
+                },
+                "chartData": [
+                    {
+                        "x":"A",
+                        "y":"X",
+                        "value": 4
+                    },
+                    {
+                        "x":"B",
+                        "y":"X",
+                        "value": 7
+                    },
+                    {
+                        "x":"A",
+                        "y":"Y",
+                        "value": 3
+                    },
+                    {
+                        "x":"C",
+                        "y":"Z",
+                        "value": 9
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Matrix Heatmap Generation Dbaas - xInteger yString",
+        "neuronName": "Matrix Heatmap Generation Dbaas -xinteger-ystring",
+        "playbookName": "Playbook-Matrix-Heatmap Generation Dbaas -xinteger-ystring",
+        "governanceName": "Governance-Matrix-Heatmap Generation Dbaas -xinteger-ystring",
+        "grammarName": "Grammar-Matrix-Heatmap Generation Dbaas -xinteger-ystring",
+        "mutationName": "Mutation-Matrix-Heatmap Generation Dbaas -xinteger-ystring",
+        "graphName": "Graph-Matrix-Heatmap Generation Dbaas -xinteger-ystring",
+        "simulationName": "Simulation-Matrix-Heatmap Generation Dbaas -xinteger-ystring",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron generates a matrix heatmap with x as integer, y as string, and integer values.",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "string",
+                    "valueUnits": "integer"
+                },
+                "chartName": "matrix-heatmap",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 150,
+                    "cellPadding": 0.1,
+                    "cellRadius": 4,
+                    "baseColor": "green",
+                    "missingFill": "#f3f4f6",
+                    "tooltip": true,
+                    "legend": true,
+                    "legendLabels": [
+                        "Min",
+                        "Max"
+                    ],
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "valueKey": "value"
+                    },
+                    "xLabel": "Products",
+                    "yLabel": "Regions",
+                    "xTickSize": 12,
+                    "xTickRotate": 45,
+                    "yTickSize": 12
+                },
+                "chartData": [
+                    {
+                        "x":1,
+                        "y":"North",
+                        "value": 10
+                    },
+                    {
+                        "x":2,
+                        "y":"North",
+                        "value": 5
+                    },
+                    {
+                        "x":3,
+                        "y":"South",
+                        "value": 8
+                    },
+                    {
+                        "x":4,
+                        "y":"East",
+                        "value": 12
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Matrix Heatmap Generation Dbaas - xString yInteger",
+        "neuronName": "Matrix Heatmap Generation Dbaas -xstring-yinteger",
+        "playbookName": "Playbook-Matrix-Heatmap Generation Dbaas -xstring-yinteger",
+        "governanceName": "Governance-Matrix-Heatmap Generation Dbaas -xstring-yinteger",
+        "grammarName": "Grammar-Matrix-Heatmap Generation Dbaas -xstring-yinteger",
+        "mutationName": "Mutation-Matrix-Heatmap Generation Dbaas -xstring-yinteger",
+        "graphName": "Graph-Matrix-Heatmap Generation Dbaas -xstring-yinteger",
+        "simulationName": "Simulation-Matrix-Heatmap Generation Dbaas -xstring-yinteger",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron generates a matrix heatmap with x as string, y as integer, and integer values.",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "integer",
+                    "valueUnits": "integer"
+                },
+                "chartName": "matrix-heatmap",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 150,
+                    "cellPadding": 0.1,
+                    "cellRadius": 4,
+                    "baseColor": "green",
+                    "missingFill": "#f3f4f6",
+                    "tooltip": true,
+                    "legend": true,
+                    "legendLabels": [
+                        "Min",
+                        "Max"
+                    ],
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "valueKey": "value"
+                    },
+                    "xLabel": "Products",
+                    "yLabel": "Regions",
+                    "xTickSize": 12,
+                    "xTickRotate": 45,
+                    "yTickSize": 12
+                },
+                "chartData": [
+                    {
+                        "x":"Alpha",
+                        "y":1,
+                        "value": 6
+                    },
+                    {
+                        "x":"Beta",
+                        "y":2,
+                        "value": 9
+                    },
+                    {
+                        "x":"Gamma",
+                        "y":3,
+                        "value": 4
+                    },
+                    {
+                        "x":"Delta",
+                        "y":4,
+                        "value": 7
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Matrix Heatmap Generation Dbaas - xInteger yInteger",
+        "neuronName": "Matrix Heatmap Generation Dbaas -xinteger-yinteger",
+        "playbookName": "Playbook-Matrix-Heatmap Generation Dbaas -xinteger-yinteger",
+        "governanceName": "Governance-Matrix-Heatmap Generation Dbaas -xinteger-yinteger",
+        "grammarName": "Grammar-Matrix-Heatmap Generation Dbaas -xinteger-yinteger",
+        "mutationName": "Mutation-Matrix-Heatmap Generation Dbaas -xinteger-yinteger",
+        "graphName": "Graph-Matrix-Heatmap Generation Dbaas -xinteger-yinteger",
+        "simulationName": "Simulation-Matrix-Heatmap Generation Dbaas -xinteger-yinteger",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron generates a matrix heatmap with x as integer, y as integer, and integer values.",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "integer",
+                    "valueUnits": "integer"
+                },
+                "chartName": "matrix-heatmap",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 150,
+                    "cellPadding": 0.1,
+                    "cellRadius": 4,
+                    "baseColor": "green",
+                    "missingFill": "#f3f4f6",
+                    "tooltip": true,
+                    "legend": true,
+                    "legendLabels": [
+                        "Min",
+                        "Max"
+                    ],
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "valueKey": "value"
+                    },
+                    "xLabel": "Products",
+                    "yLabel": "Regions",
+                    "xTickSize": 12,
+                    "xTickRotate": 45,
+                    "yTickSize": 12
+                },
+                "chartData": [
+                    {
+                        "x":1,
+                        "y":1,
+                        "value": 2
+                    },
+                    {
+                        "x":2,
+                        "y":1,
+                        "value": 8
+                    },
+                    {
+                        "x":1,
+                        "y":2,
+                        "value": 5
+                    },
+                    {
+                        "x":3,
+                        "y":3,
+                        "value": 11
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

@@ -1,0 +1,758 @@
+[
+    {
+        "message": "Bar Line Chart x as string y as integer",
+        "neuronName": "BarLineStringIntNeuron",
+        "playbookName": "Playbook-BarLineStringInt",
+        "governanceName": "Governance-BarLineStringInt",
+        "grammarName": "Grammar-BarLineStringInt",
+        "mutationName": "Mutation-BarLineStringInt",
+        "graphName": "Graph-BarLineStringInt",
+        "simulationName": "Simulation-BarLineStringInt",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Bar-Line chart with string categories on X-axis and numeric values on Y-axis.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "integer"
+                },
+                "chartName": "barline",
+                "chartConfig": {
+                    "title": "Bar Line Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Day",
+                    "yLabel": "Value",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    },
+                    "bar": {
+                        "fill": "red",
+                        "stroke": "#333333",
+                        "strokeWidth": 1,
+                        "opacity": 0.9,
+                        "cornerRadius": 3,
+                        "hoverFill": "#ff0000",
+                        "animationDuration": 800
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": "Mon",
+                        "y": 820
+                    },
+                    {
+                        "x": "Tue",
+                        "y": 932
+                    },
+                    {
+                        "x": "Wed",
+                        "y": 901
+                    },
+                    {
+                        "x": "Thu",
+                        "y": 934
+                    },
+                    {
+                        "x": "Fri",
+                        "y": 1290
+                    },
+                    {
+                        "x": "Sat",
+                        "y": 1330
+                    },
+                    {
+                        "x": "Sun",
+                        "y": 1320
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Bar Line Chart x as integer y as integer",
+        "neuronName": "BarLineIntIntNeuron",
+        "playbookName": "Playbook-BarLineIntInt",
+        "governanceName": "Governance-BarLineIntInt",
+        "grammarName": "Grammar-BarLineIntInt",
+        "mutationName": "Mutation-BarLineIntInt",
+        "graphName": "Graph-BarLineIntInt",
+        "simulationName": "Simulation-BarLineIntInt",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Bar-Line chart with integer X-axis and numeric values on Y-axis.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "integer"
+                },
+                "chartName": "barline",
+                "chartConfig": {
+                    "title": "Bar Line Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Index",
+                    "yLabel": "Value",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    },
+                    "bar": {
+                        "fill": "red",
+                        "stroke": "#333333",
+                        "strokeWidth": 1,
+                        "opacity": 0.9,
+                        "cornerRadius": 3,
+                        "hoverFill": "#ff0000",
+                        "animationDuration": 800
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": 1,
+                        "y": 820
+                    },
+                    {
+                        "x": 2,
+                        "y": 932
+                    },
+                    {
+                        "x": 3,
+                        "y": 901
+                    },
+                    {
+                        "x": 4,
+                        "y": 934
+                    },
+                    {
+                        "x": 5,
+                        "y": 1290
+                    },
+                    {
+                        "x": 6,
+                        "y": 1330
+                    },
+                    {
+                        "x": 7,
+                        "y": 1320
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Bar Line Chart x as integer y as string",
+        "neuronName": "BarLineIntStringNeuron",
+        "playbookName": "Playbook-BarLineIntString",
+        "governanceName": "Governance-BarLineIntString",
+        "grammarName": "Grammar-BarLineIntString",
+        "mutationName": "Mutation-BarLineIntString",
+        "graphName": "Graph-BarLineIntString",
+        "simulationName": "Simulation-BarLineIntString",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Bar-Line chart with integer X-axis and categorical string Y-axis values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "string"
+                },
+                "chartName": "barline",
+                "chartConfig": {
+                    "title": "Bar Line Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Index",
+                    "yLabel": "Status",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    },
+                    "bar": {
+                        "fill": "red",
+                        "stroke": "#333333",
+                        "strokeWidth": 1,
+                        "opacity": 0.9,
+                        "cornerRadius": 3,
+                        "hoverFill": "#ff0000",
+                        "animationDuration": 800
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": 1,
+                        "y": "Not Started"
+                    },
+                    {
+                        "x": 2,
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": 3,
+                        "y": "Blocked"
+                    },
+                    {
+                        "x": 4,
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": 5,
+                        "y": "Completed"
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Bar Line Chart x as string y as string",
+        "neuronName": "BarLineStringStringNeuron",
+        "playbookName": "Playbook-BarLineStringString",
+        "governanceName": "Governance-BarLineStringString",
+        "grammarName": "Grammar-BarLineStringString",
+        "mutationName": "Mutation-BarLineStringString",
+        "graphName": "Graph-BarLineStringString",
+        "simulationName": "Simulation-BarLineStringString",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Bar-Line chart with string categories on both X and Y axes.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "string"
+                },
+                "chartName": "barline",
+                "chartConfig": {
+                    "title": "Bar Line Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Day",
+                    "yLabel": "Status",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    },
+                    "bar": {
+                        "fill": "red",
+                        "stroke": "#333333",
+                        "strokeWidth": 1,
+                        "opacity": 0.9,
+                        "cornerRadius": 3,
+                        "hoverFill": "#ff0000",
+                        "animationDuration": 800
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": "Mon",
+                        "y": "Not Started"
+                    },
+                    {
+                        "x": "Tue",
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": "Wed",
+                        "y": "Blocked"
+                    },
+                    {
+                        "x": "Thu",
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": "Fri",
+                        "y": "Completed"
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

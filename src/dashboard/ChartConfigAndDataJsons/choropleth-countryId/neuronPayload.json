@@ -1,0 +1,161 @@
+[
+    {
+        "message": "Choropleth Map with Country Id",
+        "neuronName": "ChoroplethCountryIdNeuron",
+        "playbookName": "Playbook-ChoroplethCountryId",
+        "governanceName": "Governance-ChoroplethCountryId",
+        "grammarName": "Grammar-ChoroplethCountryId",
+        "mutationName": "Mutation-ChoroplethCountryId",
+        "graphName": "Graph-ChoroplethCountryId",
+        "simulationName": "Simulation-ChoroplethCountryId",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Choropleth Map visualization using Country Id numeric codes as keys.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate map"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Map configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Choropleth map data with Country Id codes"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "idUnits": "integer",
+                    "valueUnits": "integer",
+                    "nameUnits": "string"
+                },
+                "chartName": "choropleth-countryId",
+                "chartConfig": {
+                    "title": "Choropleth Map Country Id",
+                    "geoMode": "choropleth",
+                    "projection": "geoNaturalEarth1",
+                    "colorScheme": "interpolateBlues",
+                    "dataKeys": {
+                        "idKey": "id",
+                        "valueKey": "value",
+                        "nameKey": "name"
+                    }
+                },
+                "chartData": [
+                    {
+                        "name": "USA",
+                        "id": 840,
+                        "value": 120
+                    },
+                    {
+                        "name": "Japan",
+                        "id": 392,
+                        "value": 150
+                    },
+                    {
+                        "name": "UK",
+                        "id": 826,
+                        "value": 80
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

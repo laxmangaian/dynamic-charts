@@ -1,0 +1,207 @@
+[
+    {
+        "message": "Geo Graph Map with Country Id Codes",
+        "neuronName": "GeoGraphCountryIdNeuron",
+        "playbookName": "Playbook-GeoGraphCountryId",
+        "governanceName": "Governance-GeoGraphCountryId",
+        "grammarName": "Grammar-GeoGraphCountryId",
+        "mutationName": "Mutation-GeoGraphCountryId",
+        "graphName": "Graph-GeoGraphCountryId",
+        "simulationName": "Simulation-GeoGraphCountryId",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Geo Graph map visualization using source and target country Country Id codes with styled connecting lines.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate map"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Map configuration including line styles and node colors"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Geo Graph map data with source and target Country Id codes"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "sourceIdUnits": "integer",
+                    "targetIdUnits": "integer",
+                    "valueUnits": "number",
+                    "nameUnits": "string"
+                },
+                "chartName": "geo-graph-countryId",
+                "chartConfig": {
+                    "title": "Geo Graph with Country Id",
+                    "lineColor": "crimson",
+                    "lineOpacity": 0.5,
+                    "lineWidthScale": 1,
+                    "lineDashArray": "4,2",
+                    "sourceColor": "dodgerblue",
+                    "targetColor": "orange",
+                    "sourceRadius": 4,
+                    "targetRadius": 5,
+                    "dataKeys": {
+                        "sourceIdKey": "sourceId",
+                        "targetIdKey": "targetId",
+                        "valueKey": "value",
+                        "nameKey": "name"
+                    }
+                },
+                "chartData": [
+                    {
+                        "sourceId": 840,
+                        "targetId": 826,
+                        "value": 12,
+                        "name": "USA→UK"
+                    },
+                    {
+                        "sourceId": 392,
+                        "targetId": 250,
+                        "value": 8,
+                        "name": "JPN→FRA"
+                    },
+                    {
+                        "sourceId": 276,
+                        "targetId": 76,
+                        "value": 5,
+                        "name": "DEU→BRA"
+                    },
+                    {
+                        "sourceId": 356,
+                        "targetId": 36,
+                        "value": 9,
+                        "name": "IND→AUS"
+                    },
+                    {
+                        "sourceId": 840,
+                        "targetId": 840,
+                        "value": 5,
+                        "name": "SFO→NYC"
+                    },
+                    {
+                        "sourceId": 392,
+                        "targetId": 643,
+                        "value": 7,
+                        "name": "TOK→MOW"
+                    },
+                    {
+                        "sourceId": 840,
+                        "targetId": 840,
+                        "value": 6,
+                        "name": "LAX→MIA"
+                    },
+                    {
+                        "sourceId": 826,
+                        "targetId": 356,
+                        "value": 8,
+                        "name": "LON→IND"
+                    },
+                    {
+                        "sourceId": 36,
+                        "targetId": 392,
+                        "value": 9,
+                        "name": "SYD→TOK"
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

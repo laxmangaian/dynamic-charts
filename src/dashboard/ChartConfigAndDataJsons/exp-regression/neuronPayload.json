@@ -1,0 +1,334 @@
+[
+    {
+        "message": "Line Chart Generation Monet Dbaas - x integer, y integer",
+        "neuronName": "Line Chart Generation Dbaas -xInt-yInt",
+        "playbookName": "Playbook-Line Chart Generation Dbaas -xInt-yInt",
+        "governanceName": "Governance-Line Chart Generation Dbaas -xInt-yInt",
+        "grammarName": "Grammar-Line Chart Generation Dbaas -xInt-yInt",
+        "mutationName": "Mutation-Line Chart Generation Dbaas -xInt-yInt",
+        "graphName": "Graph-Line Chart Generation Dbaas -xInt-yInt",
+        "simulationName": "Simulation-Line Chart Generation Dbaas -xInt-yInt",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron generates a line chart with integer x and integer y values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Line chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "integer"
+                },
+                "chartName": "exp-regression",
+                "chartConfig": {
+                    "width": 500,
+                    "height": 200,
+                    "xLabel": "Time (s)",
+                    "yLabel": "Population",
+                    "lineColor": "#1f77b4",
+                    "pointColor": "#ff7f0e",
+                    "pointRadius": 4,
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    }
+                },
+                "chartData": [
+                    {
+                        "x":1,
+                        "y":2
+                    },
+                    {
+                        "x":2,
+                        "y":7
+                    },
+                    {
+                        "x":3,
+                        "y":20
+                    },
+                    {
+                        "x":4,
+                        "y":54
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Line Chart Generation Monet Dbaas - x float, y float",
+        "neuronName": "Line Chart Generation Dbaas -xFloat-yFloat",
+        "playbookName": "Playbook-Line Chart Generation Dbaas -xFloat-yFloat",
+        "governanceName": "Governance-Line Chart Generation Dbaas -xFloat-yFloat",
+        "grammarName": "Grammar-Line Chart Generation Dbaas -xFloat-yFloat",
+        "mutationName": "Mutation-Line Chart Generation Dbaas -xFloat-yFloat",
+        "graphName": "Graph-Line Chart Generation Dbaas -xFloat-yFloat",
+        "simulationName": "Simulation-Line Chart Generation Dbaas -xFloat-yFloat",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron generates a line chart with float x and float y values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Line chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "float",
+                    "yUnits": "float"
+                },
+                "chartName": "exp-regression",
+                "chartConfig": {
+                    "width": 500,
+                    "height": 200,
+                    "xLabel": "Time (s)",
+                    "yLabel": "Population",
+                    "lineColor": "#1f77b4",
+                    "pointColor": "#ff7f0e",
+                    "pointRadius": 4,
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    }
+                },
+                "chartData": [
+                    {
+                        "x":1.2,
+                        "y":2.7
+                    },
+                    {
+                        "x":2.4,
+                        "y":7.1
+                    },
+                    {
+                        "x":3.5,
+                        "y":20.4
+                    },
+                    {
+                        "x":4.9,
+                        "y":54.3
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

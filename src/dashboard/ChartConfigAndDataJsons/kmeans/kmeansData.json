@@ -1,0 +1,29 @@
+[
+    {
+        "xUnits": "integer",
+        "yUnits": "integer",
+        "clusterUnits": "integer",
+        "data": [
+            {
+                "x":1,
+                "y":2,
+                "cluster": 0
+            },
+            {
+                "x":1.2,
+                "y":1.8,
+                "cluster": 0
+            },
+            {
+                "x":5,
+                "y":6,
+                "cluster": 1
+            },
+            {
+                "x":5.5,
+                "y":6.2,
+                "cluster": 1
+            }
+        ]
+    }
+]

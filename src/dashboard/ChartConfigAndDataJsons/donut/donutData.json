@@ -1,0 +1,46 @@
+[
+    {
+        "labelUnits": "string",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "label": "Category A",
+                "value": 40
+            },
+            {
+                "label": "Category B",
+                "value": 25
+            },
+            {
+                "label": "Category C",
+                "value": 20
+            },
+            {
+                "label": "Category D",
+                "value": 15
+            }
+        ]
+    },
+    {
+        "labelUnits": "integer",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "label": 101,
+                "value": 40
+            },
+            {
+                "label": 102,
+                "value": 25
+            },
+            {
+                "label": 103,
+                "value": 20
+            },
+            {
+                "label": 104,
+                "value": 15
+            }
+        ]
+    }
+]

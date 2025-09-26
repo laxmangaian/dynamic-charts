@@ -1,0 +1,20 @@
+[
+    {
+        "nameUnits": "string",
+        "valueUnits": "integer",
+        "dataUnits": [
+            {
+                "name": "Japan",
+                "value": 150
+            },
+            {
+                "name": "United States of America",
+                "value": 120
+            },
+            {
+                "name": "United Kingdom",
+                "value": 80
+            }
+        ]
+    }
+]

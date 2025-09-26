@@ -1,0 +1,14 @@
+{
+    "title": "Bubble Map with Lat Lon",
+    "geoMode": "points",
+    "projection": "geoNaturalEarth1",
+    "pointMinRadius": 3,
+    "pointMaxRadius": 20,
+    "pointColor": "#1d4ed8",
+    "dataKeys": {
+        "nameKey": "name",
+        "latKey": "lat",
+        "lonKey": "lon",
+        "valueKey": "value"
+    }
+}

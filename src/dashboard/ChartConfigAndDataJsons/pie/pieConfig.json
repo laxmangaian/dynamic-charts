@@ -1,0 +1,35 @@
+{
+    "title": "Pie Chart",
+    "width": 150,
+    "height": 150,
+    "margin": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+    },
+    "dataKeys": {
+        "labelKey": "label",
+        "valueKey": "value"
+    },
+    "colors": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728"
+    ],
+    "innerRadius": 80,
+    "outerRadius": 180,
+    "cornerRadius": 5,
+    "padAngle": 0.02,
+    "stroke": "#fff",
+    "strokeWidth": 1,
+    "opacity": 1,
+    "labelFontSize": 14,
+    "labelColor": "#000",
+    "labelFontWeight": "normal",
+    "labelOffset": 20,
+    "showLabels": true,
+    "hoverFill": "#ff6347",
+    "animationDuration": 1000
+}

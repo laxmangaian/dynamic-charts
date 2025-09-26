@@ -1,0 +1,28 @@
+[
+    {
+        "nameUnits": "string",
+        "latUnits": "float",
+        "lonUnits": "float",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "name": "New York",
+                "lat": 40.7,
+                "lon": -74.0,
+                "value": 20
+            },
+            {
+                "name": "London",
+                "lat": 51.5,
+                "lon": -0.1,
+                "value": 15
+            },
+            {
+                "name": "Tokyo",
+                "lat": 35.6,
+                "lon": 139.6,
+                "value": 25
+            }
+        ]
+    }
+]

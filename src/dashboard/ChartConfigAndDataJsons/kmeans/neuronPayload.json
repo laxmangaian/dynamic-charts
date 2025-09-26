@@ -1,0 +1,188 @@
+[
+    {
+        "message": "KMeans Chart Generation Monet Dbaas - integer x, integer y, integer cluster",
+        "neuronName": "KMeans Chart Generation Dbaas -xInteger-yInteger-clusterInteger",
+        "playbookName": "Playbook-KMeans Chart Generation Dbaas -xInteger-yInteger-clusterInteger",
+        "governanceName": "Governance-KMeans Chart Generation Dbaas -xInteger-yInteger-clusterInteger",
+        "grammarName": "Grammar-KMeans Chart Generation Dbaas -xInteger-yInteger-clusterInteger",
+        "mutationName": "Mutation-KMeans Chart Generation Dbaas -xInteger-yInteger-clusterInteger",
+        "graphName": "Graph-KMeans Chart Generation Dbaas -xInteger-yInteger-clusterInteger",
+        "simulationName": "Simulation-KMeans Chart Generation Dbaas -xInteger-yInteger-clusterInteger",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron is responsible for generating a KMeans chart with integer x, y coordinates and integer cluster assignments.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "KMeans data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "integer",
+                    "clusterUnits": "integer"
+                },
+                "chartName": "kmeans",
+                "chartConfig": {
+                    "title": "KMeans",
+                    "width": 500,
+                    "height": 250,
+                    "xTicks": 6,
+                    "yTicks": 6,
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "clusterKey": "cluster"
+                    },
+                    "showGrid": true,
+                    "pointRadius": 4,
+                    "pointOpacity": 0.85,
+                    "centroidSize": 160,
+                    "centroidStrokeColor": "white",
+                    "centroidStrokeWidth": 1.5
+                },
+                "chartData": [
+                    {
+                        "x":1,
+                        "y":2,
+                        "cluster": 0
+                    },
+                    {
+                        "x":1.2,
+                        "y":1.8,
+                        "cluster": 0
+                    },
+                    {
+                        "x":5,
+                        "y":6,
+                        "cluster": 1
+                    },
+                    {
+                        "x":5.5,
+                        "y":6.2,
+                        "cluster": 1
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

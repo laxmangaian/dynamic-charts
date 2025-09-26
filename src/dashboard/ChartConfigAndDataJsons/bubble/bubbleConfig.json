@@ -1,0 +1,22 @@
+{
+    "title": "Bubble Chart",
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "rKey": "r",
+        "keyKey": "key"
+    },
+    "xLabel": "X Axis",
+    "yLabel": "Y Axis",
+    "xTicks": 4,
+    "yTicks": 6,
+    "grid": true,
+    "dotRadius": 5,
+    "bubbleMinRadius": 3,
+    "bubbleMaxRadius": 40,
+    "dotOpacity": 0.9,
+    "dotStroke": {
+        "color": "#333",
+        "width": 1
+    }
+}

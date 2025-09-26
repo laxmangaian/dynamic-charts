@@ -1,0 +1,174 @@
+[
+    {
+        "message": "Histogram Chart Generation",
+        "neuronName": "HistogramChartNeuron",
+        "playbookName": "Playbook-HistogramChart",
+        "governanceName": "Governance-HistogramChart",
+        "grammarName": "Grammar-HistogramChart",
+        "mutationName": "Mutation-HistogramChart",
+        "graphName": "Graph-HistogramChart",
+        "simulationName": "Simulation-HistogramChart",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a histogram chart from an array of values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "neuronEvaluation": {
+            "scoring_function": "chart_generation_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "valuesUnits": "array"
+                },
+                "chartName": "histogram",
+                "chartConfig": {
+                    "title": "Histogram",
+                    "bins": 10,
+                    "width": 600,
+                    "height": 200,
+                    "xLabel": "Score",
+                    "yLabel": "Frequency",
+                    "barColor": "#2ca02c",
+                    "barOpacity": 0.9,
+                    "showGrid": true,
+                    "showMean": true,
+                    "showMedian": true,
+                    "dataKeys": {
+                        "valuesUnits": "values"
+                    }
+                },
+                "chartData": {
+                    "values": [
+                        1,
+                        2,
+                        2,
+                        3,
+                        5,
+                        5,
+                        5,
+                        7,
+                        8,
+                        9,
+                        10,
+                        10,
+                        12,
+                        15
+                    ]
+                }
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

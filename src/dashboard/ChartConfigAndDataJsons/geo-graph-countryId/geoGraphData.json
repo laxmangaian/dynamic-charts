@@ -1,0 +1,64 @@
+[
+    {
+        "sourceIdUnits": "string",
+        "targetIdUnits": "string",
+        "valueUnits": "integer",
+        "nameUnits": "string",
+        "data": [
+            {
+                "sourceId": 840,
+                "targetId": 826,
+                "value": 12,
+                "name": "USA→UK"
+            },
+            {
+                "sourceId": 392,
+                "targetId": 250,
+                "value": 8,
+                "name": "JPN→FRA"
+            },
+            {
+                "sourceId": 276,
+                "targetId": 76,
+                "value": 5,
+                "name": "DEU→BRA"
+            },
+            {
+                "sourceId": 356,
+                "targetId": 36,
+                "value": 9,
+                "name": "IND→AUS"
+            },
+            {
+                "sourceId": 840,
+                "targetId": 840,
+                "value": 5,
+                "name": "SFO→NYC"
+            },
+            {
+                "sourceId": 392,
+                "targetId": 643,
+                "value": 7,
+                "name": "TOK→MOW"
+            },
+            {
+                "sourceId": 840,
+                "targetId": 840,
+                "value": 6,
+                "name": "LAX→MIA"
+            },
+            {
+                "sourceId": 826,
+                "targetId": 356,
+                "value": 8,
+                "name": "LON→IND"
+            },
+            {
+                "sourceId": 36,
+                "targetId": 392,
+                "value": 9,
+                "name": "SYD→TOK"
+            }
+        ]
+    }
+]

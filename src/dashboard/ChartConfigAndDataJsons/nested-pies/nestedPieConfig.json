@@ -1,0 +1,24 @@
+{
+    "title": "Nested Pie",
+    "width": 1100,
+    "height": 450,
+    "margin": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+    },
+    "dataKeys": {
+        "levelKey": "level",
+        "valueKey": "value",
+        "nameKey": "name"
+    },
+    "titleSize": "18px",
+    "ringWidth": 50,
+    "colorByLevel": true,
+    "fillOpacity": 0.7,
+    "strokeColor": "#222",
+    "strokeWidth": 2,
+    "showLabels": true,
+    "labelSize": "12px"
+}

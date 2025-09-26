@@ -1,0 +1,16 @@
+{
+    "title": "Radial Area",
+    "width": 500,
+    "height": 500,
+    "innerRadius": 50,
+    "outerRadius": 200,
+    "startAngle": 0,
+    "endAngle": 6.28,
+    "angleKey": "angle",
+    "valueKey": "value",
+    "color": "#1f77b4",
+    "dataKeys": {
+        "angleKey": "angle",
+        "valueKey": "value"
+    }
+}

@@ -1,0 +1,110 @@
+[
+    {
+        "xUnits": "string",
+        "yUnits": "string",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "x":"A",
+                "y":"X",
+                "value": 4
+            },
+            {
+                "x":"B",
+                "y":"X",
+                "value": 7
+            },
+            {
+                "x":"A",
+                "y":"Y",
+                "value": 3
+            },
+            {
+                "x":"C",
+                "y":"Z",
+                "value": 9
+            }
+        ]
+    },
+    {
+        "xUnits": "integer",
+        "yUnits": "string",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "x":1,
+                "y":"North",
+                "value": 10
+            },
+            {
+                "x":2,
+                "y":"North",
+                "value": 5
+            },
+            {
+                "x":3,
+                "y":"South",
+                "value": 8
+            },
+            {
+                "x":4,
+                "y":"East",
+                "value": 12
+            }
+        ]
+    },
+    {
+        "xUnits": "string",
+        "yUnits": "integer",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "x":"Alpha",
+                "y":1,
+                "value": 6
+            },
+            {
+                "x":"Beta",
+                "y":2,
+                "value": 9
+            },
+            {
+                "x":"Gamma",
+                "y":3,
+                "value": 4
+            },
+            {
+                "x":"Delta",
+                "y":4,
+                "value": 7
+            }
+        ]
+    },
+    {
+        "xUnits": "integer",
+        "yUnits": "integer",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "x":1,
+                "y":1,
+                "value": 2
+            },
+            {
+                "x":2,
+                "y":1,
+                "value": 8
+            },
+            {
+                "x":1,
+                "y":2,
+                "value": 5
+            },
+            {
+                "x":3,
+                "y":3,
+                "value": 11
+            }
+        ]
+    }
+]

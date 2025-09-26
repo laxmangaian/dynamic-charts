@@ -1,0 +1,374 @@
+[
+    {
+        "message": "Treemap Chart Generation - string group",
+        "neuronName": "TreemapChartNeuronStringGroup",
+        "playbookName": "Playbook-TreemapChart-StringGroup",
+        "governanceName": "Governance-TreemapChart-StringGroup",
+        "grammarName": "Grammar-TreemapChart-StringGroup",
+        "mutationName": "Mutation-TreemapChart-StringGroup",
+        "graphName": "Graph-TreemapChart-StringGroup",
+        "simulationName": "Simulation-TreemapChart-StringGroup",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a treemap chart with string groups and string names.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "groupUnits": "string",
+                    "nameUnits": "string",
+                    "valueUnits": "integer"
+                },
+                "chartName": "treemap",
+                "chartConfig": {
+                    "title": "Treemap",
+                    "width": 600,
+                    "height": 300,
+                    "paddingInner": 2,
+                    "paddingOuter": 4,
+                    "round": true,
+                    "dataKeys": {
+                        "groupKey": "group",
+                        "nameKey": "name",
+                        "valueKey": "value"
+                    },
+                    "showLabels": true,
+                    "labelColor": "#fff",
+                    "labelFontSize": 12,
+                    "minLabelWidth": 40,
+                    "legend": true,
+                    "colorScheme": [
+                        "#1f77b4",
+                        "#ff7f0e"
+                    ],
+                    "tooltip": true
+                },
+                "chartData": [
+                    {
+                        "group": "Fruits",
+                        "name": "Apples",
+                        "value": 40
+                    },
+                    {
+                        "group": "Fruits",
+                        "name": "Bananas",
+                        "value": 30
+                    },
+                    {
+                        "group": "Vegetables",
+                        "name": "Carrots",
+                        "value": 25
+                    },
+                    {
+                        "group": "Vegetables",
+                        "name": "Tomato",
+                        "value": 30
+                    },
+                    {
+                        "group": "Vegetables",
+                        "name": "Beet",
+                        "value": 15
+                    },
+                    {
+                        "group": "Vegetables",
+                        "name": "Potatoes",
+                        "value": 35
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Treemap Chart Generation - integer group",
+        "neuronName": "TreemapChartNeuronIntegerGroup",
+        "playbookName": "Playbook-TreemapChart-IntegerGroup",
+        "governanceName": "Governance-TreemapChart-IntegerGroup",
+        "grammarName": "Grammar-TreemapChart-IntegerGroup",
+        "mutationName": "Mutation-TreemapChart-IntegerGroup",
+        "graphName": "Graph-TreemapChart-IntegerGroup",
+        "simulationName": "Simulation-TreemapChart-IntegerGroup",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a treemap chart with integer groups and string names.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "groupUnits": "integer",
+                    "nameUnits": "string",
+                    "valueUnits": "integer"
+                },
+                "chartName": "treemap",
+                "chartConfig": {
+                    "title": "Treemap",
+                    "width": 600,
+                    "height": 300,
+                    "paddingInner": 2,
+                    "paddingOuter": 4,
+                    "round": true,
+                    "dataKeys": {
+                        "groupKey": "group",
+                        "nameKey": "name",
+                        "valueKey": "value"
+                    },
+                    "showLabels": true,
+                    "labelColor": "#fff",
+                    "labelFontSize": 12,
+                    "minLabelWidth": 40,
+                    "legend": true,
+                    "colorScheme": [
+                        "#1f77b4",
+                        "#ff7f0e"
+                    ],
+                    "tooltip": true
+                },
+                "chartData": [
+                    {
+                        "group": 1,
+                        "name": "Apples",
+                        "value": 40
+                    },
+                    {
+                        "group": 1,
+                        "name": "Bananas",
+                        "value": 30
+                    },
+                    {
+                        "group": 2,
+                        "name": "Carrots",
+                        "value": 25
+                    },
+                    {
+                        "group": 2,
+                        "name": "Tomato",
+                        "value": 30
+                    },
+                    {
+                        "group": "Vegetables",
+                        "name": "Beet",
+                        "value": 15
+                    },
+                    {
+                        "group": "Vegetables",
+                        "name": "Potatoes",
+                        "value": 35
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

@@ -1,0 +1,18 @@
+{
+    "title": "KMeans",
+    "width": 500,
+    "height": 250,
+    "xTicks": 6,
+    "yTicks": 6,
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "clusterKey": "cluster"
+    },
+    "showGrid": true,
+    "pointRadius": 4,
+    "pointOpacity": 0.85,
+    "centroidSize": 160,
+    "centroidStrokeColor": "white",
+    "centroidStrokeWidth": 1.5
+}

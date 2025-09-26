@@ -1,0 +1,24 @@
+[
+    {
+        "idUnits": "integer",
+        "valueUnits": "integer",
+        "nameUnits": "string",
+        "data": [
+            {
+                "name": "US",
+                "id": 840,
+                "value": 120
+            },
+            {
+                "name": "UK",
+                "id": 392,
+                "value": 150
+            },
+            {
+                "name": "Japan",
+                "id": 826,
+                "value": 80
+            }
+        ]
+    }
+]

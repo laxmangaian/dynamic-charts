@@ -1,0 +1,64 @@
+[
+    {
+        "sourceNameUnits": "string",
+        "targetNameUnits": "string",
+        "valueUnits": "integer",
+        "nameUnits": "string",
+        "data": [
+            {
+                "sourceName": "United States of America",
+                "targetName": "United Kingdom",
+                "value": 10,
+                "name": "USA→UK"
+            },
+            {
+                "sourceName": "Japan",
+                "targetName": "France",
+                "value": 7,
+                "name": "JPN→FRA"
+            },
+            {
+                "sourceName": "Germany",
+                "targetName": "Brazil",
+                "value": 6,
+                "name": "DEU→BRA"
+            },
+            {
+                "sourceName": "India",
+                "targetName": "Australia",
+                "value": 9,
+                "name": "IND→AUS"
+            },
+            {
+                "sourceName": "United States of America",
+                "targetName": "New York",
+                "value": 5,
+                "name": "SFO→NYC"
+            },
+            {
+                "sourceName": "Tokyo",
+                "targetName": "Moscow",
+                "value": 7,
+                "name": "TOK→MOW"
+            },
+            {
+                "sourceName": "Los Angeles",
+                "targetName": "Miami",
+                "value": 6,
+                "name": "LAX→MIA"
+            },
+            {
+                "sourceName": "London",
+                "targetName": "India",
+                "value": 8,
+                "name": "LON→IND"
+            },
+            {
+                "sourceName": "Sydney",
+                "targetName": "Tokyo",
+                "value": 9,
+                "name": "SYD→TOK"
+            }
+        ]
+    }
+]

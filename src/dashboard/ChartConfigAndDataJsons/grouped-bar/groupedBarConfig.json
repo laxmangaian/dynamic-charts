@@ -1,0 +1,21 @@
+{
+    "width": 700,
+    "height": 200,
+    "xLabel": "Product Category",
+    "yLabel": "Sales (in $1000s)",
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "groupKey": "group"
+    },
+    "barPadding": 0.15,
+    "groupPadding": 0.25,
+    "barRadius": 4,
+    "barOpacity": 0.85,
+    "showLegend": true,
+    "legendPosition": "bottom",
+    "colorBase": [
+        "red",
+        "green"
+    ]
+}

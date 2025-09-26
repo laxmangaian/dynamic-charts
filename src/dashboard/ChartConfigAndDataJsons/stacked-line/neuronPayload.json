@@ -1,0 +1,410 @@
+[
+    {
+        "message": "Stacked Line Chart Generation Monet Dbaas - integer x, array y",
+        "neuronName": "StackedLineChart Dbaas -xInteger-yArray",
+        "playbookName": "Playbook-Stacked Line Chart Dbaas -xInteger-yArray",
+        "governanceName": "Governance-Stacked Line Chart Dbaas -xInteger-yArray",
+        "grammarName": "Grammar-Stacked Line Chart Dbaas -xInteger-yArray",
+        "mutationName": "Mutation-Stacked Line Chart Dbaas -xInteger-yArray",
+        "graphName": "Graph-Stacked Line Chart Dbaas -xInteger-yArray",
+        "simulationName": "Simulation-Stacked Line Chart Dbaas -xInteger-yArray",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a stacked line chart with integer x-values and array y-values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "neuronEvaluation": {
+            "scoring_function": "chart_generation_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnit": "integer",
+                    "yUnits": "array"
+                },
+                "chartName": "stacked-line",
+                "chartConfig": {
+                    "title": "Stacked Line",
+                    "width": 1100,
+                    "height": 400,
+                    "xLabel": "Year",
+                    "yLabel": "Production",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "labels": [
+                        "Apples",
+                        "Bananas",
+                        "Cherries"
+                    ],
+                    "colors": [
+                        "#1f77b4",
+                        "#ff7f0e",
+                        "#2ca02c"
+                    ],
+                    "interpolation": "monotoneX",
+                    "showLegend": true,
+                    "legendPosition": "bottom",
+                    "showGrid": true,
+                    "showPoints": false,
+                    "xTickFormat": "%Y",
+                    "yTickFormat": ".2s",
+                    "areaOpacity": 0.7,
+                    "lineWidth": 2,
+                    "pointRadius": 3
+                },
+                "chartData": [
+                    {
+                        "x":2018,
+                        "y":[
+                            30,
+                            20,
+                            10
+                        ]
+                    },
+                    {
+                        "x":2019,
+                        "y":[
+                            40,
+                            25,
+                            15
+                        ]
+                    },
+                    {
+                        "x":2020,
+                        "y":[
+                            35,
+                            30,
+                            20
+                        ]
+                    },
+                    {
+                        "x":2021,
+                        "y":[
+                            50,
+                            40,
+                            25
+                        ]
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Stacked Line Chart Generation Monet Dbaas - string x, array y",
+        "neuronName": "StackedLineChart Dbaas -xString-yArray",
+        "playbookName": "Playbook-Stacked Line Chart Dbaas -xString-yArray",
+        "governanceName": "Governance-Stacked Line Chart Dbaas -xString-yArray",
+        "grammarName": "Grammar-Stacked Line Chart Dbaas -xString-yArray",
+        "mutationName": "Mutation-Stacked Line Chart Dbaas -xString-yArray",
+        "graphName": "Graph-Stacked Line Chart Dbaas -xString-yArray",
+        "simulationName": "Simulation-Stacked Line Chart Dbaas -xString-yArray",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a stacked line chart with string x-values and array y-values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "neuronEvaluation": {
+            "scoring_function": "chart_generation_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnit": "string",
+                    "yUnits": "array"
+                },
+                "chartName": "stacked-line",
+                "chartConfig": {
+                    "title": "Stacked Line",
+                    "width": 1100,
+                    "height": 400,
+                    "xLabel": "Year",
+                    "yLabel": "Production",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "labels": [
+                        "Apples",
+                        "Bananas",
+                        "Cherries"
+                    ],
+                    "colors": [
+                        "#1f77b4",
+                        "#ff7f0e",
+                        "#2ca02c"
+                    ],
+                    "interpolation": "monotoneX",
+                    "showLegend": true,
+                    "legendPosition": "bottom",
+                    "showGrid": true,
+                    "showPoints": false,
+                    "xTickFormat": "%Y",
+                    "yTickFormat": ".2s",
+                    "areaOpacity": 0.7,
+                    "lineWidth": 2,
+                    "pointRadius": 3
+                },
+                "chartData": [
+                    {
+                        "x":"North",
+                        "y":[
+                            30,
+                            20,
+                            10
+                        ]
+                    },
+                    {
+                        "x":"South",
+                        "y":[
+                            40,
+                            25,
+                            15
+                        ]
+                    },
+                    {
+                        "x":"East",
+                        "y":[
+                            35,
+                            30,
+                            20
+                        ]
+                    },
+                    {
+                        "x":"West",
+                        "y":[
+                            50,
+                            40,
+                            25
+                        ]
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

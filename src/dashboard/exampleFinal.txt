@@ -173,10 +173,10 @@ let bubbleChart = buildChartHTML({
 let geoChoropleth = buildChartHTML({
   chartType: "geo",
   data: [
-    { iso3: "USA", value: 100 },
-    { iso3: "IND", value: 75 },
-    { iso3: "BRA", value: 50 },
-    { iso3: "FRA", value: 30 }
+    { countryId: "USA", value: 100 },
+    { countryId: "IND", value: 75 },
+    { countryId: "BRA", value: 50 },
+    { countryId: "FRA", value: 30 }
   ],
   options: { title: "World Choropleth Map", geoMode: "choropleth" }
 });
@@ -230,7 +230,7 @@ buildChartHTML({
 buildChartHTML({
   chartType: "geo",
   data: [
-    { iso3:"USA", value:100 }, { iso3:"IND", value:75 }, { iso3:"BRA", value:40 },
+    { countryId:"USA", value:100 }, { countryId:"IND", value:75 }, { countryId:"BRA", value:40 },
     { name:"SF", lat:37.77, lon:-122.42, value:10 },
     { name:"Mumbai", lat:19.07, lon:72.88, value:15 }
   ],
@@ -371,8 +371,8 @@ let boxPlotChart = buildChartHTML({
   },
 });
 
-let wordCloudChart = buildChartHTML({
-  chartType: "wordCloud",
+let word-cloudChart = buildChartHTML({
+  chartType: "word-cloud",
   data: [
     { text: "D3", count: 50 },
     { text: "JavaScript", count: 35 },
@@ -425,3 +425,78 @@ let hexbinChart = buildChartHTML({
     },
   },
 });
+
+
+
+
+
+
+
+
+
+
+{
+  "chartType": "circle-pack",
+  "data": {
+    "name": "Root",
+    "children": [
+      { "name": "A", "value": 100 },
+      { "name": "B", "value": 80 },
+      {
+        "name": "C",
+        "children": [
+          { "name": "C1", "value": 50 },
+          { "name": "C2", "value": 30 }
+        ]
+      },
+      { "name": "D", "value": 60 }
+    ]
+  },
+  "options": {
+    "title": "Pack Chart Example",
+    "width": 600,
+    "height": 600,
+    "padding": 4,
+    "parentColor": "#69b3a2",
+    "leafColor": "#40a9f3",
+    "strokeColor": "#333",
+    "dataKeys": {
+      "nameKey": "name",
+      "valueKey": "value",
+      "childrenKey": "children"
+    }
+  }  
+}
+
+
+
+{
+  "chartType": "sunburst",
+  "data": {
+    "name": "root",
+    "children": [
+      { "name": "Home", "value": 100 },
+      {
+        "name": "Products", "children": [
+          { "name": "Phones", "value": 40 },
+          { "name": "Laptops", "value": 30 }
+        ]
+      },
+      { "name": "About", "value": 20 }
+    ]
+  },
+  "options": {
+    "title": "Website Navigation Flow",
+    "colorScheme": ["#1f77b4", "#ff7f0e", "#2ca02c"],
+    "showLabels": true,
+    "labelMinAngle": 5,
+    "labelFormat": "name-value",
+    "tooltipFormat": "name-value",
+    "strokeColor": "#fff",
+    "strokeWidth": 1,
+    "opacity": 0.9,
+    "sort": "desc",
+    "showLegend": true
+  }
+}
+

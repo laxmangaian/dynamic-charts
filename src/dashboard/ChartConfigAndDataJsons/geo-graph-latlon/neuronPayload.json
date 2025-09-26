@@ -1,0 +1,197 @@
+[
+    {
+        "message": "Geo Graph Map with Lat & Lon",
+        "neuronName": "GeoGraphLatLonNeuron",
+        "playbookName": "Playbook-GeoGraphLatLon",
+        "governanceName": "Governance-GeoGraphLatLon",
+        "grammarName": "Grammar-GeoGraphLatLon",
+        "mutationName": "Mutation-GeoGraphLatLon",
+        "graphName": "Graph-GeoGraphLatLon",
+        "simulationName": "Simulation-GeoGraphLatLon",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Geo Graph map visualization using source and target latitude/longitude coordinates with styled connecting lines.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate map"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Map configuration including line styles"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Geo Graph map data with source and target coordinates"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "sLatUnits": "float",
+                    "sLonUnits": "float",
+                    "tLatUnits": "float",
+                    "tLonUnits": "float",
+                    "valueUnits": "number",
+                    "nameUnits": "string"
+                },
+                "chartName": "geo-graph-latlon",
+                "chartConfig": {
+                    "title": "Geo Graph with Lat & Lon",
+                    "lineColor": "crimson",
+                    "lineOpacity": 0.5,
+                    "lineWidthScale": 1,
+                    "lineDashArray": "4,2",
+                    "sourceColor": "dodgerblue",
+                    "targetColor": "orange",
+                    "sourceRadius": 4,
+                    "targetRadius": 5,
+                    "dataKeys": {
+                        "sLatKey": "sLat",
+                        "sLonKey": "sLon",
+                        "tLatKey": "tLat",
+                        "tLonKey": "tLon",
+                        "valueKey": "value",
+                        "nameKey": "name"
+                    }
+                },
+                "chartData": [
+                    {
+                        "sLat": 37.77,
+                        "sLon": -122.42,
+                        "tLat": 40.71,
+                        "tLon": -74.01,
+                        "value": 5,
+                        "name": "SFO→NYC"
+                    },
+                    {
+                        "sLat": 35.68,
+                        "sLon": 139.76,
+                        "tLat": 55.75,
+                        "tLon": 37.61,
+                        "value": 7,
+                        "name": "TOK→MOW"
+                    },
+                    {
+                        "sLat": 34.05,
+                        "sLon": -118.25,
+                        "tLat": 25.76,
+                        "tLon": -80.19,
+                        "value": 6,
+                        "name": "LAX→MIA"
+                    },
+                    {
+                        "sLat": 51.51,
+                        "sLon": -0.13,
+                        "tLat": 20.59,
+                        "tLon": 78.96,
+                        "value": 8,
+                        "name": "LON→IND"
+                    },
+                    {
+                        "sLat": -33.87,
+                        "sLon": 151.21,
+                        "tLat": 35.68,
+                        "tLon": 139.76,
+                        "value": 9,
+                        "name": "SYD→TOK"
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

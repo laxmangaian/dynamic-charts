@@ -1,0 +1,31 @@
+{
+    "title": "Stacked Line",
+    "width": 1100,
+    "height": 400,
+    "xLabel": "Year",
+    "yLabel": "Production",
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+    },
+    "labels": [
+        "Apples",
+        "Bananas",
+        "Cherries"
+    ],
+    "colors": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c"
+    ],
+    "interpolation": "monotoneX",
+    "showLegend": true,
+    "legendPosition": "bottom",
+    "showGrid": true,
+    "showPoints": false,
+    "xTickFormat": "%Y",
+    "yTickFormat": ".2s",
+    "areaOpacity": 0.7,
+    "lineWidth": 2,
+    "pointRadius": 3
+}

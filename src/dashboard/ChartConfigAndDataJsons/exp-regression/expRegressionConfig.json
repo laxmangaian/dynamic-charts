@@ -1,0 +1,13 @@
+{
+    "width": 500,
+    "height": 200,
+    "xLabel": "Time (s)",
+    "yLabel": "Population",
+    "lineColor": "#1f77b4",
+    "pointColor": "#ff7f0e",
+    "pointRadius": 4,
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+    }
+}

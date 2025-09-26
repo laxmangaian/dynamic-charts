@@ -1,0 +1,722 @@
+[
+    {
+        "message": "Scatter Chart x as string y as integer",
+        "neuronName": "ScatterChartNeuron",
+        "playbookName": "Playbook-ScatterChart",
+        "governanceName": "Governance-ScatterChart",
+        "grammarName": "Grammar-ScatterChart",
+        "mutationName": "Mutation-ScatterChart",
+        "graphName": "Graph-ScatterChart",
+        "simulationName": "Simulation-ScatterChart",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a scatter chart with x as string and y as integer, including line styling and point display.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration including axes and line styling"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Scatter chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of chart generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "integer"
+                },
+                "chartName": "scatter",
+                "chartConfig": {
+                    "title": "Scatter Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Day",
+                    "yLabel": "Value",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": "Mon",
+                        "y": 820
+                    },
+                    {
+                        "x": "Tue",
+                        "y": 932
+                    },
+                    {
+                        "x": "Wed",
+                        "y": 901
+                    },
+                    {
+                        "x": "Thu",
+                        "y": 934
+                    },
+                    {
+                        "x": "Fri",
+                        "y": 1290
+                    },
+                    {
+                        "x": "Sat",
+                        "y": 1330
+                    },
+                    {
+                        "x": "Sun",
+                        "y": 1320
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Scatter Chart x as integer y as integer",
+        "neuronName": "ScatterChartNeuron",
+        "playbookName": "Playbook-ScatterChart",
+        "governanceName": "Governance-ScatterChart",
+        "grammarName": "Grammar-ScatterChart",
+        "mutationName": "Mutation-ScatterChart",
+        "graphName": "Graph-ScatterChart",
+        "simulationName": "Simulation-ScatterChart",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a scatter chart with x as integer and y as integer, including line styling and point display.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration including axes and line styling"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Scatter chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of chart generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "integer"
+                },
+                "chartName": "scatter",
+                "chartConfig": {
+                    "title": "Scatter Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Day",
+                    "yLabel": "Value",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": 1,
+                        "y": 820
+                    },
+                    {
+                        "x": 2,
+                        "y": 932
+                    },
+                    {
+                        "x": 3,
+                        "y": 901
+                    },
+                    {
+                        "x": 4,
+                        "y": 934
+                    },
+                    {
+                        "x": 5,
+                        "y": 1290
+                    },
+                    {
+                        "x": 6,
+                        "y": 1330
+                    },
+                    {
+                        "x": 7,
+                        "y": 1320
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Scatter Chart x as integer y as string",
+        "neuronName": "ScatterChartNeuron",
+        "playbookName": "Playbook-ScatterChart",
+        "governanceName": "Governance-ScatterChart",
+        "grammarName": "Grammar-ScatterChart",
+        "mutationName": "Mutation-ScatterChart",
+        "graphName": "Graph-ScatterChart",
+        "simulationName": "Simulation-ScatterChart",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a scatter chart with x as integer and y as string, including line styling and point display.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration including axes and line styling"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Scatter chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of chart generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "string"
+                },
+                "chartName": "scatter",
+                "chartConfig": {
+                    "title": "Scatter Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Day",
+                    "yLabel": "Value",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": 1,
+                        "y": "Not Started"
+                    },
+                    {
+                        "x": 2,
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": 3,
+                        "y": "Blocked"
+                    },
+                    {
+                        "x": 4,
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": 5,
+                        "y": "Completed"
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Scatter Chart x as string y as string",
+        "neuronName": "ScatterChartNeuron",
+        "playbookName": "Playbook-ScatterChart",
+        "governanceName": "Governance-ScatterChart",
+        "grammarName": "Grammar-ScatterChart",
+        "mutationName": "Mutation-ScatterChart",
+        "graphName": "Graph-ScatterChart",
+        "simulationName": "Simulation-ScatterChart",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a scatter chart with x as string and y as string, including line styling and point display.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration including axes and line styling"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Scatter chart data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of chart generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "string"
+                },
+                "chartName": "scatter",
+                "chartConfig": {
+                    "title": "Scatter Chart",
+                    "width": 700,
+                    "height": 400,
+                    "margin": {
+                        "top": 40,
+                        "right": 40,
+                        "bottom": 50,
+                        "left": 60
+                    },
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    },
+                    "xLabel": "Day",
+                    "yLabel": "Value",
+                    "line": {
+                        "stroke": "yellow",
+                        "strokeWidth": 3,
+                        "pointShow": true,
+                        "pointRadius": 2,
+                        "pointColor": "red"
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": "Mon",
+                        "y": "Not Started"
+                    },
+                    {
+                        "x": "Tue",
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": "Wed",
+                        "y": "Blocked"
+                    },
+                    {
+                        "x": "Thu",
+                        "y": "In Progress"
+                    },
+                    {
+                        "x": "Fri",
+                        "y": "Completed"
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

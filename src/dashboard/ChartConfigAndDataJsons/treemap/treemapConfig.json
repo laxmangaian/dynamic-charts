@@ -1,0 +1,23 @@
+{
+    "title": "Treemap",
+    "width": 600,
+    "height": 300,
+    "paddingInner": 2,
+    "paddingOuter": 4,
+    "round": true,
+    "dataKeys": {
+        "groupKey": "group",
+        "nameKey": "name",
+        "valueKey": "value"
+    },
+    "showLabels": true,
+    "labelColor": "#fff",
+    "labelFontSize": 12,
+    "minLabelWidth": 40,
+    "legend": true,
+    "colorScheme": [
+        "#1f77b4",
+        "#ff7f0e"
+    ],
+    "tooltip": true
+}

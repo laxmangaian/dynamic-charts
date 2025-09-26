@@ -1,0 +1,76 @@
+[
+    {
+        "groupUnits": "string",
+        "nameUnits": "string",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "group": "Fruits",
+                "name": "Apples",
+                "value": 40
+            },
+            {
+                "group": "Fruits",
+                "name": "Bananas",
+                "value": 30
+            },
+            {
+                "group": "Vegetables",
+                "name": "Carrots",
+                "value": 25
+            },
+            {
+                "group": "Vegetables",
+                "name": "Tomato",
+                "value": 30
+            },
+            {
+                "group": "Vegetables",
+                "name": "Beet",
+                "value": 15
+            },
+            {
+                "group": "Vegetables",
+                "name": "Potatoes",
+                "value": 35
+            }
+        ]
+    },
+    {
+        "groupUnits": "integer",
+        "nameUnits": "string",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "group": 1,
+                "name": "Apples",
+                "value": 40
+            },
+            {
+                "group": 1,
+                "name": "Bananas",
+                "value": 30
+            },
+            {
+                "group": 2,
+                "name": "Carrots",
+                "value": 25
+            },
+            {
+                "group": 2,
+                "name": "Tomato",
+                "value": 30
+            },
+            {
+                "group": "Vegetables",
+                "name": "Beet",
+                "value": 15
+            },
+            {
+                "group": "Vegetables",
+                "name": "Potatoes",
+                "value": 35
+            }
+        ]
+    }
+]

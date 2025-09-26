@@ -1,0 +1,175 @@
+[
+    {
+        "message": "Q-Q Plot Chart",
+        "neuronName": "QQPlotNeuron",
+        "playbookName": "Playbook-QQPlot",
+        "governanceName": "Governance-QQPlot",
+        "grammarName": "Grammar-QQPlot",
+        "mutationName": "Mutation-QQPlot",
+        "graphName": "Graph-QQPlot",
+        "simulationName": "Simulation-QQPlot",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Q-Q plot visualization comparing quantiles of two datasets with customizable point radius, colors, and dimensions.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Q-Q plot configuration including dimensions, point radius, and colors"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Quantile data points for x and y axes"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of chart generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "float",
+                    "yUnits": "float"
+                },
+                "chartName": "qq-plot",
+                "chartConfig": {
+                    "title": "Q-Q Plot",
+                    "width": 600,
+                    "height": 400,
+                    "pointRadius": 5,
+                    "colors": [
+                        "#1f77b4"
+                    ],
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y"
+                    }
+                },
+                "chartData": [
+                    {
+                        "x": 2.1,
+                        "y": 1.9
+                    },
+                    {
+                        "x": 3.2,
+                        "y": 3.1
+                    },
+                    {
+                        "x": 4.0,
+                        "y": 4.5
+                    },
+                    {
+                        "x": 5.5,
+                        "y": 5.1
+                    },
+                    {
+                        "x": 6.3,
+                        "y": 6.7
+                    },
+                    {
+                        "x": 7.8,
+                        "y": 7.6
+                    },
+                    {
+                        "x": 8.5,
+                        "y": 8.9
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

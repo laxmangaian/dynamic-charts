@@ -1,0 +1,30 @@
+[
+    {
+        "nameUnits": "string",
+        "childrenUnits": "array",
+        "data": {
+            "name": "Root",
+            "children": [
+                {
+                    "name": "Child 1",
+                    "children": [
+                        {
+                            "name": "Leaf A"
+                        },
+                        {
+                            "name": "Leaf B"
+                        }
+                    ]
+                },
+                {
+                    "name": "Child 2",
+                    "children": [
+                        {
+                            "name": "Leaf C"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+]

@@ -1,0 +1,60 @@
+[
+    {
+        "angleUnits": "integer",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "angle": 0,
+                "value": 30
+            },
+            {
+                "angle": 0.5,
+                "value": 50
+            },
+            {
+                "angle": 1,
+                "value": 40
+            },
+            {
+                "angle": 1.5,
+                "value": 60
+            },
+            {
+                "angle": 2,
+                "value": 20
+            },
+            {
+                "angle": 2.5,
+                "value": 80
+            },
+            {
+                "angle": 3,
+                "value": 40
+            },
+            {
+                "angle": 3.5,
+                "value": 50
+            },
+            {
+                "angle": 4,
+                "value": 30
+            },
+            {
+                "angle": 4.5,
+                "value": 70
+            },
+            {
+                "angle": 5,
+                "value": 60
+            },
+            {
+                "angle": 5.5,
+                "value": 40
+            },
+            {
+                "angle": 6,
+                "value": 50
+            }
+        ]
+    }
+]

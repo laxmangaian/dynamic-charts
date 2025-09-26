@@ -1,0 +1,19 @@
+{
+    "title": "Geo Graph with Lat & Lon",
+    "lineColor": "crimson",
+    "lineOpacity": 0.5,
+    "lineWidthScale": 1,
+    "lineDashArray": "4,2",
+    "sourceColor": "dodgerblue",
+    "targetColor": "orange",
+    "sourceRadius": 4,
+    "targetRadius": 5,
+    "dataKeys": {
+        "sLatKey": "sLat",
+        "sLonKey": "sLon",
+        "tLatKey": "tLat",
+        "tLonKey": "tLon",
+        "valueKey": "value",
+        "nameKey": "name"
+    }
+}

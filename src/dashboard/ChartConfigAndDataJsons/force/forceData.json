@@ -1,0 +1,198 @@
+[
+	{
+		"idUnits": "string",
+		"groupUnits": "integer",
+		"sourceUnits": "string",
+		"targetUnits": "string",
+		"valueUnits": "integer",
+		"data": {
+			"nodes": [
+				{
+					"id": "A",
+					"group": 1
+				},
+				{
+					"id": "B",
+					"group": 1
+				},
+				{
+					"id": "C",
+					"group": 2
+				},
+				{
+					"id": "D",
+					"group": 2
+				}
+			],
+			"links": [
+				{
+					"source": "A",
+					"target": "B",
+					"value": 1
+				},
+				{
+					"source": "A",
+					"target": "C",
+					"value": 2
+				},
+				{
+					"source": "B",
+					"target": "D",
+					"value": 1
+				},
+				{
+					"source": "C",
+					"target": "D",
+					"value": 3
+				}
+			]
+		}
+	},
+	{
+		"id": "string",
+		"group": "string",
+		"source": "string",
+		"target": "string",
+		"value": "integer",
+		"data": {
+			"nodes": [
+				{
+					"id": "A",
+					"group": "a"
+				},
+				{
+					"id": "B",
+					"group": "b"
+				},
+				{
+					"id": "C",
+					"group": "a"
+				},
+				{
+					"id": "D",
+					"group": "b"
+				}
+			],
+			"links": [
+				{
+					"source": "A",
+					"target": "B",
+					"value": 1
+				},
+				{
+					"source": "A",
+					"target": "C",
+					"value": 2
+				},
+				{
+					"source": "B",
+					"target": "D",
+					"value": 1
+				},
+				{
+					"source": "C",
+					"target": "D",
+					"value": 3
+				}
+			]
+		}
+	},
+	{
+		"idUnits": "integer",
+		"groupUnits": "integer",
+		"sourceUnits": "integer",
+		"targetUnits": "integer",
+		"valueUnits": "integer",
+		"data": {
+			"nodes": [
+				{
+					"id": 1,
+					"group": 1
+				},
+				{
+					"id": 2,
+					"group": 2
+				},
+				{
+					"id": 3,
+					"group": 1
+				},
+				{
+					"id": 4,
+					"group": 2
+				}
+			],
+			"links": [
+				{
+					"source": 1,
+					"target": 2,
+					"value": 1
+				},
+				{
+					"source": 1,
+					"target": 3,
+					"value": 2
+				},
+				{
+					"source": 2,
+					"target": 4,
+					"value": 1
+				},
+				{
+					"source": 3,
+					"target": 4,
+					"value": 3
+				}
+			]
+		}
+	},
+	{
+		"idUnits": "integer",
+		"groupUnits": "string",
+		"sourceUnits": "integer",
+		"targetUnits": "integer",
+		"valueUnits": "integer",
+		"data": {
+			"nodes": [
+				{
+					"id": 1,
+					"group": "A"
+				},
+				{
+					"id": 2,
+					"group": "B"
+				},
+				{
+					"id": 3,
+					"group": "A"
+				},
+				{
+					"id": 4,
+					"group": "B"
+				}
+			],
+			"links": [
+				{
+					"source": 1,
+					"target": 2,
+					"value": 1
+				},
+				{
+					"source": 1,
+					"target": 3,
+					"value": 2
+				},
+				{
+					"source": 2,
+					"target": 4,
+					"value": 1
+				},
+				{
+					"source": 3,
+					"target": 4,
+					"value": 3
+				}
+			]
+		}
+	}
+]

@@ -1,0 +1,24 @@
+{
+    "width": 700,
+    "height": 150,
+    "cellPadding": 0.1,
+    "cellRadius": 4,
+    "baseColor": "green",
+    "missingFill": "#f3f4f6",
+    "tooltip": true,
+    "legend": true,
+    "legendLabels": [
+        "Min",
+        "Max"
+    ],
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "valueKey": "value"
+    },
+    "xLabel": "Products",
+    "yLabel": "Regions",
+    "xTickSize": 12,
+    "xTickRotate": 45,
+    "yTickSize": 12
+}

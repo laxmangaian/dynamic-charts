@@ -1,0 +1,12 @@
+{
+    "title": "Bubble Map with Country Name",
+    "geoMode": "points",
+    "projection": "geoNaturalEarth1",
+    "pointMinRadius": 3,
+    "pointMaxRadius": 20,
+    "pointColor": "#1d4ed8",
+    "dataKeys": {
+        "nameKey": "name",
+        "valueKey": "value"
+    }
+}

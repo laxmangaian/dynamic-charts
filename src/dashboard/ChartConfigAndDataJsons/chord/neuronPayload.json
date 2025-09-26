@@ -1,0 +1,210 @@
+[
+    {
+        "message": "Chord Chart",
+        "neuronName": "ChordChartNeuron",
+        "playbookName": "Playbook-ChordChart",
+        "governanceName": "Governance-ChordChart",
+        "grammarName": "Grammar-ChordChart",
+        "mutationName": "Mutation-ChordChart",
+        "graphName": "Graph-ChordChart",
+        "simulationName": "Simulation-ChordChart",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a chord chart showing relationships between source and target nodes with weighted values and ribbon styling.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chord chart configuration including size, colors, and pad angle"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Source-target-value data for chord chart"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of chart generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "sourceUnits": "string",
+                    "targetUnits": "string",
+                    "valueUnits": "number"
+                },
+                "chartName": "chord",
+                "chartConfig": {
+                    "title": "Chord",
+                    "width": 600,
+                    "height": 600,
+                    "padAngle": 0.05,
+                    "ribbonOpacity": 0.7,
+                    "colors": [
+                        "#1f77b4"
+                    ],
+                    "dataKeys": {
+                        "sourceKey": "source",
+                        "targetKey": "target",
+                        "valueKey": "value"
+                    }
+                },
+                "chartData": [
+                    {
+                        "source": "A",
+                        "target": "B",
+                        "value": 20
+                    },
+                    {
+                        "source": "A",
+                        "target": "C",
+                        "value": 30
+                    },
+                    {
+                        "source": "A",
+                        "target": "D",
+                        "value": 10
+                    },
+                    {
+                        "source": "B",
+                        "target": "A",
+                        "value": 10
+                    },
+                    {
+                        "source": "B",
+                        "target": "C",
+                        "value": 40
+                    },
+                    {
+                        "source": "B",
+                        "target": "D",
+                        "value": 20
+                    },
+                    {
+                        "source": "C",
+                        "target": "A",
+                        "value": 20
+                    },
+                    {
+                        "source": "C",
+                        "target": "B",
+                        "value": 10
+                    },
+                    {
+                        "source": "C",
+                        "target": "D",
+                        "value": 25
+                    },
+                    {
+                        "source": "D",
+                        "target": "A",
+                        "value": 5
+                    },
+                    {
+                        "source": "D",
+                        "target": "B",
+                        "value": 15
+                    },
+                    {
+                        "source": "D",
+                        "target": "C",
+                        "value": 20
+                    }
+                ]
+            },
+            "headers": {
+                "Accept": "application/json, text/plain",
+                "Content-Type": "multipart/form-data"
+            }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

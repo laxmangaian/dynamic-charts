@@ -1,0 +1,174 @@
+[
+    {
+        "message": "Word Cloud Chart",
+        "neuronName": "WordCloudNeuron",
+        "playbookName": "Playbook-WordCloud",
+        "governanceName": "Governance-WordCloud",
+        "grammarName": "Grammar-WordCloud",
+        "mutationName": "Mutation-WordCloud",
+        "graphName": "Graph-WordCloud",
+        "simulationName": "Simulation-WordCloud",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a Word Cloud visualization with text frequency counts.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration including dimensions and font settings"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Word cloud data with text and counts"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "textUnits": "string",
+                    "countUnits": "integer"
+                },
+                "chartName": "word-cloud",
+                "chartConfig": {
+                    "title": "Word Cloud",
+                    "width": 600,
+                    "height": 400,
+                    "fontRange": [
+                        0,
+                        90
+                    ],
+                    "rotateAngles": [
+                        0,
+                        45,
+                        -45
+                    ],
+                    "wordPadding": 6,
+                    "fontFamily": "Verdana, sans-serif",
+                    "dataKeys": {
+                        "textKey": "text",
+                        "countKey": "count"
+                    }
+                },
+                "chartData": [
+                    {
+                        "text": "D3",
+                        "count": 50
+                    },
+                    {
+                        "text": "JavaScript",
+                        "count": 35
+                    },
+                    {
+                        "text": "SVG",
+                        "count": 30
+                    },
+                    {
+                        "text": "Visualization",
+                        "count": 30
+                    },
+                    {
+                        "text": "Chart",
+                        "count": 20
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

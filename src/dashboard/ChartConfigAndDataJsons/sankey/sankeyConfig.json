@@ -1,0 +1,20 @@
+{
+	"title": "Sankey",
+	"nodeWidth": 20,
+	"nodePadding": 15,
+	"colorScheme": [
+		"#1f77b4",
+		"#ff7f0e",
+		"#2ca02c",
+		"#9467bd"
+	],
+	"linkColor": "source",
+	"linkOpacity": 0.6,
+	"tooltip": true,
+	"showLabels": true,
+	"dataKeys": {
+		"sourceKey": "source",
+		"targetKey": "target",
+		"valueKey": "value"
+	}
+}

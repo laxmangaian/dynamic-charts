@@ -1,0 +1,734 @@
+[
+    {
+        "message": "Grouped Bar Chart Generation Monet Dbaas - string group, string x, integer y",
+        "neuronName": "GroupedBarChart Dbaas -groupString-xString-yInteger",
+        "playbookName": "Playbook-Grouped Bar Chart Dbaas -groupString-xString-yInteger",
+        "governanceName": "Governance-Grouped Bar Chart Dbaas -groupString-xString-yInteger",
+        "grammarName": "Grammar-Grouped Bar Chart Dbaas -groupString-xString-yInteger",
+        "mutationName": "Mutation-Grouped Bar Chart Dbaas -groupString-xString-yInteger",
+        "graphName": "Graph-Grouped Bar Chart Dbaas -groupString-xString-yInteger",
+        "simulationName": "Simulation-Grouped Bar Chart Dbaas -groupString-xString-yInteger",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a grouped bar chart with string group, string x, and integer y values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "neuronEvaluation": {
+            "scoring_function": "chart_generation_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "groupUnit": "string",
+                    "xUnit": "string",
+                    "yUnit": "integer"
+                },
+                "chartName": "grouped-bar",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 200,
+                    "xLabel": "Product Category",
+                    "yLabel": "Sales (in $1000s)",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "groupKey": "group"
+                    },
+                    "barPadding": 0.15,
+                    "groupPadding": 0.25,
+                    "barRadius": 4,
+                    "barOpacity": 0.85,
+                    "showLegend": true,
+                    "legendPosition": "bottom",
+                    "colorBase": [
+                        "red",
+                        "green"
+                    ]
+                },
+                "chartData": [
+                    {
+                        "group": "Q1",
+                        "x":"North",
+                        "y":12
+                    },
+                    {
+                        "group": "Q1",
+                        "x":"South",
+                        "y":9
+                    },
+                    {
+                        "group": "Q2",
+                        "x":"North",
+                        "y":15
+                    },
+                    {
+                        "group": "Q2",
+                        "x":"South",
+                        "y":11
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Grouped Bar Chart Generation Monet Dbaas - integer group, string x, integer y",
+        "neuronName": "GroupedBarChart Dbaas -groupInteger-xString-yInteger",
+        "playbookName": "Playbook-Grouped Bar Chart Dbaas -groupInteger-xString-yInteger",
+        "governanceName": "Governance-Grouped Bar Chart Dbaas -groupInteger-xString-yInteger",
+        "grammarName": "Grammar-Grouped Bar Chart Dbaas -groupInteger-xString-yInteger",
+        "mutationName": "Mutation-Grouped Bar Chart Dbaas -groupInteger-xString-yInteger",
+        "graphName": "Graph-Grouped Bar Chart Dbaas -groupInteger-xString-yInteger",
+        "simulationName": "Simulation-Grouped Bar Chart Dbaas -groupInteger-xString-yInteger",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a grouped bar chart with integer group, string x, and integer y values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "neuronEvaluation": {
+            "scoring_function": "chart_generation_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "groupUnit": "integer",
+                    "xUnit": "string",
+                    "yUnit": "integer"
+                },
+                "chartName": "grouped-bar",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 200,
+                    "xLabel": "Product Category",
+                    "yLabel": "Sales (in $1000s)",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "groupKey": "group"
+                    },
+                    "barPadding": 0.15,
+                    "groupPadding": 0.25,
+                    "barRadius": 4,
+                    "barOpacity": 0.85,
+                    "showLegend": true,
+                    "legendPosition": "bottom",
+                    "colorBase": [
+                        "red",
+                        "green"
+                    ]
+                },
+                "chartData": [
+                    {
+                        "group": 1,
+                        "x":"North",
+                        "y":12
+                    },
+                    {
+                        "group": 1,
+                        "x":"South",
+                        "y":9
+                    },
+                    {
+                        "group": 2,
+                        "x":"North",
+                        "y":15
+                    },
+                    {
+                        "group": 2,
+                        "x":"South",
+                        "y":11
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Grouped Bar Chart Generation Monet Dbaas - string group, number x, number y",
+        "neuronName": "GroupedBarChart Dbaas -groupString-xNumber-yNumber",
+        "playbookName": "Playbook-Grouped Bar Chart Dbaas -groupString-xNumber-yNumber",
+        "governanceName": "Governance-Grouped Bar Chart Dbaas -groupString-xNumber-yNumber",
+        "grammarName": "Grammar-Grouped Bar Chart Dbaas -groupString-xNumber-yNumber",
+        "mutationName": "Mutation-Grouped Bar Chart Dbaas -groupString-xNumber-yNumber",
+        "graphName": "Graph-Grouped Bar Chart Dbaas -groupString-xNumber-yNumber",
+        "simulationName": "Simulation-Grouped Bar Chart Dbaas -groupString-xNumber-yNumber",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a grouped bar chart with string group, numeric x, and numeric y values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "neuronEvaluation": {
+            "scoring_function": "chart_generation_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "groupUnit": "string",
+                    "xUnit": "number",
+                    "yUnit": "number"
+                },
+                "chartName": "grouped-bar",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 200,
+                    "xLabel": "Product Category",
+                    "yLabel": "Sales (in $1000s)",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "groupKey": "group"
+                    },
+                    "barPadding": 0.15,
+                    "groupPadding": 0.25,
+                    "barRadius": 4,
+                    "barOpacity": 0.85,
+                    "showLegend": true,
+                    "legendPosition": "bottom",
+                    "colorBase": [
+                        "red",
+                        "green"
+                    ]
+                },
+                "chartData": [
+                    {
+                        "group": "Q1",
+                        "x":2018,
+                        "y":40
+                    },
+                    {
+                        "group": "Q1",
+                        "x":2019,
+                        "y":55
+                    },
+                    {
+                        "group": "Q2",
+                        "x":2018,
+                        "y":30
+                    },
+                    {
+                        "group": "Q2",
+                        "x":2019,
+                        "y":70
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Grouped Bar Chart Generation Monet Dbaas - number group, number x, number y",
+        "neuronName": "GroupedBarChart Dbaas -groupNumber-xNumber-yNumber",
+        "playbookName": "Playbook-Grouped Bar Chart Dbaas -groupNumber-xNumber-yNumber",
+        "governanceName": "Governance-Grouped Bar Chart Dbaas -groupNumber-xNumber-yNumber",
+        "grammarName": "Grammar-Grouped Bar Chart Dbaas -groupNumber-xNumber-yNumber",
+        "mutationName": "Mutation-Grouped Bar Chart Dbaas -groupNumber-xNumber-yNumber",
+        "graphName": "Graph-Grouped Bar Chart Dbaas -groupNumber-xNumber-yNumber",
+        "simulationName": "Simulation-Grouped Bar Chart Dbaas -groupNumber-xNumber-yNumber",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a grouped bar chart with numeric group, numeric x, and numeric y values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "neuronEvaluation": {
+            "scoring_function": "chart_generation_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "groupUnit": "number",
+                    "xUnit": "number",
+                    "yUnit": "number"
+                },
+                "chartName": "grouped-bar",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 200,
+                    "xLabel": "Product Category",
+                    "yLabel": "Sales (in $1000s)",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "groupKey": "group"
+                    },
+                    "barPadding": 0.15,
+                    "groupPadding": 0.25,
+                    "barRadius": 4,
+                    "barOpacity": 0.85,
+                    "showLegend": true,
+                    "legendPosition": "bottom",
+                    "colorBase": [
+                        "red",
+                        "green"
+                    ]
+                },
+                "chartData": [
+                    {
+                        "group": 1,
+                        "x":2018,
+                        "y":40
+                    },
+                    {
+                        "group": 1,
+                        "x":2019,
+                        "y":55
+                    },
+                    {
+                        "group": 2,
+                        "x":2018,
+                        "y":30
+                    },
+                    {
+                        "group": 2,
+                        "x":2019,
+                        "y":70
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

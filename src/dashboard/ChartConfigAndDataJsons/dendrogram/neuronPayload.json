@@ -1,0 +1,188 @@
+[
+    {
+        "message": "Dendrogram Generation Monet Dbaas - nameString childrenArray",
+        "neuronName": "Dendrogram Generation Dbaas -nameString-childrenArray",
+        "playbookName": "Playbook-Dendrogram Generation Dbaas -nameString-childrenArray",
+        "governanceName": "Governance-Dendrogram Generation Dbaas -nameString-childrenArray",
+        "grammarName": "Grammar-Dendrogram Generation Dbaas -nameString-childrenArray",
+        "mutationName": "Mutation-Dendrogram Generation Dbaas -nameString-childrenArray",
+        "graphName": "Graph-Dendrogram Generation Dbaas -nameString-childrenArray",
+        "simulationName": "Simulation-Dendrogram Generation Dbaas -nameString-childrenArray",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron is responsible for generating a dendrogram chart with name as string and children as array.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart hierarchical data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "nameUnits": "string",
+                    "childrenUnits": "array"
+                },
+                "chartName": "dendrogram",
+                "chartConfig": {
+                    "width": 800,
+                    "height": 200,
+                    "orientation": "horizontal",
+                    "nodeRadius": 5,
+                    "nodeColor": "#2c7be5",
+                    "linkColor": "#999999",
+                    "linkOpacity": 0.6,
+                    "linkWidth": 2,
+                    "labelFontSize": 14,
+                    "labelColor": "#333333",
+                    "labelOffset": 8,
+                    "dataKeys": {
+                        "nameKey": "name",
+                        "childrenKey": "children"
+                    }
+                },
+                "chartData": {
+                    "name": "Root",
+                    "children": [
+                        {
+                            "name": "Child 1",
+                            "children": [
+                                {
+                                    "name": "Leaf A"
+                                },
+                                {
+                                    "name": "Leaf B"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Child 2",
+                            "children": [
+                                {
+                                    "name": "Leaf C"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

@@ -1,0 +1,150 @@
+[
+    {
+        "levelUnits": "string",
+        "nameUnits": "string",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "level": "Continent",
+                "name": "Asia",
+                "value": 80
+            },
+            {
+                "level": "Continent",
+                "name": "Europe",
+                "value": 60
+            },
+            {
+                "level": "Continent",
+                "name": "Americas",
+                "value": 70
+            },
+            {
+                "level": "Sector",
+                "name": "Tech",
+                "value": 40
+            },
+            {
+                "level": "Sector",
+                "name": "Finance",
+                "value": 30
+            },
+            {
+                "level": "Sector",
+                "name": "Healthcare",
+                "value": 20
+            }
+        ]
+    },
+    {
+        "levelUnits": "integer",
+        "nameUnits": "string",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "level": 1,
+                "name": "Asia",
+                "value": 80
+            },
+            {
+                "level": 1,
+                "name": "Europe",
+                "value": 60
+            },
+            {
+                "level": 1,
+                "name": "Americas",
+                "value": 70
+            },
+            {
+                "level": 2,
+                "name": "Tech",
+                "value": 40
+            },
+            {
+                "level": 2,
+                "name": "Finance",
+                "value": 30
+            },
+            {
+                "level": 2,
+                "name": "Healthcare",
+                "value": 20
+            }
+        ]
+    },
+    {
+        "levelUnits": "string",
+        "nameUnits": "integer",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "level": "Continent",
+                "name": 101,
+                "value": 80
+            },
+            {
+                "level": "Continent",
+                "name": 102,
+                "value": 60
+            },
+            {
+                "level": "Continent",
+                "name": 103,
+                "value": 70
+            },
+            {
+                "level": "Sector",
+                "name": 201,
+                "value": 40
+            },
+            {
+                "level": "Sector",
+                "name": 202,
+                "value": 30
+            },
+            {
+                "level": "Sector",
+                "name": 203,
+                "value": 20
+            }
+        ]
+    },
+    {
+        "levelUnits": "integer",
+        "nameUnits": "integer",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "level": 1,
+                "name": 101,
+                "value": 80
+            },
+            {
+                "level": 1,
+                "name": 102,
+                "value": 60
+            },
+            {
+                "level": 1,
+                "name": 103,
+                "value": 70
+            },
+            {
+                "level": 2,
+                "name": 201,
+                "value": 40
+            },
+            {
+                "level": 2,
+                "name": 202,
+                "value": 30
+            },
+            {
+                "level": 2,
+                "name": 203,
+                "value": 20
+            }
+        ]
+    }
+]

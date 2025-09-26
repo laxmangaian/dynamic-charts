@@ -1,0 +1,20 @@
+{
+    "title": "Word Cloud",
+    "width": 600,
+    "height": 400,
+    "fontRange": [
+        0,
+        90
+    ],
+    "rotateAngles": [
+        0,
+        45,
+        -45
+    ],
+    "wordPadding": 6,
+    "fontFamily": "Verdana, sans-serif",
+    "dataKeys": {
+        "textKey": "text",
+        "countKey": "count"
+    }
+}

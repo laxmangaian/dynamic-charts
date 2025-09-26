@@ -1,0 +1,16 @@
+{
+    "title": "Histogram",
+    "bins": 10,
+    "width": 600,
+    "height": 200,
+    "xLabel": "Score",
+    "yLabel": "Frequency",
+    "barColor": "#2ca02c",
+    "barOpacity": 0.9,
+    "showGrid": true,
+    "showMean": true,
+    "showMedian": true,
+    "dataKeys": {
+        "valuesUnits": "values"
+    }
+}

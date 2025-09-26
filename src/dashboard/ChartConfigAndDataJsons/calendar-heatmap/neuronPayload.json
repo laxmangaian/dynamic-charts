@@ -1,0 +1,185 @@
+[
+    {
+        "message": "Calendar Heatmap Generation Monet Dbaas - string date and integer values",
+        "neuronName": "Calendar Heatmap Generation Dbaas -datestring-valueinteger",
+        "playbookName": "Playbook-Calendar-Heatmap Generation Dbaas -datestring-valueinteger",
+        "governanceName": "Governance-Calendar-Heatmap Generation Dbaas -datestring-valueinteger",
+        "grammarName": "Grammar-Calendar-Heatmap Generation Dbaas -datestring-valueinteger",
+        "mutationName": "Mutation-Calendar-Heatmap Generation Dbaas -datestring-valueinteger",
+        "graphName": "Graph-Calendar-Heatmap Generation Dbaas -datestring-valueinteger",
+        "simulationName": "Simulation-Calendar-Heatmap Generation Dbaas -datestring-valueinteger",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron is responsible for generating a calendar heatmap with string date and integer values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "dateUnits": "string",
+                    "valueUnits": "integer"
+                },
+                "chartName": "calendar-heatmap",
+                "chartConfig": {
+                    "width": 700,
+                    "height": 150,
+                    "dataKeys": {
+                        "dateKey": "date",
+                        "valueKey": "value"
+                    },
+                    "baseColor": "green",
+                    "cellSize": 14,
+                    "cellGap": 2,
+                    "cellRadius": 2,
+                    "yearSpacing": 40,
+                    "yearLabelFontSize": 12,
+                    "yearLabelColor": "#000",
+                    "missingFill": "#e5e7eb",
+                    "colorDomain": [
+                        0,
+                        20
+                    ],
+                    "animate": true,
+                    "showMonthLabels": true,
+                    "monthLabelFontSize": 10,
+                    "monthLabelColor": "#555"
+                },
+                "chartData": [
+                    {
+                        "date": "2024-01-01",
+                        "value": 2
+                    },
+                    {
+                        "date": "2024-01-02",
+                        "value": 8
+                    },
+                    {
+                        "date": "2024-01-03",
+                        "value": 5
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

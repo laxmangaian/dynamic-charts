@@ -1,0 +1,13 @@
+{
+    "title": "Q-Q Plot",
+    "width": 600,
+    "height": 400,
+    "pointRadius": 5,
+    "colors": [
+        "#1f77b4"
+    ],
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+    }
+}

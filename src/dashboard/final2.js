@@ -137,7 +137,7 @@ function render(container, input){
   if (type === 'sunburst') { renderSunburst(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); }
   if (type === 'boxPlot') { renderBoxPlot(g, rows, innerW, innerH, { margin, opts, root }); return; }
   if (type ==='radial-area'){ renderRadialAreaChart(g, rows, innerW, innerH, { margin, opts, root }); return; }
-  if (type === 'wordCloud') { renderWordCloud(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); return; }
+  if (type === 'word-cloud') { renderWordCloud(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); return; }
   if (type==='hexbin'){ renderHexbin(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); return; }
   if(type==='choropleth'){ renderChoropleth(g, rows, innerW, innerH, { svg: svg, root: root, opts: opts, width: width, height: height, margin: margin, colorScheme: colorScheme }); return; }
 
@@ -686,21 +686,21 @@ function render(container, input){
         .attr('class','country').attr('d', path).attr('fill', '#e5e7eb').attr('stroke', 'currentColor').attr('stroke-opacity', 0.2);
 
       // split rows into country values vs points
-      var countryRows = rows.filter(function(d){ return (d.iso3||d.id||d.code||d.name) && !Number.isFinite(+d.lat||+d.latitude) && !Number.isFinite(+d.lon||+d.longitude); });
+      var countryRows = rows.filter(function(d){ return (d.countryId||d.id||d.code||d.name) && !Number.isFinite(+d.lat||+d.latitude) && !Number.isFinite(+d.lon||+d.longitude); });
       var pointRows = rows.filter(function(d){ return Number.isFinite(+d.lat||+d.latitude) && Number.isFinite(+d.lon||+d.longitude); });
 
       if (countryRows.length){
         var byId = new Map();
         countryRows.forEach(function(d){
-          var id = (d.iso3 || d.id || d.code || '').toString().toUpperCase();
+          var id = (d.countryId || d.id || d.code || '').toString().toUpperCase();
           if (id) byId.set(id, (+d.value) || (+d.count) || 0);
         });
         var byName = new Map(countryRows.filter(function(d){ return d.name; }).map(function(d){ return [d.name.toString().toLowerCase(), (+d.value) || (+d.count) || 0]; }));
         var values = [];
         countries.features.forEach(function(f){
-          var iso3 = f.properties.iso_a3 || f.id || '';
+          var countryId = f.properties.iso_a3 || f.id || '';
           var nm = (f.properties.name || '').toLowerCase();
-          var v = byId.get(String(iso3).toUpperCase());
+          var v = byId.get(String(countryId).toUpperCase());
           if (v==null) v = byName.get(nm);
           if (v==null) v = 0;
           f.__value = v; values.push(v);
@@ -1480,8 +1480,8 @@ let boxPlotChart = buildChartHTML({
 });
 // console.log(boxPlotChart);
 
-let wordCloudChart = buildChartHTML({
-  chartType: "wordCloud",
+let word-cloudChart = buildChartHTML({
+  chartType: "word-cloud",
   data: [
     { text: "D3", count: 50 },
     { text: "JavaScript", count: 35 },
@@ -1493,7 +1493,7 @@ let wordCloudChart = buildChartHTML({
     title: "Word Cloud Example",
   },
 });
-// console.log(wordCloudChart);
+// console.log(word-cloudChart);
 
 let hexbinChart = buildChartHTML({
   chartType: "hexbin",
@@ -1536,4 +1536,3 @@ let hexbinChart = buildChartHTML({
   },
 });
 console.log(hexbinChart);
-

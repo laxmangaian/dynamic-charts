@@ -1,0 +1,17 @@
+{
+    "width": 800,
+    "height": 200,
+    "orientation": "horizontal",
+    "nodeRadius": 5,
+    "nodeColor": "#2c7be5",
+    "linkColor": "#999999",
+    "linkOpacity": 0.6,
+    "linkWidth": 2,
+    "labelFontSize": 14,
+    "labelColor": "#333333",
+    "labelOffset": 8,
+    "dataKeys": {
+        "nameKey": "name",
+        "childrenKey": "children"
+    }
+}

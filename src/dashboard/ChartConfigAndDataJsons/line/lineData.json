@@ -1,0 +1,122 @@
+[
+    {
+        "xUnits": "string",
+        "yUnits": "integer",
+        "data": [
+            {
+                "x": "Mon",
+                "y": 820
+            },
+            {
+                "x": "Tue",
+                "y": 932
+            },
+            {
+                "x": "Wed",
+                "y": 901
+            },
+            {
+                "x": "Thu",
+                "y": 934
+            },
+            {
+                "x": "Fri",
+                "y": 1290
+            },
+            {
+                "x": "Sat",
+                "y": 1330
+            },
+            {
+                "x": "Sun",
+                "y": 1320
+            }
+        ]
+    },
+    {
+        "xUnits": "integer",
+        "yUnits": "integer",
+        "data": [
+            {
+                "x": 1,
+                "y": 820
+            },
+            {
+                "x": 2,
+                "y": 932
+            },
+            {
+                "x": 3,
+                "y": 901
+            },
+            {
+                "x": 4,
+                "y": 934
+            },
+            {
+                "x": 5,
+                "y": 1290
+            },
+            {
+                "x": 6,
+                "y": 1330
+            },
+            {
+                "x": 7,
+                "y": 1320
+            }
+        ]
+    },
+    {
+        "xUnits": "integer",
+        "yUnits": "string",
+        "data": [
+            {
+                "x": 1,
+                "y": "Not Started"
+            },
+            {
+                "x": 2,
+                "y": "In Progress"
+            },
+            {
+                "x": 3,
+                "y": "Blocked"
+            },
+            {
+                "x": 4,
+                "y": "In Progress"
+            },
+            {
+                "x": 5,
+                "y": "Completed"
+            }
+        ]
+    },
+    {
+        "xUnits": "string",
+        "yUnits": "string",
+        "data": [
+            {
+                "x": "Mon",
+                "y": "Not Started"
+            },
+            {
+                "x": "Tue",
+                "y": "In Progress"
+            },
+            {
+                "x": "Wed",
+                "y": "Blocked"
+            },
+            {
+                "x": "Thu",
+                "y": "In Progress"
+            },
+            {
+                "x": "Fri",
+                "y": "Completed"
+            }
+        ]
+    }
+]

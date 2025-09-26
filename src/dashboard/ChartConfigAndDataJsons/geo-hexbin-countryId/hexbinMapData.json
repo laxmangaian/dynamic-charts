@@ -1,0 +1,39 @@
+[
+    {
+        "nameUnits": "string",
+        "idUnits": "integer",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "id": 840,
+                "value": 25,
+                "name": "United States"
+            },
+            {
+                "id": 250,
+                "value": 15,
+                "name": "France"
+            },
+            {
+                "id": 392,
+                "value": 30,
+                "name": "Japan"
+            },
+            {
+                "id": 76,
+                "value": 10,
+                "name": "Brazil"
+            },
+            {
+                "id": 276,
+                "value": 20,
+                "name": "Germany"
+            },
+            {
+                "id": 356,
+                "value": 18,
+                "name": "India"
+            }
+        ]
+    }
+]

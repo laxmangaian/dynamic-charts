@@ -1,0 +1,44 @@
+[
+    {
+        "sLatUnits": "float",
+        "sLonUnits": "float",
+        "tLatUnits": "float",
+        "tLonUnits": "float",
+        "valueUnits": "number",
+        "nameUnits": "string",
+        "data": [
+            {
+                "sLat": 37.77,
+                "sLon": -122.42,
+                "tLat": 40.71,
+                "tLon": -74.01,
+                "value": 5,
+                "name": "SFO→NYC"
+            },
+            {
+                "sLat": 51.51,
+                "sLon": -0.13,
+                "tLat": 48.86,
+                "tLon": 2.35,
+                "value": 3,
+                "name": "LON→PAR"
+            },
+            {
+                "sLat": 35.68,
+                "sLon": 139.76,
+                "tLat": 55.75,
+                "tLon": 37.61,
+                "value": 7,
+                "name": "TOK→MOW"
+            },
+            {
+                "sLat": -33.87,
+                "sLon": 151.21,
+                "tLat": -37.81,
+                "tLon": 144.96,
+                "value": 4,
+                "name": "SYD→MEL"
+            }
+        ]
+    }
+]

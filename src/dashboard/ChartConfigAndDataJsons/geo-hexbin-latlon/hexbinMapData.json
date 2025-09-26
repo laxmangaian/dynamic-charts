@@ -1,0 +1,52 @@
+[
+    {
+        "nameUnits": "string",
+        "latUnits": "float",
+        "lonUnits": "float",
+        "valueUnits": "integer",
+        "data": [
+            {
+                "lat": 37.77,
+                "lon": -122.42,
+                "name": "San Francisco",
+                "value": 5
+            },
+            {
+                "lat": 40.71,
+                "lon": -74.01,
+                "name": "New York",
+                "value": 8
+            },
+            {
+                "lat": 51.51,
+                "lon": -0.13,
+                "name": "London",
+                "value": 3
+            },
+            {
+                "lat": 48.86,
+                "lon": 2.35,
+                "name": "Paris",
+                "value": 4
+            },
+            {
+                "lat": 35.68,
+                "lon": 139.76,
+                "name": "Tokyo",
+                "value": 7
+            },
+            {
+                "lat": 55.75,
+                "lon": 37.61,
+                "name": "Moscow",
+                "value": 6
+            },
+            {
+                "lat": -33.87,
+                "lon": 151.21,
+                "name": "Sydney",
+                "value": 2
+            }
+        ]
+    }
+]

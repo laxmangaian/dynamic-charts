@@ -1,0 +1,15 @@
+{
+    "title": "Chord",
+    "width": 600,
+    "height": 600,
+    "padAngle": 0.05,
+    "ribbonOpacity": 0.7,
+    "colors": [
+        "#1f77b4"
+    ],
+    "dataKeys": {
+        "sourceKey": "source",
+        "targetKey": "target",
+        "valueKey": "value"
+    }
+}

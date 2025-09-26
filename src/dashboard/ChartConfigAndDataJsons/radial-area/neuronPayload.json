@@ -1,0 +1,198 @@
+[
+    {
+        "message": "Radial Area Chart",
+        "neuronName": "RadialAreaNeuron",
+        "playbookName": "Playbook-RadialArea",
+        "governanceName": "Governance-RadialArea",
+        "grammarName": "Grammar-RadialArea",
+        "mutationName": "Mutation-RadialArea",
+        "graphName": "Graph-RadialArea",
+        "simulationName": "Simulation-RadialArea",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a radial area chart visualization based on angle and value data points.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration including colors and radius"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Radial area chart data with angles and values"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "angleUnits": "number",
+                    "valueUnits": "number"
+                },
+                "chartName": "radial-area",
+                "chartConfig": {
+                    "title": "Radial Area",
+                    "width": 500,
+                    "height": 500,
+                    "innerRadius": 50,
+                    "outerRadius": 200,
+                    "startAngle": 0,
+                    "endAngle": 6.28,
+                    "angleKey": "angle",
+                    "valueKey": "value",
+                    "color": "#1f77b4"
+                },
+                "chartData": [
+                    {
+                        "angle": 0,
+                        "value": 30
+                    },
+                    {
+                        "angle": 0.5,
+                        "value": 50
+                    },
+                    {
+                        "angle": 1,
+                        "value": 40
+                    },
+                    {
+                        "angle": 1.5,
+                        "value": 60
+                    },
+                    {
+                        "angle": 2,
+                        "value": 20
+                    },
+                    {
+                        "angle": 2.5,
+                        "value": 80
+                    },
+                    {
+                        "angle": 3,
+                        "value": 40
+                    },
+                    {
+                        "angle": 3.5,
+                        "value": 50
+                    },
+                    {
+                        "angle": 4,
+                        "value": 30
+                    },
+                    {
+                        "angle": 4.5,
+                        "value": 70
+                    },
+                    {
+                        "angle": 5,
+                        "value": 60
+                    },
+                    {
+                        "angle": 5.5,
+                        "value": 40
+                    },
+                    {
+                        "angle": 6,
+                        "value": 50
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

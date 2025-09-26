@@ -1,0 +1,17 @@
+{
+    "title": "Hexbin Map with Country Id",
+    "width": 800,
+    "height": 500,
+    "projection": "geoNaturalEarth1",
+    "hexRadius": 10,
+    "minHexRadius": 3,
+    "maxHexRadius": 15,
+    "mapFill": "#e5e7eb",
+    "mapStroke": "#999",
+    "hexStroke": "#fff",
+    "dataKeys": {
+        "idKey": "id",
+        "nameKey": "name",
+        "valueKey": "value"
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "title": "Choropleth Map Country name",
+    "geoMode": "choropleth",
+    "projection": "geoNaturalEarth1",
+    "colorScheme": "interpolateBlues",
+    "dataKeys": {
+        "nameKey": "name",
+        "valueKey": "value"
+    }
+}

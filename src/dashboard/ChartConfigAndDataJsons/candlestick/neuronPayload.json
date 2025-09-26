@@ -1,0 +1,197 @@
+[
+    {
+        "message": "Stock Chart Generation Monet Dbaas - integer OHLC",
+        "neuronName": "Stock Chart Generation Dbaas -OHLC-integer",
+        "playbookName": "Playbook-Stock Chart Generation Dbaas -OHLC-integer",
+        "governanceName": "Governance-Stock Chart Generation Dbaas -OHLC-integer",
+        "grammarName": "Grammar-Stock Chart Generation Dbaas -OHLC-integer",
+        "mutationName": "Mutation-Stock Chart Generation Dbaas -OHLC-integer",
+        "graphName": "Graph-Stock Chart Generation Dbaas -OHLC-integer",
+        "simulationName": "Simulation-Stock Chart Generation Dbaas -OHLC-integer",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron generates a stock/candlestick chart with integer OHLC values.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Stock data points"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [],
+        "effects": [],
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "dateUnits": "string",
+                    "openUnits": "integer",
+                    "highUnits": "integer",
+                    "lowUnits": "integer",
+                    "closeUnits": "integer"
+                },
+                "chartName": "candlestick",
+                "chartConfig": {
+                    "width": 500,
+                    "height": 250,
+                    "title": "Stock Price",
+                    "upColor": "#22c55e",
+                    "downColor": "#ef4444",
+                    "wickColor": "#374151",
+                    "wickWidth": 2,
+                    "bodyOpacity": 0.8,
+                    "xLabel": "Trading Day",
+                    "yLabel": "Price (USD)",
+                    "showGrid": true,
+                    "dataKeys": {
+                        "dateKey": "date",
+                        "openKey": "open",
+                        "highKey": "high",
+                        "lowKey": "low",
+                        "closeKey": "close"
+                    }
+                },
+                "chartData": [
+                    {
+                        "date": "2023-01-01",
+                        "open": 100,
+                        "high": 120,
+                        "low": 90,
+                        "close": 110
+                    },
+                    {
+                        "date": "2023-01-02",
+                        "open": 110,
+                        "high": 130,
+                        "low": 105,
+                        "close": 115
+                    },
+                    {
+                        "date": "2023-01-03",
+                        "open": 115,
+                        "high": 118,
+                        "low": 100,
+                        "close": 102
+                    },
+                    {
+                        "date": "2023-01-04",
+                        "open": 107,
+                        "high": 108,
+                        "low": 95,
+                        "close": 98
+                    },
+                    {
+                        "date": "2023-01-05",
+                        "open": 100,
+                        "high": 112,
+                        "low": 100,
+                        "close": 110
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

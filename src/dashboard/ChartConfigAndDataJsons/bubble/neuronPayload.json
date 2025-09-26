@@ -1,0 +1,782 @@
+[
+    {
+        "message": "Bubble Chart Generation Monet Dbaas - string x, integer y, integer r, string key",
+        "neuronName": "Bubble Chart Generation Dbaas -xstring-yinteger-rinteger-keystring",
+        "playbookName": "Playbook-Bubble-Chart Generation Dbaas -xstring-yinteger-rinteger-keystring",
+        "governanceName": "Governance-Bubble-Chart Generation Dbaas -xstring-yinteger-rinteger-keystring",
+        "grammarName": "Grammar-Bubble-Chart Generation Dbaas -xstring-yinteger-rinteger-keystring",
+        "mutationName": "Mutation-Bubble-Chart Generation Dbaas -xstring-yinteger-rinteger-keystring",
+        "graphName": "Graph-Bubble-Chart Generation Dbaas -xstring-yinteger-rinteger-keystring",
+        "simulationName": "Simulation-Bubble-Chart Generation Dbaas -xstring-yinteger-rinteger-keystring",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron is responsible for generating a Bubble chart with string x, integer y, integer r, and string key.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "integer",
+                    "rUnits": "integer",
+                    "keyUnits": "string"
+                },
+                "chartName": "bubble",
+                "chartConfig": {
+                    "title": "Bubble Chart",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "rKey": "r",
+                        "keyKey": "key"
+                    },
+                    "xLabel": "X Axis",
+                    "yLabel": "Y Axis",
+                    "xTicks": 4,
+                    "yTicks": 6,
+                    "grid": true,
+                    "dotRadius": 5,
+                    "bubbleMinRadius": 3,
+                    "bubbleMaxRadius": 40,
+                    "dotOpacity": 0.9,
+                    "dotStroke": {
+                        "color": "#333",
+                        "width": 1
+                    }
+                },
+                "chartData": [
+                    {
+                        "x":"Alpha",
+                        "y":10,
+                        "r": 15,
+                        "key": "Alpha1"
+                    },
+                    {
+                        "x":"Beta",
+                        "y":20,
+                        "r": 25,
+                        "key": "Beta1"
+                    },
+                    {
+                        "x":"Gamma",
+                        "y":30,
+                        "r": 35,
+                        "key": "Gamma1"
+                    },
+                    {
+                        "x":"Delta",
+                        "y":40,
+                        "r": 45,
+                        "key": "Delta1"
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Bubble Chart Generation Monet Dbaas - integer x, integer y, integer r, string key",
+        "neuronName": "Bubble Chart Generation Dbaas -xinteger-yinteger-rinteger-keystring",
+        "playbookName": "Playbook-Bubble-Chart Generation Dbaas -xinteger-yinteger-rinteger-keystring",
+        "governanceName": "Governance-Bubble-Chart Generation Dbaas -xinteger-yinteger-rinteger-keystring",
+        "grammarName": "Grammar-Bubble-Chart Generation Dbaas -xinteger-yinteger-rinteger-keystring",
+        "mutationName": "Mutation-Bubble-Chart Generation Dbaas -xinteger-yinteger-rinteger-keystring",
+        "graphName": "Graph-Bubble-Chart Generation Dbaas -xinteger-yinteger-rinteger-keystring",
+        "simulationName": "Simulation-Bubble-Chart Generation Dbaas -xinteger-yinteger-rinteger-keystring",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron is responsible for generating a Bubble chart with integer x, integer y, integer r, and string key.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "integer",
+                    "rUnits": "integer",
+                    "keyUnits": "string"
+                },
+                "chartName": "bubble",
+                "chartConfig": {
+                    "title": "Bubble Chart",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "rKey": "r",
+                        "keyKey": "key"
+                    },
+                    "xLabel": "X Axis",
+                    "yLabel": "Y Axis",
+                    "xTicks": 4,
+                    "yTicks": 6,
+                    "grid": true,
+                    "dotRadius": 5,
+                    "bubbleMinRadius": 3,
+                    "bubbleMaxRadius": 40,
+                    "dotOpacity": 0.9,
+                    "dotStroke": {
+                        "color": "#333",
+                        "width": 1
+                    }
+                },
+                "chartData": [
+                    {
+                        "x":1,
+                        "y":10,
+                        "r": 15,
+                        "key": "Alpha2"
+                    },
+                    {
+                        "x":2,
+                        "y":20,
+                        "r": 25,
+                        "key": "Beta2"
+                    },
+                    {
+                        "x":3,
+                        "y":30,
+                        "r": 35,
+                        "key": "Gamma2"
+                    },
+                    {
+                        "x":4,
+                        "y":40,
+                        "r": 45,
+                        "key": "Delta2"
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Bubble Chart Generation Monet Dbaas - integer x, string y, integer r, string key",
+        "neuronName": "Bubble Chart Generation Dbaas -xinteger-ystring-rinteger-keystring",
+        "playbookName": "Playbook-Bubble-Chart Generation Dbaas -xinteger-ystring-rinteger-keystring",
+        "governanceName": "Governance-Bubble-Chart Generation Dbaas -xinteger-ystring-rinteger-keystring",
+        "grammarName": "Grammar-Bubble-Chart Generation Dbaas -xinteger-ystring-rinteger-keystring",
+        "mutationName": "Mutation-Bubble-Chart Generation Dbaas -xinteger-ystring-rinteger-keystring",
+        "graphName": "Graph-Bubble-Chart Generation Dbaas -xinteger-ystring-rinteger-keystring",
+        "simulationName": "Simulation-Bubble-Chart Generation Dbaas -xinteger-ystring-rinteger-keystring",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron is responsible for generating a Bubble chart with integer x, string y, integer r, and string key.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "integer",
+                    "yUnits": "string",
+                    "rUnits": "integer",
+                    "keyUnits": "string"
+                },
+                "chartName": "bubble",
+                "chartConfig": {
+                    "title": "Bubble Chart",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "rKey": "r",
+                        "keyKey": "key"
+                    },
+                    "xLabel": "X Axis",
+                    "yLabel": "Y Axis",
+                    "xTicks": 4,
+                    "yTicks": 6,
+                    "grid": true,
+                    "dotRadius": 5,
+                    "bubbleMinRadius": 3,
+                    "bubbleMaxRadius": 40,
+                    "dotOpacity": 0.9,
+                    "dotStroke": {
+                        "color": "#333",
+                        "width": 1
+                    }
+                },
+                "chartData": [
+                    {
+                        "x":1,
+                        "y":"Low",
+                        "r": 15,
+                        "key": "Alpha3"
+                    },
+                    {
+                        "x":2,
+                        "y":"Medium",
+                        "r": 25,
+                        "key": "Beta3"
+                    },
+                    {
+                        "x":3,
+                        "y":"High",
+                        "r": 35,
+                        "key": "Gamma3"
+                    },
+                    {
+                        "x":4,
+                        "y":"Critical",
+                        "r": 45,
+                        "key": "Delta3"
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    },
+    {
+        "message": "Bubble Chart Generation Monet Dbaas - string x, string y, integer r, string key",
+        "neuronName": "Bubble Chart Generation Dbaas -xstring-ystring-rinteger-keystring",
+        "playbookName": "Playbook-Bubble-Chart Generation Dbaas -xstring-ystring-rinteger-keystring",
+        "governanceName": "Governance-Bubble-Chart Generation Dbaas -xstring-ystring-rinteger-keystring",
+        "grammarName": "Grammar-Bubble-Chart Generation Dbaas -xstring-ystring-rinteger-keystring",
+        "mutationName": "Mutation-Bubble-Chart Generation Dbaas -xstring-ystring-rinteger-keystring",
+        "graphName": "Graph-Bubble-Chart Generation Dbaas -xstring-ystring-rinteger-keystring",
+        "simulationName": "Simulation-Bubble-Chart Generation Dbaas -xstring-ystring-rinteger-keystring",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "This neuron is responsible for generating a Bubble chart with string x, string y, integer r, and string key.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate chart"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Chart configuration"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Chart data"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "status of the generation"
+            }
+        ],
+        "preconditions": [
+            "otp_code.length == 6",
+            "session_id.isValid == true"
+        ],
+        "effects": [
+            "user.authenticated = true",
+            "session.verified = true"
+        ],
+        "neuronEvaluation": {
+            "scoring_function": "otp_verification_accuracy",
+            "success_threshold": 0.95
+        },
+        "mutationRules": [],
+        "simulationRefs": [],
+        "linkedGraphs": [],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "xUnits": "string",
+                    "yUnits": "string",
+                    "rUnits": "integer",
+                    "keyUnits": "string"
+                },
+                "chartName": "bubble",
+                "chartConfig": {
+                    "title": "Bubble Chart",
+                    "dataKeys": {
+                        "xKey": "x",
+                        "yKey": "y",
+                        "rKey": "r",
+                        "keyKey": "key"
+                    },
+                    "xLabel": "X Axis",
+                    "yLabel": "Y Axis",
+                    "xTicks": 4,
+                    "yTicks": 6,
+                    "grid": true,
+                    "dotRadius": 5,
+                    "bubbleMinRadius": 3,
+                    "bubbleMaxRadius": 40,
+                    "dotOpacity": 0.9,
+                    "dotStroke": {
+                        "color": "#333",
+                        "width": 1
+                    }
+                },
+                "chartData": [
+                    {
+                        "x":"Alpha",
+                        "y":"Low",
+                        "r": 15,
+                        "key": "Alpha4"
+                    },
+                    {
+                        "x":"Beta",
+                        "y":"Medium",
+                        "r": 25,
+                        "key": "Beta4"
+                    },
+                    {
+                        "x":"Gamma",
+                        "y":"High",
+                        "r": 35,
+                        "key": "Gamma4"
+                    },
+                    {
+                        "x":"Delta",
+                        "y":"Critical",
+                        "r": 45,
+                        "key": "Delta4"
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]

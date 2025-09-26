@@ -1,0 +1,29 @@
+[
+	{
+		"sourceUnits": "string",
+		"targetUnits": "string",
+		"valueUnits": "integer",
+		"data": [
+			{
+				"source": "A",
+				"target": "B",
+				"value": 5
+			},
+			{
+				"source": "A",
+				"target": "C",
+				"value": 3
+			},
+			{
+				"source": "B",
+				"target": "D",
+				"value": 2
+			},
+			{
+				"source": "C",
+				"target": "D",
+				"value": 4
+			}
+		]
+	}
+]

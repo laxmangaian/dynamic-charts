@@ -1,0 +1,80 @@
+[
+    {
+        "xUnits": "string",
+        "yUnits": "number",
+        "data": [
+            {
+                "x":"Apples",
+                "y":30
+            },
+            {
+                "x":"Bananas",
+                "y":50
+            },
+            {
+                "x":"Cherries",
+                "y":20
+            },
+            {
+                "x":"Dates",
+                "y":45
+            },
+            {
+                "x":"Elderberry",
+                "y":35
+            }
+        ]
+    },
+    {
+        "xUnits": "number",
+        "yUnits": "number",
+        "data": [
+            {
+                "x":2018,
+                "y":40
+            },
+            {
+                "x":2019,
+                "y":55
+            },
+            {
+                "x":2020,
+                "y":30
+            },
+            {
+                "x":2021,
+                "y":70
+            },
+            {
+                "x":2022,
+                "y":60
+            }
+        ]
+    },
+    {
+        "xUnits": "string",
+        "yUnits": "string",
+        "data": [
+            {
+                "x":"Alice",
+                "y":"Pass"
+            },
+            {
+                "x":"Bob",
+                "y":"Fail"
+            },
+            {
+                "x":"Charlie",
+                "y":"Pass"
+            },
+            {
+                "x":"David",
+                "y":"Fail"
+            },
+            {
+                "x":"Eve",
+                "y":"Pass"
+            }
+        ]
+    }
+]

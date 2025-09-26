@@ -1,0 +1,16 @@
+{
+    "title": "Arc diagram",
+    "width": 400,
+    "height": 400,
+    "nodeRadius": 6,
+    "nodeStroke": "#222",
+    "nodeStrokeWidth": 1,
+    "colors": [],
+    "fontFamily": "Verdana, sans-serif",
+    "fontSize": 12,
+    "dataKeys": {
+        "sourceKey": "source",
+        "targetKey": "target",
+        "valueKey": "value"
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "width": 600,
+    "height": 150,
+    "dataKeys": {
+        "dateKey": "date",
+        "valueKey": "value"
+    },
+    "baseColor": "green",
+    "cellSize": 14,
+    "cellGap": 2,
+    "cellRadius": 2,
+    "yearSpacing": 40,
+    "yearLabelFontSize": 12,
+    "yearLabelColor": "#000",
+    "missingFill": "#e5e7eb",
+    "colorDomain": [
+        0,
+        20
+    ],
+    "animate": true,
+    "showMonthLabels": true,
+    "monthLabelFontSize": 10,
+    "monthLabelColor": "#555"
+}

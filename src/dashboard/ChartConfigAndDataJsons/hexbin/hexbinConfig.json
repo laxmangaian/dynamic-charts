@@ -1,0 +1,17 @@
+{
+    "title": "Hexbin Chart",
+    "width": 600,
+    "height": 400,
+    "hexRadius": 25,
+    "strokeColor": "#333",
+    "strokeWidth": 0.7,
+    "colorRange": [
+        0,
+        20
+    ],
+    "colorInterpolator": "interpolateOranges",
+    "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+    }
+}

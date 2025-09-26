@@ -1,0 +1,2290 @@
+[
+  {
+    "chartType": "line",
+    "data": [
+      {
+        "x": "Mon",
+        "y": 820
+      },
+      {
+        "x": "Tue",
+        "y": 932
+      },
+      {
+        "x": "Wed",
+        "y": 901
+      },
+      {
+        "x": "Thu",
+        "y": 934
+      },
+      {
+        "x": "Fri",
+        "y": 1290
+      },
+      {
+        "x": "Sat",
+        "y": 1330
+      },
+      {
+        "x": "Sun",
+        "y": 1320
+      }
+    ],
+    "options": {
+      "title": "Line Chart",
+      "width": 700,
+      "height": 400,
+      "margin": {
+        "top": 40,
+        "right": 40,
+        "bottom": 50,
+        "left": 60
+      },
+      "dataKeys": {
+        "xKey": "xKey",
+        "yKey": "yKey"
+      },
+      "xLabel": "Day",
+      "yLabel": "Value",
+      "line": {
+        "stroke": "yellow",
+        "strokeWidth": 3,
+        "pointShow": true,
+        "pointRadius": 2,
+        "pointColor": "red"
+      }
+    }
+  },
+  {
+    "chartType": "bar",
+    "data": [
+      {
+        "x": "Apples",
+        "y": 30
+      },
+      {
+        "x": "Bananas",
+        "y": 50
+      },
+      {
+        "x": "Cherries",
+        "y": 20
+      },
+      {
+        "x": "Dates",
+        "y": 45
+      },
+      {
+        "x": "Elderberry",
+        "y": 35
+      }
+    ],
+    "options": {
+      "title": "Bar Chart",
+      "width": 700,
+      "height": 400,
+      "margin": {
+        "top": 40,
+        "right": 40,
+        "bottom": 50,
+        "left": 60
+      },
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      },
+      "xLabel": "Day",
+      "yLabel": "Value",
+      "bar": {
+        "fill": "red",
+        "stroke": "#333333",
+        "strokeWidth": 1,
+        "opacity": 0.9,
+        "cornerRadius": 3,
+        "hoverFill": "#ff0000",
+        "animationDuration": 800
+      }
+    }
+  },
+  {
+    "chartType": "pie",
+    "data": [
+      {
+        "label": "Category A",
+        "value": 40
+      },
+      {
+        "label": "Category B",
+        "value": 25
+      },
+      {
+        "label": "Category C",
+        "value": 20
+      },
+      {
+        "label": "Category D",
+        "value": 15
+      }
+    ],
+    "options": {
+      "title": "Pie Chart",
+      "width": 150,
+      "height": 150,
+      "margin": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "dataKeys": {
+        "labelKey": "label",
+        "valueKey": "value"
+      },
+      "colors": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728"
+      ],
+      "innerRadius": 80,
+      "outerRadius": 180,
+      "cornerRadius": 5,
+      "padAngle": 0.02,
+      "stroke": "#fff",
+      "strokeWidth": 1,
+      "opacity": 1,
+      "labelFontSize": 14,
+      "labelColor": "#000",
+      "labelFontWeight": "normal",
+      "labelOffset": 20,
+      "showLabels": true,
+      "hoverFill": "#ff6347",
+      "animationDuration": 1000
+    }
+  },
+  {
+    "chartType": "area",
+    "data": [
+      {
+        "x": "Mon",
+        "y": 820
+      },
+      {
+        "x": "Tue",
+        "y": 932
+      },
+      {
+        "x": "Wed",
+        "y": 901
+      },
+      {
+        "x": "Thu",
+        "y": 934
+      },
+      {
+        "x": "Fri",
+        "y": 1290
+      },
+      {
+        "x": "Sat",
+        "y": 1330
+      },
+      {
+        "x": "Sun",
+        "y": 1320
+      }
+    ],
+    "options": {
+      "width": 700,
+      "height": 400,
+      "line": {
+        "pointColor": "red",
+        "pointRadius": 2,
+        "pointShow": true,
+        "stroke": "yellow",
+        "strokeWidth": 3
+      },
+      "margin": {
+        "bottom": 50,
+        "left": 60,
+        "right": 40,
+        "top": 40
+      },
+      "title": "Area Chart",
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      },
+      "xLabel": "Day",
+      "yLabel": "Value"
+    }
+  },
+  {
+    "chartType": "barline",
+    "data": [
+      {
+        "x": "Mon",
+        "y": 820
+      },
+      {
+        "x": "Tue",
+        "y": 932
+      },
+      {
+        "x": "Wed",
+        "y": 901
+      },
+      {
+        "x": "Thu",
+        "y": 934
+      },
+      {
+        "x": "Fri",
+        "y": 1290
+      },
+      {
+        "x": "Sat",
+        "y": 1330
+      },
+      {
+        "x": "Sun",
+        "y": 1320
+      }
+    ],
+    "options": {
+      "title": "Bar Line Chart",
+      "width": 700,
+      "height": 400,
+      "margin": {
+        "top": 40,
+        "right": 40,
+        "bottom": 50,
+        "left": 60
+      },
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      },
+      "xLabel": "Day",
+      "yLabel": "Value",
+      "line": {
+        "stroke": "yellow",
+        "strokeWidth": 3,
+        "pointShow": true,
+        "pointRadius": 2,
+        "pointColor": "red"
+      },
+      "bar": {
+        "fill": "red",
+        "stroke": "#333333",
+        "strokeWidth": 1,
+        "opacity": 0.9,
+        "cornerRadius": 3,
+        "hoverFill": "#ff0000",
+        "animationDuration": 800
+      }
+    }
+  },
+  {
+    "chartType": "scatter",
+    "data": [
+      {
+        "x": "Mon",
+        "y": 820
+      },
+      {
+        "x": "Tue",
+        "y": 932
+      },
+      {
+        "x": "Wed",
+        "y": 901
+      },
+      {
+        "x": "Thu",
+        "y": 934
+      },
+      {
+        "x": "Fri",
+        "y": 1290
+      },
+      {
+        "x": "Sat",
+        "y": 1330
+      },
+      {
+        "x": "Sun",
+        "y": 1320
+      }
+    ],
+    "options": {
+      "title": "Scatter Chart",
+      "width": 700,
+      "height": 400,
+      "margin": {
+        "top": 40,
+        "right": 40,
+        "bottom": 50,
+        "left": 60
+      },
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      },
+      "xLabel": "Day",
+      "yLabel": "Value",
+      "line": {
+        "stroke": "yellow",
+        "strokeWidth": 3,
+        "pointShow": true,
+        "pointRadius": 2,
+        "pointColor": "red"
+      }
+    }
+  },
+  {
+    "chartType": "donut",
+    "data": [
+      {
+        "label": "Category A",
+        "value": 40
+      },
+      {
+        "label": "Category B",
+        "value": 25
+      },
+      {
+        "label": "Category C",
+        "value": 20
+      },
+      {
+        "label": "Category D",
+        "value": 15
+      }
+    ],
+    "options": {
+      "title": "Donut",
+      "width": 150,
+      "height": 150,
+      "margin": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "dataKeys": {
+        "labelKey": "label",
+        "valueKey": "value"
+      },
+      "colors": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728"
+      ],
+      "innerRadius": 80,
+      "outerRadius": 180,
+      "cornerRadius": 5,
+      "padAngle": 0.02,
+      "stroke": "#fff",
+      "strokeWidth": 1,
+      "opacity": 1,
+      "labelFontSize": 14,
+      "labelColor": "#000",
+      "labelFontWeight": "normal",
+      "labelOffset": 20,
+      "showLabels": true,
+      "hoverFill": "#ff6347",
+      "animationDuration": 1000
+    }
+  },
+  {
+    "chartType": "halfPie",
+    "data": [
+      {
+        "label": "Category A",
+        "value": 40
+      },
+      {
+        "label": "Category B",
+        "value": 25
+      },
+      {
+        "label": "Category C",
+        "value": 20
+      },
+      {
+        "label": "Category D",
+        "value": 15
+      }
+    ],
+    "options": {
+      "title": "HalfPie",
+      "width": 1100,
+      "height": 450,
+      "margin": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "dataKeys": {
+        "labelKey": "label",
+        "valueKey": "value"
+      },
+      "colors": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#d62728"
+      ],
+      "innerRadius": 80,
+      "outerRadius": 180,
+      "cornerRadius": 5,
+      "padAngle": 0.02,
+      "stroke": "#fff",
+      "strokeWidth": 1,
+      "opacity": 1,
+      "labelFontSize": 14,
+      "labelColor": "#000",
+      "labelFontWeight": "normal",
+      "labelOffset": 20,
+      "showLabels": true,
+      "hoverFill": "#ff6347",
+      "animationDuration": 1000
+    }
+  },
+  {
+    "chartType": "nested-pies",
+    "data": [
+      {
+        "level": 1,
+        "name": "Asia",
+        "value": 80
+      },
+      {
+        "level": 1,
+        "name": "Europe",
+        "value": 60
+      },
+      {
+        "level": 1,
+        "name": "Americas",
+        "value": 70
+      },
+      {
+        "level": 2,
+        "name": "Tech",
+        "value": 40
+      },
+      {
+        "level": 2,
+        "name": "Finance",
+        "value": 30
+      },
+      {
+        "level": 2,
+        "name": "Healthcare",
+        "value": 20
+      }
+    ],
+    "options": {
+      "title": "Nested Pie",
+      "width": 1100,
+      "height": 450,
+      "margin": {
+        "top": 20,
+        "right": 20,
+        "bottom": 20,
+        "left": 20
+      },
+      "labelKey": "label",
+      "valueKey": "value",
+      "titleSize": "18px",
+      "ringWidth": 50,
+      "colorByLevel": true,
+      "fillOpacity": 0.7,
+      "strokeColor": "#222",
+      "strokeWidth": 2,
+      "showLabels": true,
+      "labelSize": "12px"
+    }
+  },
+  {
+    "chartType": "bubble",
+    "data": [
+      {
+        "x": 5,
+        "y": 10,
+        "r": 15,
+        "key": "Alpha"
+      },
+      {
+        "x": 15,
+        "y": 25,
+        "r": 25,
+        "key": "Beta"
+      },
+      {
+        "x": 30,
+        "y": 12,
+        "r": 10,
+        "key": "Gamma"
+      }
+    ],
+    "options": {
+      "title": "Bubble Chart",
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "rKey": "r",
+        "keyKey": "key"
+      },
+      "xLabel": "X Axis",
+      "yLabel": "Y Axis",
+      "xTicks": 4,
+      "yTicks": 6,
+      "grid": true,
+      "dotRadius": 5,
+      "bubbleMinRadius": 3,
+      "bubbleMaxRadius": 40,
+      "dotOpacity": 0.9,
+      "dotStroke": {
+        "color": "#333",
+        "width": 1
+      }
+    }
+  },
+  {
+    "chartType": "sankey",
+    "data": [
+      {
+        "source": "A",
+        "target": "B",
+        "value": 5
+      },
+      {
+        "source": "A",
+        "target": "C",
+        "value": 3
+      },
+      {
+        "source": "B",
+        "target": "D",
+        "value": 2
+      },
+      {
+        "source": "C",
+        "target": "D",
+        "value": 4
+      }
+    ],
+    "options": {
+      "title": "Sankey",
+      "nodeWidth": 20,
+      "nodePadding": 15,
+      "colorScheme": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#9467bd"
+      ],
+      "linkColor": "source",
+      "linkOpacity": 0.6,
+      "tooltip": true,
+      "showLabels": true,
+      "dataKeys": {
+        "sourceKey": "source",
+        "targetKey": "target",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "geo-bubble-latlon",
+    "data": [
+      {
+        "name": "New York",
+        "lat": 40.7,
+        "lon": -74.0,
+        "value": 20
+      },
+      {
+        "name": "London",
+        "lat": 51.5,
+        "lon": -0.1,
+        "value": 15
+      },
+      {
+        "name": "Tokyo",
+        "lat": 35.6,
+        "lon": 139.6,
+        "value": 25
+      }
+    ],
+    "options": {
+      "title": "Bubble Map with Lat Lon",
+      "geoMode": "points",
+      "projection": "geoNaturalEarth1",
+      "pointMinRadius": 3,
+      "pointMaxRadius": 20,
+      "pointColor": "#1d4ed8",
+      "dataKeys": {
+        "nameKey": "name",
+        "latKey": "lat",
+        "lonKey": "lon",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "geo-bubble-countryname",
+    "data": [
+      {
+        "name": "Japan",
+        "value": 150
+      },
+      {
+        "name": "United States of America",
+        "value": 120
+      },
+      {
+        "name": "United Kingdom",
+        "value": 80
+      }
+    ],
+    "options": {
+      "title": "Bubble Map with Country Name",
+      "geoMode": "points",
+      "projection": "geoNaturalEarth1",
+      "pointMinRadius": 3,
+      "pointMaxRadius": 20,
+      "pointColor": "#1d4ed8",
+      "dataKeys": {
+        "nameKey": "name",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "geo-bubble-countryId",
+    "data": [
+      {
+        "name": "US",
+        "id": 840,
+        "value": 120
+      },
+      {
+        "name": "UK",
+        "id": 392,
+        "value": 150
+      },
+      {
+        "name": "Japan",
+        "id": 826,
+        "value": 80
+      }
+    ],
+    "options": {
+      "title": "Bubble Map with Country Id",
+      "geoMode": "points",
+      "projection": "geoNaturalEarth1",
+      "pointMinRadius": 3,
+      "pointMaxRadius": 20,
+      "pointColor": "#1d4ed8",
+      "dataKeys": {
+        "nameKey": "name",
+        "idKey": "id",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "choropleth-countryname",
+    "data": [
+      {
+        "name": "United States of America",
+        "value": 200
+      },
+      {
+        "name": "United Kingdom",
+        "value": 80
+      },
+      {
+        "name": "Japan",
+        "value": 150
+      }
+    ],
+    "options": {
+      "title": "Choropleth Map Country name",
+      "geoMode": "choropleth",
+      "projection": "geoNaturalEarth1",
+      "colorScheme": "interpolateBlues",
+      "dataKeys": {
+        "nameKey": "name",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "choropleth-countryId",
+    "data": [
+      {
+        "name": "USA",
+        "id": 840,
+        "value": 120
+      },
+      {
+        "name": "Japan",
+        "id": 392,
+        "value": 150
+      },
+      {
+        "name": "UK",
+        "id": 826,
+        "value": 80
+      }
+    ],
+    "options": {
+      "title": "Choropleth Map Country Id",
+      "geoMode": "choropleth",
+      "projection": "geoNaturalEarth1",
+      "colorScheme": "interpolateBlues",
+      "dataKeys": {
+        "idKey": "id",
+        "valueKey": "value",
+        "nameKey": "name"
+      }
+    }
+  },
+  {
+    "chartType": "geo-spike-countryname",
+    "data": [
+      {
+        "name": "Japan",
+        "value": 150
+      },
+      {
+        "name": "United States of America",
+        "value": 120
+      },
+      {
+        "name": "United Kingdom",
+        "value": 80
+      }
+    ],
+    "options": {
+      "title": "Geo Spike Map with Country name",
+      "geoMode": "spikes",
+      "projection": "geoNaturalEarth1",
+      "spikeColor": "#dc2626",
+      "spikeWidth": 3,
+      "dataKeys": {
+        "nameKey": "name",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "geo-spike-countryId",
+    "data": [
+      {
+        "name": "USA",
+        "id": 840,
+        "value": 120
+      },
+      {
+        "name": "Japan",
+        "id": 392,
+        "value": 150
+      },
+      {
+        "name": "UK",
+        "id": 826,
+        "value": 80
+      }
+    ],
+    "options": {
+      "title": "Geo Spike Map with Country Id",
+      "geoMode": "spikes",
+      "projection": "geoNaturalEarth1",
+      "spikeColor": "#dc2626",
+      "spikeWidth": 3,
+      "dataKeys": {
+        "nameKey": "name",
+        "valueKey": "value",
+        "idKey": "id"
+      }
+    }
+  },
+  {
+    "chartType": "geo-spike-latlon",
+    "data": [
+      {
+        "name": "New York",
+        "lat": 40.7,
+        "lon": -74.0,
+        "value": 20
+      },
+      {
+        "name": "London",
+        "lat": 51.5,
+        "lon": -0.1,
+        "value": 15
+      },
+      {
+        "name": "Tokyo",
+        "lat": 35.6,
+        "lon": 139.6,
+        "value": 25
+      }
+    ],
+    "options": {
+      "title": "Geo Spike Map with Lat & Lon",
+      "geoMode": "spikes",
+      "projection": "geoNaturalEarth1",
+      "spikeColor": "#dc2626",
+      "spikeWidth": 3,
+      "dataKeys": {
+        "nameKey": "name",
+        "latKey": "lat",
+        "lonKey": "lon",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "geo-graph-latlon",
+    "data": [
+      {
+        "sLat": 37.77,
+        "sLon": -122.42,
+        "tLat": 40.71,
+        "tLon": -74.01,
+        "value": 5,
+        "name": "SFO→NYC"
+      },
+      {
+        "sLat": 35.68,
+        "sLon": 139.76,
+        "tLat": 55.75,
+        "tLon": 37.61,
+        "value": 7,
+        "name": "TOK→MOW"
+      },
+      {
+        "sLat": 34.05,
+        "sLon": -118.25,
+        "tLat": 25.76,
+        "tLon": -80.19,
+        "value": 6,
+        "name": "LAX→MIA"
+      },
+      {
+        "sLat": 51.51,
+        "sLon": -0.13,
+        "tLat": 20.59,
+        "tLon": 78.96,
+        "value": 8,
+        "name": "LON→IND"
+      },
+      {
+        "sLat": -33.87,
+        "sLon": 151.21,
+        "tLat": 35.68,
+        "tLon": 139.76,
+        "value": 9,
+        "name": "SYD→TOK"
+      }
+    ],
+    "options": {
+      "title": "Geo Graph with Lat & Lon",
+      "lineColor": "crimson",
+      "lineOpacity": 0.5,
+      "lineWidthScale": 1,
+      "lineDashArray": "4,2",
+      "sourceColor": "dodgerblue",
+      "targetColor": "orange",
+      "sourceRadius": 4,
+      "targetRadius": 5,
+      "dataKeys": {
+        "sLatKey": "float",
+        "sLonKey": "float",
+        "tLatKey": "float",
+        "tLonKey": "float",
+        "valueKey": "number",
+        "nameKey": "string"
+      }
+    }
+  },
+  {
+    "chartType": "geo-graph-countryname",
+    "data": [
+      {
+        "sourceName": "United States of America",
+        "targetName": "United Kingdom",
+        "value": 10,
+        "name": "USA→UK"
+      },
+      {
+        "sourceName": "Japan",
+        "targetName": "France",
+        "value": 7,
+        "name": "JPN→FRA"
+      },
+      {
+        "sourceName": "Germany",
+        "targetName": "Brazil",
+        "value": 6,
+        "name": "DEU→BRA"
+      },
+      {
+        "sourceName": "India",
+        "targetName": "Australia",
+        "value": 9,
+        "name": "IND→AUS"
+      },
+      {
+        "sourceName": "United States of America",
+        "targetName": "New York",
+        "value": 5,
+        "name": "SFO→NYC"
+      },
+      {
+        "sourceName": "Tokyo",
+        "targetName": "Moscow",
+        "value": 7,
+        "name": "TOK→MOW"
+      },
+      {
+        "sourceName": "Los Angeles",
+        "targetName": "Miami",
+        "value": 6,
+        "name": "LAX→MIA"
+      },
+      {
+        "sourceName": "London",
+        "targetName": "India",
+        "value": 8,
+        "name": "LON→IND"
+      },
+      {
+        "sourceName": "Sydney",
+        "targetName": "Tokyo",
+        "value": 9,
+        "name": "SYD→TOK"
+      }
+    ],
+    "options": {
+      "title": "Geo Graph with Country Names",
+      "lineColor": "crimson",
+      "lineOpacity": 0.5,
+      "lineWidthScale": 1,
+      "lineDashArray": "4,2",
+      "sourceColor": "dodgerblue",
+      "targetColor": "orange",
+      "sourceRadius": 4,
+      "targetRadius": 5,
+      "dataKeys": {
+        "sourceNameKey": "string",
+        "targetNameKey": "string",
+        "valueKey": "number",
+        "nameKey": "string"
+      }
+    }
+  },
+  {
+    "chartType": "geo-graph-countryId",
+    "data": [
+      {
+        "sourceId": 840,
+        "targetId": 826,
+        "value": 12,
+        "name": "USA→UK"
+      },
+      {
+        "sourceId": 392,
+        "targetId": 250,
+        "value": 8,
+        "name": "JPN→FRA"
+      },
+      {
+        "sourceId": 276,
+        "targetId": 76,
+        "value": 5,
+        "name": "DEU→BRA"
+      },
+      {
+        "sourceId": 356,
+        "targetId": 36,
+        "value": 9,
+        "name": "IND→AUS"
+      },
+      {
+        "sourceId": 840,
+        "targetId": 840,
+        "value": 5,
+        "name": "SFO→NYC"
+      },
+      {
+        "sourceId": 392,
+        "targetId": 643,
+        "value": 7,
+        "name": "TOK→MOW"
+      },
+      {
+        "sourceId": 840,
+        "targetId": 840,
+        "value": 6,
+        "name": "LAX→MIA"
+      },
+      {
+        "sourceId": 826,
+        "targetId": 356,
+        "value": 8,
+        "name": "LON→IND"
+      },
+      {
+        "sourceId": 36,
+        "targetId": 392,
+        "value": 9,
+        "name": "SYD→TOK"
+      }
+    ],
+    "options": {
+      "title": "Geo Graph with Country Id",
+      "lineColor": "crimson",
+      "lineOpacity": 0.5,
+      "lineWidthScale": 1,
+      "lineDashArray": "4,2",
+      "sourceColor": "dodgerblue",
+      "targetColor": "orange",
+      "sourceRadius": 4,
+      "targetRadius": 5,
+      "dataKeys": {
+        "sourceIdKey": "string",
+        "targetIdKey": "string",
+        "valueKey": "number",
+        "nameKey": "string"
+      }
+    }
+  },
+  {
+    "chartType": "calendar-heatmap",
+    "data": [
+      {
+        "date": "2024-01-01",
+        "value": 2
+      },
+      {
+        "date": "2024-01-02",
+        "value": 8
+      },
+      {
+        "date": "2024-01-03",
+        "value": 5
+      }
+    ],
+    "options": {
+      "width": 600,
+      "height": 150,
+      "dataKeys": {
+        "dateKey": "date",
+        "valueKey": "value"
+      },
+      "baseColor": "green",
+      "cellSize": 14,
+      "cellGap": 2,
+      "cellRadius": 2,
+      "yearSpacing": 40,
+      "yearLabelFontSize": 12,
+      "yearLabelColor": "#000",
+      "missingFill": "#e5e7eb",
+      "colorDomain": [
+        0,
+        20
+      ],
+      "animate": true,
+      "showMonthLabels": true,
+      "monthLabelFontSize": 10,
+      "monthLabelColor": "#555"
+    }
+  },
+  {
+    "chartType": "matrix-heatmap",
+    "data": [
+      {
+        "x": "A",
+        "y": "X",
+        "value": 4
+      },
+      {
+        "x": "B",
+        "y": "X",
+        "value": 7
+      },
+      {
+        "x": "A",
+        "y": "Y",
+        "value": 3
+      },
+      {
+        "x": "C",
+        "y": "Z",
+        "value": 9
+      }
+    ],
+    "options": {
+      "width": 700,
+      "height": 150,
+      "cellPadding": 0.1,
+      "cellRadius": 4,
+      "baseColor": "green",
+      "missingFill": "#f3f4f6",
+      "tooltip": true,
+      "legend": true,
+      "legendLabels": [
+        "Min",
+        "Max"
+      ],
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "valueKey": "value"
+      },
+      "xLabel": "Products",
+      "yLabel": "Regions",
+      "xTickSize": 12,
+      "xTickRotate": 45,
+      "yTickSize": 12
+    }
+  },
+  {
+    "chartType": "dendrogram",
+    "data": {
+      "name": "Root",
+      "children": [
+        {
+          "name": "Child 1",
+          "children": [
+            {
+              "name": "Leaf A"
+            },
+            {
+              "name": "Leaf B"
+            }
+          ]
+        },
+        {
+          "name": "Child 2",
+          "children": [
+            {
+              "name": "Leaf C"
+            }
+          ]
+        }
+      ]
+    },
+    "options": {
+      "width": 800,
+      "height": 200,
+      "orientation": "horizontal",
+      "nodeRadius": 5,
+      "nodeColor": "#2c7be5",
+      "linkColor": "#999999",
+      "linkOpacity": 0.6,
+      "linkWidth": 2,
+      "labelFontSize": 14,
+      "labelColor": "#333333",
+      "labelOffset": 8,
+      "dataKeys": {
+        "nameKey": "name",
+        "childrenKey": "children"
+      }
+    }
+  },
+  {
+    "chartType": "kmeans",
+    "data": [
+      {
+        "x": 1,
+        "y": 2,
+        "cluster": 0
+      },
+      {
+        "x": 1.2,
+        "y": 1.8,
+        "cluster": 0
+      },
+      {
+        "x": 5,
+        "y": 6,
+        "cluster": 1
+      },
+      {
+        "x": 5.5,
+        "y": 6.2,
+        "cluster": 1
+      }
+    ],
+    "options": {
+      "title": "KMeans",
+      "width": 500,
+      "height": 250,
+      "xTicks": 6,
+      "yTicks": 6,
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "clusterKey": "cluster"
+      },
+      "showGrid": true,
+      "pointRadius": 4,
+      "pointOpacity": 0.85,
+      "centroidSize": 160,
+      "centroidStrokeColor": "white",
+      "centroidStrokeWidth": 1.5
+    }
+  },
+  {
+    "chartType": "exp-regression",
+    "data": [
+      {
+        "x": 1,
+        "y": 2
+      },
+      {
+        "x": 2,
+        "y": 7
+      },
+      {
+        "x": 3,
+        "y": 20
+      },
+      {
+        "x": 4,
+        "y": 54
+      }
+    ],
+    "options": {
+      "width": 500,
+      "height": 200,
+      "xLabel": "Time (s)",
+      "yLabel": "Population",
+      "lineColor": "#1f77b4",
+      "pointColor": "#ff7f0e",
+      "pointRadius": 4,
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      }
+    }
+  },
+  {
+    "chartType": "candlestick",
+    "data": [
+      {
+        "date": "2023-01-01",
+        "open": 100,
+        "high": 120,
+        "low": 90,
+        "close": 110
+      },
+      {
+        "date": "2023-01-02",
+        "open": 110,
+        "high": 130,
+        "low": 105,
+        "close": 115
+      },
+      {
+        "date": "2023-01-03",
+        "open": 115,
+        "high": 118,
+        "low": 100,
+        "close": 102
+      },
+      {
+        "date": "2023-01-04",
+        "open": 107,
+        "high": 108,
+        "low": 95,
+        "close": 98
+      },
+      {
+        "date": "2023-01-05",
+        "open": 100,
+        "high": 112,
+        "low": 100,
+        "close": 110
+      }
+    ],
+    "options": {
+      "width": 500,
+      "height": 250,
+      "title": "Stock Price",
+      "upColor": "#22c55e",
+      "downColor": "#ef4444",
+      "wickColor": "#374151",
+      "wickWidth": 2,
+      "bodyOpacity": 0.8,
+      "xLabel": "Trading Day",
+      "yLabel": "Price (USD)",
+      "showGrid": true,
+      "dataKeys": {
+        "dateKey": "date",
+        "openKey": "open",
+        "highKey": "high",
+        "lowKey": "low",
+        "closeKey": "close"
+      }
+    }
+  },
+  {
+    "chartType": "force",
+    "data": {
+      "nodes": [
+        {
+          "id": "A",
+          "group": 1
+        },
+        {
+          "id": "B",
+          "group": 1
+        },
+        {
+          "id": "C",
+          "group": 2
+        },
+        {
+          "id": "D",
+          "group": 2
+        }
+      ],
+      "links": [
+        {
+          "source": "A",
+          "target": "B",
+          "value": 1
+        },
+        {
+          "source": "A",
+          "target": "C",
+          "value": 2
+        },
+        {
+          "source": "B",
+          "target": "D",
+          "value": 1
+        },
+        {
+          "source": "C",
+          "target": "D",
+          "value": 3
+        }
+      ]
+    },
+    "options": {
+      "title": "Force Graph",
+      "width": 500,
+      "height": 250,
+      "nodeRadius": 8,
+      "nodeStroke": "#222",
+      "nodeStrokeWidth": 2,
+      "linkColor": "#666",
+      "linkOpacity": 0.5,
+      "chargeStrength": -250,
+      "linkDistance": 60,
+      "showLegend": true,
+      "dataKeys": {
+        "nodes": {
+          "idKey": "id",
+          "groupKey": "group"
+        },
+        "links": {
+          "sourceKey": "source",
+          "targetKey": "target",
+          "valueKey": "value"
+        }
+      }
+    }
+  },
+  {
+    "chartType": "grouped-bar",
+    "data": [
+      {
+        "group": "Q1",
+        "x": "North",
+        "y": 12
+      },
+      {
+        "group": "Q1",
+        "x": "South",
+        "y": 9
+      },
+      {
+        "group": "Q2",
+        "x": "North",
+        "y": 15
+      },
+      {
+        "group": "Q2",
+        "x": "South",
+        "y": 11
+      }
+    ],
+    "options": {
+      "width": 1100,
+      "height": 400,
+      "xLabel": "Product Category",
+      "yLabel": "Sales (in $1000s)",
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y",
+        "groupKey": "group"
+      },
+      "barPadding": 0.15,
+      "groupPadding": 0.25,
+      "barRadius": 4,
+      "barOpacity": 0.85,
+      "showLegend": true,
+      "legendPosition": "bottom",
+      "colorBase": [
+        "red",
+        "green"
+      ]
+    }
+  },
+  {
+    "chartType": "stacked-area",
+    "data": [
+      {
+        "x": 2018,
+        "y": [
+          30,
+          20,
+          10
+        ]
+      },
+      {
+        "x": 2019,
+        "y": [
+          40,
+          25,
+          15
+        ]
+      },
+      {
+        "x": 2020,
+        "y": [
+          35,
+          30,
+          20
+        ]
+      },
+      {
+        "x": 2021,
+        "y": [
+          50,
+          40,
+          25
+        ]
+      }
+    ],
+    "options": {
+      "title": "Stacked Area",
+      "width": 1100,
+      "height": 400,
+      "xLabel": "Year",
+      "yLabel": "Production",
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      },
+      "labels": [
+        "Apples",
+        "Bananas",
+        "Cherries"
+      ],
+      "colors": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c"
+      ],
+      "interpolation": "monotoneX",
+      "showLegend": true,
+      "legendPosition": "bottom",
+      "showGrid": true,
+      "showPoints": false,
+      "xTickFormat": "%Y",
+      "yTickFormat": ".2s",
+      "areaOpacity": 0.7,
+      "lineWidth": 2,
+      "pointRadius": 3
+    }
+  },
+  {
+    "chartType": "stacked-line",
+    "data": [
+      {
+        "x": 2018,
+        "y": [
+          30,
+          20,
+          10
+        ]
+      },
+      {
+        "x": 2019,
+        "y": [
+          40,
+          25,
+          15
+        ]
+      },
+      {
+        "x": 2020,
+        "y": [
+          35,
+          30,
+          20
+        ]
+      },
+      {
+        "x": 2021,
+        "y": [
+          50,
+          40,
+          25
+        ]
+      }
+    ],
+    "options": {
+      "title": "Stacked Area",
+      "width": 1100,
+      "height": 400,
+      "xLabel": "Year",
+      "yLabel": "Production",
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      },
+      "labels": [
+        "Apples",
+        "Bananas",
+        "Cherries"
+      ],
+      "colors": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c"
+      ],
+      "interpolation": "monotoneX",
+      "showLegend": true,
+      "legendPosition": "bottom",
+      "showGrid": true,
+      "showPoints": false,
+      "xTickFormat": "%Y",
+      "yTickFormat": ".2s",
+      "areaOpacity": 0.7,
+      "lineWidth": 2,
+      "pointRadius": 3
+    }
+  },
+  {
+    "chartType": "histogram",
+    "data": {
+      "values": [
+        1,
+        2,
+        2,
+        3,
+        5,
+        5,
+        5,
+        7,
+        8,
+        9,
+        10,
+        10,
+        12,
+        15
+      ]
+    },
+    "options": {
+      "bins": 10,
+      "width": 600,
+      "height": 200,
+      "xLabel": "Score",
+      "yLabel": "Frequency",
+      "barColor": "#2ca02c",
+      "barOpacity": 0.9,
+      "showGrid": true,
+      "showMean": true,
+      "showMedian": true,
+      "dataKeys": {
+        "valuesUnits": "values"
+      }
+    }
+  },
+  {
+    "chartType": "treemap",
+    "data": [
+      {
+        "group": "Fruits",
+        "name": "Apples",
+        "value": 40
+      },
+      {
+        "group": "Fruits",
+        "name": "Bananas",
+        "value": 30
+      },
+      {
+        "group": "Vegetables",
+        "name": "Carrots",
+        "value": 25
+      },
+      {
+        "group": "Vegetables",
+        "name": "Tomato",
+        "value": 30
+      },
+      {
+        "group": "Vegetables",
+        "name": "Beet",
+        "value": 15
+      },
+      {
+        "group": "Vegetables",
+        "name": "Potatoes",
+        "value": 35
+      }
+    ],
+    "options": {
+      "title": "Treemap",
+      "width": 600,
+      "height": 300,
+      "paddingInner": 2,
+      "paddingOuter": 4,
+      "round": true,
+      "dataKeys": {
+        "groupKey": "group",
+        "nameKey": "name",
+        "valueKey": "value"
+      },
+      "showLabels": true,
+      "labelColor": "#fff",
+      "labelFontSize": 12,
+      "minLabelWidth": 40,
+      "legend": true,
+      "colorScheme": [
+        "#1f77b4",
+        "#ff7f0e"
+      ],
+      "tooltip": true
+    }
+  },
+  {
+    "chartType": "word-cloud",
+    "data": [
+      {
+        "text": "D3",
+        "count": 50
+      },
+      {
+        "text": "JavaScript",
+        "count": 35
+      },
+      {
+        "text": "SVG",
+        "count": 30
+      },
+      {
+        "text": "Visualization",
+        "count": 30
+      },
+      {
+        "text": "Chart",
+        "count": 20
+      }
+    ],
+    "options": {
+      "title": "Word Cloud",
+      "width": 600,
+      "height": 400,
+      "fontRange": [
+        0,
+        90
+      ],
+      "rotateAngles": [
+        0,
+        45,
+        -45
+      ],
+      "wordPadding": 6,
+      "fontFamily": "Verdana, sans-serif",
+      "dataKeys": {
+        "textKey": "text",
+        "countKey": "count"
+      }
+    }
+  },
+  {
+    "chartType": "box-plot",
+    "data": [
+      {
+        "category": "A",
+        "value": 5
+      },
+      {
+        "category": "A",
+        "value": 7
+      },
+      {
+        "category": "A",
+        "value": 8
+      },
+      {
+        "category": "A",
+        "value": 12
+      },
+      {
+        "category": "A",
+        "value": 18
+      },
+      {
+        "category": "B",
+        "value": 15
+      },
+      {
+        "category": "B",
+        "value": 17
+      },
+      {
+        "category": "B",
+        "value": 20
+      },
+      {
+        "category": "B",
+        "value": 25
+      },
+      {
+        "category": "B",
+        "value": 30
+      },
+      {
+        "category": "C",
+        "value": 3
+      },
+      {
+        "category": "C",
+        "value": 4
+      },
+      {
+        "category": "C",
+        "value": 6
+      },
+      {
+        "category": "C",
+        "value": 10
+      },
+      {
+        "category": "C",
+        "value": 12
+      }
+    ],
+    "options": {
+      "title": "Box Plot",
+      "width": 800,
+      "height": 400,
+      "boxColor": "steelblue",
+      "medianColor": "black",
+      "outlierColor": "red",
+      "margin": {
+        "top": 20,
+        "right": 40,
+        "bottom": 40,
+        "left": 40
+      },
+      "dataKeys": {
+        "valueKey": "value",
+        "categoryKey": "category"
+      }
+    }
+  },
+  {
+    "chartType": "radial-area",
+    "data": [
+      {
+        "angle": 0,
+        "value": 30
+      },
+      {
+        "angle": 0.5,
+        "value": 50
+      },
+      {
+        "angle": 1,
+        "value": 40
+      },
+      {
+        "angle": 1.5,
+        "value": 60
+      },
+      {
+        "angle": 2,
+        "value": 20
+      },
+      {
+        "angle": 2.5,
+        "value": 80
+      },
+      {
+        "angle": 3,
+        "value": 40
+      },
+      {
+        "angle": 3.5,
+        "value": 50
+      },
+      {
+        "angle": 4,
+        "value": 30
+      },
+      {
+        "angle": 4.5,
+        "value": 70
+      },
+      {
+        "angle": 5,
+        "value": 60
+      },
+      {
+        "angle": 5.5,
+        "value": 40
+      },
+      {
+        "angle": 6,
+        "value": 50
+      }
+    ],
+    "options": {
+      "title": "Radial Area",
+      "width": 500,
+      "height": 500,
+      "innerRadius": 50,
+      "outerRadius": 200,
+      "startAngle": 0,
+      "endAngle": 6.28,
+      "angleKey": "angle",
+      "valueKey": "value",
+      "color": "#1f77b4",
+      "dataKeys": {
+        "angleKey": "angle",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "hexbin",
+    "data": [
+      {
+        "x": 10,
+        "y": 20
+      },
+      {
+        "x": 12,
+        "y": 22
+      },
+      {
+        "x": 30,
+        "y": 50
+      },
+      {
+        "x": 32,
+        "y": 48
+      },
+      {
+        "x": 80,
+        "y": 70
+      },
+      {
+        "x": 85,
+        "y": 75
+      },
+      {
+        "x": 50,
+        "y": 50
+      },
+      {
+        "x": 51,
+        "y": 51
+      }
+    ],
+    "options": {
+      "title": "Hexbin Chart",
+      "width": 600,
+      "height": 300,
+      "hexRadius": 25,
+      "strokeColor": "#333",
+      "strokeWidth": 0.7,
+      "colorRange": [
+        0,
+        20
+      ],
+      "colorInterpolator": "interpolateOranges",
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      }
+    }
+  },
+  {
+    "chartType": "geo-hexbin-latlon",
+    "data": [
+      {
+        "lat": 37.77,
+        "lon": -122.42,
+        "name": "San Francisco",
+        "value": 5
+      },
+      {
+        "lat": 40.71,
+        "lon": -74.01,
+        "name": "New York",
+        "value": 8
+      },
+      {
+        "lat": 51.51,
+        "lon": -0.13,
+        "name": "London",
+        "value": 3
+      },
+      {
+        "lat": 48.86,
+        "lon": 2.35,
+        "name": "Paris",
+        "value": 4
+      },
+      {
+        "lat": 35.68,
+        "lon": 139.76,
+        "name": "Tokyo",
+        "value": 7
+      },
+      {
+        "lat": 55.75,
+        "lon": 37.61,
+        "name": "Moscow",
+        "value": 6
+      },
+      {
+        "lat": -33.87,
+        "lon": 151.21,
+        "name": "Sydney",
+        "value": 2
+      }
+    ],
+    "options": {
+      "title": "Hexbin Map with Lat & Lon",
+      "width": 800,
+      "height": 500,
+      "projection": "geoNaturalEarth1",
+      "hexRadius": 10,
+      "minHexRadius": 3,
+      "maxHexRadius": 15,
+      "mapFill": "#e5e7eb",
+      "mapStroke": "#999",
+      "hexStroke": "#fff",
+      "dataKeys": {
+        "latKey": "lat",
+        "lonKey": "lon",
+        "nameKey": "name",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "geo-hexbin-countryname",
+    "data": [
+      {
+        "name": "United States of America",
+        "value": 25
+      },
+      {
+        "name": "France",
+        "value": 15
+      },
+      {
+        "name": "Japan",
+        "value": 30
+      },
+      {
+        "name": "Brazil",
+        "value": 10
+      }
+    ],
+    "options": {
+      "title": "Hexbin Map",
+      "width": 800,
+      "height": 500,
+      "projection": "geoNaturalEarth1",
+      "hexRadius": 10,
+      "minHexRadius": 3,
+      "maxHexRadius": 15,
+      "mapFill": "#e5e7eb",
+      "mapStroke": "#999",
+      "hexStroke": "#fff",
+      "dataKeys": {
+        "nameKey": "name",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "geo-hexbin-countryId",
+    "data": [
+      {
+        "id": 840,
+        "value": 25,
+        "name": "United States"
+      },
+      {
+        "id": 250,
+        "value": 15,
+        "name": "France"
+      },
+      {
+        "id": 392,
+        "value": 30,
+        "name": "Japan"
+      },
+      {
+        "id": 76,
+        "value": 10,
+        "name": "Brazil"
+      },
+      {
+        "id": 276,
+        "value": 20,
+        "name": "Germany"
+      },
+      {
+        "id": 356,
+        "value": 18,
+        "name": "India"
+      }
+    ],
+    "options": {
+      "title": "Hexbin Map with Country Id",
+      "width": 800,
+      "height": 500,
+      "projection": "geoNaturalEarth1",
+      "hexRadius": 10,
+      "minHexRadius": 3,
+      "maxHexRadius": 15,
+      "mapFill": "#e5e7eb",
+      "mapStroke": "#999",
+      "hexStroke": "#fff",
+      "dataKeys": {
+        "idKey": "id",
+        "nameKey": "name",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "chord",
+    "data": [
+      {
+        "source": "A",
+        "target": "B",
+        "value": 20
+      },
+      {
+        "source": "A",
+        "target": "C",
+        "value": 30
+      },
+      {
+        "source": "A",
+        "target": "D",
+        "value": 10
+      },
+      {
+        "source": "B",
+        "target": "A",
+        "value": 10
+      },
+      {
+        "source": "B",
+        "target": "C",
+        "value": 40
+      },
+      {
+        "source": "B",
+        "target": "D",
+        "value": 20
+      },
+      {
+        "source": "C",
+        "target": "A",
+        "value": 20
+      },
+      {
+        "source": "C",
+        "target": "B",
+        "value": 10
+      },
+      {
+        "source": "C",
+        "target": "D",
+        "value": 25
+      },
+      {
+        "source": "D",
+        "target": "A",
+        "value": 5
+      },
+      {
+        "source": "D",
+        "target": "B",
+        "value": 15
+      },
+      {
+        "source": "D",
+        "target": "C",
+        "value": 20
+      }
+    ],
+    "options": {
+      "title": "Chord",
+      "width": 600,
+      "height": 600,
+      "padAngle": 0.05,
+      "ribbonOpacity": 0.7,
+      "colors": [
+        "#1f77b4"
+      ],
+      "dataKeys": {
+        "sourceKey": "source",
+        "targetKey": "target",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "arc-diagram",
+    "data": [
+      {
+        "source": "A",
+        "target": "B",
+        "value": 5
+      },
+      {
+        "source": "A",
+        "target": "C",
+        "value": 3
+      },
+      {
+        "source": "A",
+        "target": "D",
+        "value": 4
+      },
+      {
+        "source": "B",
+        "target": "C",
+        "value": 2
+      },
+      {
+        "source": "B",
+        "target": "E",
+        "value": 6
+      },
+      {
+        "source": "C",
+        "target": "D",
+        "value": 1
+      },
+      {
+        "source": "C",
+        "target": "F",
+        "value": 5
+      },
+      {
+        "source": "D",
+        "target": "E",
+        "value": 3
+      },
+      {
+        "source": "E",
+        "target": "F",
+        "value": 4
+      }
+    ],
+    "options": {
+      "title": "Arc diagram",
+      "width": 400,
+      "height": 400,
+      "nodeRadius": 6,
+      "nodeStroke": "#222",
+      "nodeStrokeWidth": 1,
+      "colors": [],
+      "fontFamily": "Verdana, sans-serif",
+      "fontSize": 12,
+      "dataKeys": {
+        "sourceKey": "source",
+        "targetKey": "target",
+        "valueKey": "value"
+      }
+    }
+  },
+  {
+    "chartType": "qq-plot",
+    "data": [
+      {
+        "x": 2.1,
+        "y": 1.9
+      },
+      {
+        "x": 3.2,
+        "y": 3.1
+      },
+      {
+        "x": 4.0,
+        "y": 4.5
+      },
+      {
+        "x": 5.5,
+        "y": 5.1
+      },
+      {
+        "x": 6.3,
+        "y": 6.7
+      },
+      {
+        "x": 7.8,
+        "y": 7.6
+      },
+      {
+        "x": 8.5,
+        "y": 8.9
+      }
+    ],
+    "options": {
+      "title": "Q-Q Plot",
+      "width": 600,
+      "height": 400,
+      "pointRadius": 5,
+      "colors": [
+        "#1f77b4"
+      ],
+      "dataKeys": {
+        "xKey": "x",
+        "yKey": "y"
+      }
+    }
+  }
+]

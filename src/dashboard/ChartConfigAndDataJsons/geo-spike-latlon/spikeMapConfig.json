@@ -1,0 +1,13 @@
+{
+    "title": "Geo Spike Map with Lat & Lon",
+    "geoMode": "spikes",
+    "projection": "geoNaturalEarth1",
+    "spikeColor": "#dc2626",
+    "spikeWidth": 3,
+    "dataKeys": {
+        "nameKey": "name",
+        "latKey": "lat",
+        "lonKey": "lon",
+        "valueKey": "value"
+    }
+}

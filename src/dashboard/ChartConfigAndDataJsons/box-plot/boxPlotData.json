@@ -1,0 +1,68 @@
+[
+	{
+		"categoryUnits": "string",
+		"valueUnits": "integer",
+		"data": [
+            {
+                "category": "A",
+                "value": 5
+            },
+            {
+                "category": "A",
+                "value": 7
+            },
+            {
+                "category": "A",
+                "value": 8
+            },
+            {
+                "category": "A",
+                "value": 12
+            },
+            {
+                "category": "A",
+                "value": 18
+            },
+            {
+                "category": "B",
+                "value": 15
+            },
+            {
+                "category": "B",
+                "value": 17
+            },
+            {
+                "category": "B",
+                "value": 20
+            },
+            {
+                "category": "B",
+                "value": 25
+            },
+            {
+                "category": "B",
+                "value": 30
+            },
+            {
+                "category": "C",
+                "value": 3
+            },
+            {
+                "category": "C",
+                "value": 4
+            },
+            {
+                "category": "C",
+                "value": 6
+            },
+            {
+                "category": "C",
+                "value": 10
+            },
+            {
+                "category": "C",
+                "value": 12
+            }
+        ]
+	}
+]

@@ -1,0 +1,24 @@
+{
+	"title": "Force Graph",
+	"width": 500,
+	"height": 250,
+	"nodeRadius": 8,
+	"nodeStroke": "#222",
+	"nodeStrokeWidth": 2,
+	"linkColor": "#666",
+	"linkOpacity": 0.5,
+	"chargeStrength": -250,
+	"linkDistance": 60,
+	"showLegend": true,
+	"dataKeys": {
+		"nodes": {
+			"idKey": "id",
+			"groupKey": "group"
+		},
+		"links": {
+			"sourceKey": "source",
+			"targetKey": "target",
+			"valueKey": "value"
+		}
+	}
+}

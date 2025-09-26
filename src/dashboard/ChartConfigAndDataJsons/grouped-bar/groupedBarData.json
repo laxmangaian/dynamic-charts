@@ -1,0 +1,110 @@
+[
+    {
+        "groupUnit": "string",
+        "xUnit": "string",
+        "yUnit": "integer",
+        "data": [
+            {
+                "group": "Q1",
+                "x":"North",
+                "y":12
+            },
+            {
+                "group": "Q1",
+                "x":"South",
+                "y":9
+            },
+            {
+                "group": "Q2",
+                "x":"North",
+                "y":15
+            },
+            {
+                "group": "Q2",
+                "x":"South",
+                "y":11
+            }
+        ]
+    },
+    {
+        "groupUnit": "integer",
+        "xUnit": "string",
+        "yUnit": "integer",
+        "data": [
+            {
+                "group": 1,
+                "x":"North",
+                "y":12
+            },
+            {
+                "group": 1,
+                "x":"South",
+                "y":9
+            },
+            {
+                "group": 2,
+                "x":"North",
+                "y":15
+            },
+            {
+                "group": 2,
+                "x":"South",
+                "y":11
+            }
+        ]
+    },
+    {
+        "groupUnit": "string",
+        "xUnits": "number",
+        "yUnits": "number",
+        "data": [
+            {
+                "group": "Q1",
+                "x":2018,
+                "y":40
+            },
+            {
+                "group": "Q1",
+                "x":2019,
+                "y":55
+            },
+            {
+                "group": "Q2",
+                "x":2018,
+                "y":30
+            },
+            {
+                "group": "Q2",
+                "x":2019,
+                "y":70
+            }
+        ]
+    },
+    {
+        "groupUnit": "number",
+        "xUnits": "number",
+        "yUnits": "number",
+        "data": [
+            {
+                "group": "1",
+                "x":2018,
+                "y":40
+            },
+            {
+                "group": "1",
+                "x":2019,
+                "y":55
+            },
+            {
+                "group": "2",
+                "x":2018,
+                "y":30
+            },
+            {
+                "group": "2",
+                "x":2019,
+                "y":70
+            }
+        ]
+    }
+]

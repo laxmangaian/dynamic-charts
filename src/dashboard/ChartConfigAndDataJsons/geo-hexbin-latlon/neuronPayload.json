@@ -1,0 +1,196 @@
+[
+    {
+        "message": "Geo Hexbin Map with Lat/Lon",
+        "neuronName": "GeoHexbinLatLonNeuron",
+        "playbookName": "Playbook-GeoHexbinLatLon",
+        "governanceName": "Governance-GeoHexbinLatLon",
+        "grammarName": "Grammar-GeoHexbinLatLon",
+        "mutationName": "Mutation-GeoHexbinLatLon",
+        "graphName": "Graph-GeoHexbinLatLon",
+        "simulationName": "Simulation-GeoHexbinLatLon",
+        "plane": "LOGICAL",
+        "activatable": true,
+        "tokenized": false,
+        "rewardable": false,
+        "modulatedBy": [],
+        "description": "Generates a hexbin map visualization using latitude and longitude data points with customizable hex sizes and map styling.",
+        "accessibleTenants": [],
+        "inherits": "",
+        "bindingContext": "INFRASTRUCTURE",
+        "composability": "ATOMIC",
+        "evaluation": "SCORE",
+        "mutationScope": "IMMUTABLE",
+        "recursion": false,
+        "ephemeral": false,
+        "canGenerate": [],
+        "neuronType": "CAPABILITY_NEURON",
+        "context": "",
+        "playbookInputs": [
+            {
+                "variableKey": "domainName",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Domain name"
+            },
+            {
+                "variableKey": "workflowId",
+                "variableType": "STRING",
+                "required": true,
+                "description": "Workflow ID to generate map"
+            },
+            {
+                "variableKey": "chartConfig",
+                "variableType": "OBJECT",
+                "required": true,
+                "description": "Map configuration including projection and hex radius"
+            },
+            {
+                "variableKey": "chartData",
+                "variableType": "ARRAY",
+                "required": true,
+                "description": "Latitude, longitude, name, and value data for hexbin map"
+            }
+        ],
+        "playbookOutputs": [
+            {
+                "variableKey": "success",
+                "variableType": "BOOLEAN",
+                "description": "Status of generation"
+            }
+        ],
+        "playbookNodeActivateMetadata": {
+            "methodtype": "POST",
+            "url": "https://{domainName}/bob-camunda/v1.0/camunda/execute/{workflowId}?env=TEST&sync=true",
+            "body": {
+                "units": {
+                    "latUnits": "float",
+                    "lonUnits": "float",
+                    "nameUnits": "string",
+                    "valueUnits": "number"
+                },
+                "chartName": "geo-hexbin-latlon",
+                "chartConfig": {
+                    "title": "Hexbin Map",
+                    "width": 800,
+                    "height": 500,
+                    "projection": "geoNaturalEarth1",
+                    "hexRadius": 10,
+                    "minHexRadius": 3,
+                    "maxHexRadius": 15,
+                    "mapFill": "#e5e7eb",
+                    "mapStroke": "#999",
+                    "hexStroke": "#fff",
+                    "dataKeys": {
+                        "latKey": "lat",
+                        "lonKey": "lon",
+                        "nameKey": "name",
+                        "valueKey": "value"
+                    }
+                },
+                "chartData": [
+                    {
+                        "lat": 37.77,
+                        "lon": -122.42,
+                        "name": "San Francisco",
+                        "value": 5
+                    },
+                    {
+                        "lat": 40.71,
+                        "lon": -74.01,
+                        "name": "New York",
+                        "value": 8
+                    },
+                    {
+                        "lat": 51.51,
+                        "lon": -0.13,
+                        "name": "London",
+                        "value": 3
+                    },
+                    {
+                        "lat": 48.86,
+                        "lon": 2.35,
+                        "name": "Paris",
+                        "value": 4
+                    },
+                    {
+                        "lat": 35.68,
+                        "lon": 139.76,
+                        "name": "Tokyo",
+                        "value": 7
+                    },
+                    {
+                        "lat": 55.75,
+                        "lon": 37.61,
+                        "name": "Moscow",
+                        "value": 6
+                    },
+                    {
+                        "lat": -33.87,
+                        "lon": 151.21,
+                        "name": "Sydney",
+                        "value": 2
+                    }
+                ]
+            },
+            "headers": {
+            "Accept": "application/json, text/plain",
+            "Content-Type": "multipart/form-data"
+        }
+        },
+        "level": "i1",
+        "tokenId": "",
+        "ecoreRefNodeId": "",
+        "tokenType": null,
+        "totalSupply": null,
+        "owner": "",
+        "value": null,
+        "transferable": false,
+        "simulationType": null,
+        "target": null,
+        "perturbations": [],
+        "scoring": null,
+        "governedBy": "",
+        "outcomeActions": [],
+        "type": null,
+        "playbookContext": "",
+        "nodes": [],
+        "edges": [],
+        "mutationEnabled": false,
+        "simulationHooks": [],
+        "playbookGovernedBy": "",
+        "contentRef": "",
+        "llmGeneratedDescription": "",
+        "playBookId": "",
+        "playbookLevel": "",
+        "orderIndex": "",
+        "mutationType": null,
+        "targetType": null,
+        "matchCondition": "",
+        "marketType": null,
+        "marketScope": null,
+        "marketTokenType": null,
+        "pricingModel": null,
+        "rewardDistribution": null,
+        "listingPolicy": null,
+        "delistingPolicy": null,
+        "governanceRef": "",
+        "graphType": null,
+        "graphNodes": [],
+        "graphEdges": [],
+        "schema": null,
+        "mutable": false,
+        "scoringStrategy": "",
+        "graphOwner": "",
+        "targetScope": [],
+        "scopeIds": [],
+        "authority": null,
+        "policies": [],
+        "escalationPath": null,
+        "revision": null,
+        "createdBy": "",
+        "ladderOfDecentDef": {
+            "lodType": "BO",
+            "lodSchemaId": "68ac2d044e7cc90774f5db43"
+        }
+    }
+]
