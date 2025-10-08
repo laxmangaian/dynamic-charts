@@ -1,0 +1,83 @@
+[
+    {
+        "idUnits": "string",
+        "parentUnits": "string",
+        "extraUnits": "object",
+        "data": [
+            {
+                "id": "CEO",
+                "parent": "",
+                "extra": {
+                    "title": "Chief Executive Officer",
+                    "value": 10,
+                    "icon": "http://www.bigbiz.com/bigbiz/icons/ultimate/Comic/Comic13.gif",
+                    "age": 58
+                }
+            },
+            {
+                "id": "Manager A",
+                "parent": "CEO",
+                "extra": {
+                    "title": "Manager A",
+                    "value": 5,
+                    "icon": "http://www.bigbiz.com/bigbiz/icons/ultimate/Comic/Comic41.gif",
+                    "age": 42
+                }
+            },
+            {
+                "id": "Manager B",
+                "parent": "CEO",
+                "extra": {
+                    "title": "Manager B",
+                    "value": 8,
+                    "age": 45
+                }
+            },
+            {
+                "id": "Staff 1",
+                "parent": "Manager A",
+                "extra": {
+                    "title": "Staff 1",
+                    "value": 4,
+                    "age": 28
+                }
+            },
+            {
+                "id": "Staff 2",
+                "parent": "Manager A",
+                "extra": {
+                    "title": "Staff 2",
+                    "value": 6,
+                    "icon": "http://www.bigbiz.com/bigbiz/icons/ultimate/Comic/Comic114.gif",
+                    "age": 26
+                }
+            }
+        ]
+    },
+    {
+        "idUnits": "string",
+        "parentUnits": "string",
+        "data": [
+            {
+                "id": "CEO",
+                "parent": ""
+            },
+            {
+                "id": "Manager A",
+                "parent": "CEO"
+            },
+            {
+                "id": "Manager B",
+                "parent": "CEO"
+            },
+            {
+                "id": "Staff 1",
+                "parent": "Manager A"
+            },
+            {
+                "id": "Staff 2",
+                "parent": "Manager A"
+            }
+        ]
+    }
+]

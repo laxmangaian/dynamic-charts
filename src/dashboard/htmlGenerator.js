@@ -190,6 +190,7 @@ function render(container, input){
   if (type==='nested-pies'){ renderNestedPies(g, rows, innerW, innerH, { root: root, opts: opts, colorScheme: colorScheme }); return; }
   if (type==='calendar-heatmap'){ renderCalendarHeatmap(g, rows, innerW, innerH, { opts: opts }); return; }
   if (type==='matrix-heatmap'){ renderMatrixHeatmap(g, rows, innerW, innerH, { margin: margin, colorScheme: colorScheme, root: root, opts: opts }); return; }
+  if (type==='tree'){ renderTreeLike(g, input.data, innerW, innerH, { opts: opts }); return; }
   if (type==='dendrogram'){ renderDendrogram(g, input, innerW, innerH, { opts: opts }); return; }
   if (type==='kmeans'){ renderKMeans(g, rows, innerW, innerH, { margin: margin, opts: opts, root: root, colorScheme: colorScheme }); return; }
   if (type==='exp-regression'){ renderExpRegression(g, rows, innerW, innerH, { margin: margin, opts: opts, root: root }); return; }
@@ -215,6 +216,7 @@ function render(container, input){
   if (type === 'chord') { renderChordChart(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); return; }
   if (type === 'arc-diagram') { renderArcDiagram(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); return; }
   if (type === 'qq-plot') { renderQQPlot(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); return; }
+  if (type === 'pannable') { renderPannableAreaChart(g, rows, innerW, innerH, { margin, opts, root, colorScheme }); return; }
 
 
   // -------- Renderers (existing ones unchanged, some omitted for brevity in comments) --------
@@ -2954,6 +2956,315 @@ function render(container, input){
         .text(opts.title);
     }
   }
+
+
+  function renderPannableAreaChart(g, rows, innerW, innerH, ctx) {
+    const opts = ctx.opts || {};
+    const keys = opts.dataKeys || { xKey: "x", yKey: "y" };
+    const margin = ctx.margin || { top: 40, right: 40, bottom: 40, left: 40 };
+    const width = innerW - margin.left - margin.right;
+    const height = innerH - margin.top - margin.bottom;
+    const contentWidth = opts.contentWidth || rows.length * 50;
+
+    const chartG = g.append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    // Clip to viewport
+    const clipId = "clip-" + Math.random().toString(36).substr(2, 9);
+    chartG.append("clipPath")
+      .attr("id", clipId)
+      .append("rect")
+      .attr("width", width)
+      .attr("height", height);
+
+    const drawG = chartG.append("g")
+      .attr("clip-path", "url(#" + clipId + ")");
+
+    // Scales
+    const x = d3.scaleLinear()
+      .domain(d3.extent(rows, d => +d[keys.xKey]))
+      .range([0, contentWidth]);
+
+    const y = d3.scaleLinear()
+      .domain([0, d3.max(rows, d => +d[keys.yKey])])
+      .range([height, 0]);
+
+    // Area generator
+    const area = d3.area()
+      .x(d => x(d[keys.xKey]))
+      .y0(height)
+      .y1(d => y(d[keys.yKey]));
+
+    // Area path
+    drawG.append("path")
+      .datum(rows)
+      .attr("fill", ctx.colorScheme || "steelblue")
+      .attr("d", area);
+
+    // Axes
+    const xAxisG = chartG.append("g")
+      .attr("transform", "translate(0, " + height + ")")
+      .call(d3.axisBottom(x).ticks(Math.min(rows.length, 10)));
+
+    const yAxisG = chartG.append("g")
+      .call(d3.axisLeft(y));
+
+    // Zoom/pan
+    const zoom = d3.zoom()
+      .scaleExtent([1,1]) // no zooming
+      .translateExtent([[0,0],[contentWidth,0]])
+      .extent([[0,0],[width,height]])
+      .on("zoom", (event) => {
+        const t = event.transform;
+        drawG.attr("transform", "translate(" + t.x + ", 0)");
+        xAxisG.call(d3.axisBottom(t.rescaleX(x)).ticks(Math.min(rows.length,10)));
+      });
+
+    (ctx.root || chartG).call(zoom);
+
+    // Title
+    if (opts.title) {
+      chartG.append("text")
+        .attr("x", width / 2)
+        .attr("y", -margin.top / 2)
+        .attr("text-anchor", "middle")
+        .style("font-size", opts.titleFontSize || "14px")
+        .style("font-weight", "bold")
+        .text(opts.title);
+    }
+  }
+
+
+  function renderTreeLike(g, data, innerW, innerH, ctx) {
+    var opts = (ctx && ctx.opts) || {};
+    var dataKeys = opts.dataKeys || {};
+    var idKey = dataKeys.idKey || "id";
+    var parentKey = dataKeys.parentKey || "parent";
+    var extraKey = dataKeys.extraKey || "extra";
+
+    // --- Normalize parent
+    data.forEach(function (d) {
+      if (d[parentKey] === "" || d[parentKey] === undefined) d[parentKey] = null;
+    });
+
+    var root = d3.stratify()
+      .id(function (d) { return d[idKey]; })
+      .parentId(function (d) { return d[parentKey]; })(data);
+
+    var width = opts.width || innerW;
+    var height = opts.height || innerH;
+
+    var treeGen = d3.tree().nodeSize([
+      opts.nodeSpacingX || 150,
+      opts.nodeSpacingY || 120
+    ]);
+
+    var treeRoot = treeGen(root);
+
+    // --- Compute bounding box for auto-centering
+    var x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    treeRoot.each(function (d) {
+      if (d.x < x0) x0 = d.x;
+      if (d.x > x1) x1 = d.x;
+      if (d.y < y0) y0 = d.y;
+      if (d.y > y1) y1 = d.y;
+    });
+
+    var treeW = x1 - x0;
+    var treeH = y1 - y0;
+    var scale = Math.min(width / (treeW + 200), height / (treeH + 200));
+    var offsetX = width / 2 - ((x0 + x1) / 2) * scale;
+    var offsetY = (opts.topMargin || 80);
+
+    var chartGroup = g.append("g")
+      .attr("transform", "translate(" + offsetX + "," + offsetY + ") scale(" + scale + ")");
+
+    var color = d3.scaleOrdinal()
+      .domain(treeRoot.descendants().map(function (n) { return n.id; }))
+      .range(opts.colorScheme || d3.schemeTableau10);
+
+    // --- Links
+    chartGroup.append("g")
+      .attr("fill", "none")
+      .attr("stroke-opacity", opts.linkOpacity || 0.6)
+      .selectAll("path")
+      .data(treeRoot.links())
+      .join("path")
+      .attr("stroke", opts.linkColor || "#999")
+      .attr("stroke-width", opts.linkWidth || 2)
+      .attr("d", d3.linkVertical()
+        .x(function (d) { return d.x; })
+        .y(function (d) { return d.y; })
+      );
+
+    // --- Nodes
+    var nodes = chartGroup.append("g")
+      .selectAll("g")
+      .data(treeRoot.descendants())
+      .join("g")
+      .attr("transform", function (d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+
+    // --- Card setup
+    var cardOpts = opts.card || {};
+    var cw = cardOpts.width || 140;
+    var ch = cardOpts.height || 80;
+    var pad = cardOpts.padding || 6;
+    var imgSize = cardOpts.imageSize || 36;
+    var fontSize = cardOpts.fontSize || "12px";
+    var layout = cardOpts.layout || "horizontal"; // "horizontal" | "vertical"
+    var fields = Array.isArray(cardOpts.fields) ? cardOpts.fields : [];
+    var globalImg = cardOpts.globalImage || null;
+
+    nodes.each(function (d) {
+      var group = d3.select(this);
+      var datum = d.data;
+      var extra = datum[extraKey];
+      var hasExtra = !!extra;
+
+      if (hasExtra) {
+        // --- Draw card
+        group.append("rect")
+          .attr("x", -cw / 2)
+          .attr("y", -ch / 2)
+          .attr("width", cw)
+          .attr("height", ch)
+          .attr("fill", cardOpts.fill || "#fff")
+          .attr("stroke", cardOpts.stroke || "#000")
+          .attr("stroke-width", cardOpts.strokeWidth || 1)
+          .attr("rx", cardOpts.radius || 6)
+          .attr("ry", cardOpts.radius || 6);
+
+        var imgSrc = extra.icon || globalImg;
+        var textStartX = -cw / 2 + pad;
+        var textStartY = -ch / 2 + pad + 5;
+
+        if (layout === "horizontal") {
+          // --- Image on left
+          if (imgSrc) {
+            group.append("image")
+              .attr("xlink:href", imgSrc)
+              .attr("x", -cw / 2 + pad)
+              .attr("y", -ch / 2 + (ch - imgSize) / 2)
+              .attr("width", imgSize)
+              .attr("height", imgSize);
+            textStartX += imgSize + pad;
+          }
+          textStartY = -ch / 2 + pad + 5;
+        } else {
+          // --- Image on top
+          if (imgSrc) {
+            group.append("image")
+              .attr("xlink:href", imgSrc)
+              .attr("x", -imgSize / 2)
+              .attr("y", -ch / 2 + pad)
+              .attr("width", imgSize)
+              .attr("height", imgSize);
+            textStartY = -ch / 2 + imgSize + pad;
+          }
+        }
+
+        // --- Title (wrap text inside card)
+        var title = extra.title || datum[idKey];
+        appendWrappedText(group, title, textStartX, textStartY, cw - pad * 2 - (layout === "horizontal" ? imgSize : 0), fontSize, "bold");
+
+        // --- Render extra fields with spacing after title
+        var titleSpacing = cardOpts.titleSpacing || 6;
+        var currentY = textStartY + titleSpacing;
+
+        fields.forEach(function (field) {
+          if (extra[field] !== undefined && field !== "title" && field !== "icon") {
+            appendWrappedText(
+              group,
+              field + ": " + extra[field],
+              textStartX,
+              currentY,
+              cw - pad * 2 - (layout === "horizontal" ? imgSize : 0),
+              fontSize,
+              "normal"
+            );
+            currentY += parseInt(fontSize, 10) * 1.2; // dynamic line height
+          }
+        });
+
+      } else {
+        // --- Simple node
+        var icon = datum.icon || (extra && extra.icon);
+        if (icon) {
+          group.append("image")
+            .attr("xlink:href", icon)
+            .attr("x", -(opts.iconSize || 12) / 2)
+            .attr("y", -(opts.iconSize || 12) / 2)
+            .attr("width", opts.iconSize || 12)
+            .attr("height", opts.iconSize || 12);
+        } else {
+          group.append("circle")
+            .attr("r", opts.nodeRadius || 8)
+            .attr("fill", function (n) { return color(n.id); })
+            .attr("stroke", opts.nodeStroke || "#000")
+            .attr("stroke-width", opts.nodeStrokeWidth || 1);
+        }
+
+        if (opts.showLabels !== false) {
+          group.append("text")
+            .attr("dy", "-0.8em")
+            .attr("text-anchor", "middle")
+            .style("font-size", opts.labelFontSize || "12px")
+            .text(datum[idKey]);
+        }
+      }
+    });
+
+    // Tooltip
+    if (opts.tooltip !== false) {
+      nodes.on("pointerenter", (e, d) => {
+        const nodeId = d.data[idKey];
+        const parentId = d.parent ? d.parent.data[idKey] : "Root";
+        const text = nodeId + " → " + parentId;
+        showTip(e, text);
+      })
+      .on("pointermove", e => showTip(e, document.querySelector(".tooltip").innerHTML))
+      .on("pointerleave", hideTip);
+    }
+
+    // --- helper for wrapped text
+    function appendWrappedText(group, text, x, y, maxWidth, fontSize, weight) {
+      var words = text.split(/\s+/);
+      var line = [];
+      var lineHeight = 1.1;
+      var dy = 0;
+      var tspan = null;
+      var textEl = group.append("text")
+        .attr("x", x)
+        .attr("y", y)
+        .attr("text-anchor", "start")
+        .style("font-size", fontSize)
+        .style("font-weight", weight)
+        .style("dominant-baseline", "hanging");
+
+      words.forEach(function (word) {
+        line.push(word);
+        textEl.text(line.join(" "));
+        if (textEl.node().getComputedTextLength() > maxWidth) {
+          line.pop();
+          textEl.text(line.join(" "));
+          line = [word];
+          tspan = group.append("text")
+            .attr("x", x)
+            .attr("y", y + (++dy) * 14)
+            .attr("text-anchor", "start")
+            .style("font-size", fontSize)
+            .style("font-weight", weight)
+            .style("dominant-baseline", "hanging")
+            .text(word);
+        }
+      });
+    }
+  }
+
+
+
 }
 
 // boot
@@ -2967,45 +3278,92 @@ render('#chart', INPUT);
 
 
 const chartLogic = buildChartHTML({
-  "chartType": "diff-line",
+  "chartType": "tree",
   "data": [
-    { source: "black", target: "black", value: 11975 },
-    { source: "black", target: "blond", value: 5871 },
-    { source: "black", target: "brown", value: 8916 },
-    { source: "black", target: "red", value: 2868 },
-
-    { source: "blond", target: "black", value: 1951 },
-    { source: "blond", target: "blond", value: 10048 },
-    { source: "blond", target: "brown", value: 2060 },
-    { source: "blond", target: "red", value: 6171 },
-
-    { source: "brown", target: "black", value: 8010 },
-    { source: "brown", target: "blond", value: 16145 },
-    { source: "brown", target: "brown", value: 8090 },
-    { source: "brown", target: "red", value: 8045 },
-
-    { source: "red", target: "black", value: 1013 },
-    { source: "red", target: "blond", value: 990 },
-    { source: "red", target: "brown", value: 940 },
-    { source: "red", target: "red", value: 6907 }
+    {
+      "id": "CEO",
+      "parent": "",
+      "extra": {
+        "title": "Chief Executive Officer",
+        "value": 10,
+        "icon": "http://www.bigbiz.com/bigbiz/icons/ultimate/Comic/Comic13.gif",
+        "age": 58
+      }
+    },
+    {
+      "id": "Manager A",
+      "parent": "CEO",
+      "extra": {
+        "title": "Manager A",
+        "value": 5,
+        "icon": "http://www.bigbiz.com/bigbiz/icons/ultimate/Comic/Comic41.gif",
+        "age": 42
+      }
+    },
+    {
+      "id": "Manager B",
+      "parent": "CEO",
+      "extra": {
+        "title": "Manager B",
+        "value": 8,
+        "age": 45
+      }
+    },
+    {
+      "id": "Staff 1",
+      "parent": "Manager A",
+      "extra": {
+        "title": "Staff 1",
+        "value": 4,
+        "age": 28
+      }
+    },
+    {
+      "id": "Staff 2",
+      "parent": "Manager A",
+      "extra": {
+        "title": "Staff 2",
+        "value": 6,
+        "icon": "http://www.bigbiz.com/bigbiz/icons/ultimate/Comic/Comic114.gif",
+        "age": 26
+      }
+    }
   ],
   "options": {
-    "title": "Chord",
-    "width": 600,
+    "title": "Organization Tree",
+    "width": 800,
     "height": 600,
-    "padAngle": 0.05,
-    "ribbonOpacity": 0.7,
-    "colors": [
-      // "#1f77b4"
-    ],
+    "colorScheme": ["#1f77b4", "#ff7f0e", "#2ca02c", "#9467bd"],
+    "linkColor": "#999",
+    "linkOpacity": 0.6,
+    "linkWidth": 2,
+    "tooltip": true,
     "dataKeys": {
-      "sourceKey": "source",
-      "targetKey": "target",
-      "valueKey": "value"
-    }
+      "idKey": "id",
+      "parentKey": "parent",
+      "extraKey": "extra"
+    },
+    "card": {
+      "width": 80,
+      "height": 50,
+      "padding": 8,
+      "imageSize": 12,
+      "fontSize": "6px",
+      "fill": "#ffffff",
+      "stroke": "#333333",
+      "strokeWidth": 1,
+      "radius": 6,
+      "titleSpacing": 12,
+      "fields": ["title", "value", "age"],
+      "globalImage": null,
+      "layout": "vertical"
+    },
+    "nodeRadius": 8,
+    "nodeStroke": "#000",
+    "nodeStrokeWidth": 1,
+    "iconSize": 8
   }
 });
-
 
 
 console.log(chartLogic);

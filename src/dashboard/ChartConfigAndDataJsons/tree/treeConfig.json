@@ -1,0 +1,43 @@
+{
+    "title": "Organization Tree",
+    "width": 800,
+    "height": 600,
+    "colorScheme": [
+        "#1f77b4",
+        "#ff7f0e",
+        "#2ca02c",
+        "#9467bd"
+    ],
+    "linkColor": "#999",
+    "linkOpacity": 0.6,
+    "linkWidth": 2,
+    "tooltip": true,
+    "dataKeys": {
+        "idKey": "id",
+        "parentKey": "parent",
+        "extraKey": "extra"
+    },
+    "card": {
+        "width": 80,
+        "height": 50,
+        "padding": 8,
+        "imageSize": 12,
+        "fontSize": "6px",
+        "fill": "#ffffff",
+        "stroke": "#333333",
+        "strokeWidth": 1,
+        "radius": 6,
+        "titleSpacing": 12,
+        "fields": [
+            "title",
+            "value",
+            "age"
+        ],
+        "globalImage": null,
+        "layout": "vertical"
+    },
+    "nodeRadius": 8,
+    "nodeStroke": "#000",
+    "nodeStrokeWidth": 1,
+    "iconSize": 8
+}
